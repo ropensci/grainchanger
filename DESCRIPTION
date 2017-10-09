@@ -1,0 +1,12 @@
+Package: winmoveR
+Title: Calculate Functions Using Moving Window and Upscale
+Version: 0.0.0.9000
+Authors@R: person("Laura", "Graham", email = "LauraJaneEGraham@gmail.com", role = c("aut", "cre"))
+Description: This package acts as a wrapper for the raster package and allows users to calculate specified functions within moving windows and to then upscale these values to a larger grid. 
+Depends: R (>= 3.3.3)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: raster, rgeos, plyr
+Suggests: rgdal
+RoxygenNote: 6.0.1.9000
