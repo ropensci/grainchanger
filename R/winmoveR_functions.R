@@ -9,10 +9,10 @@
 #'@export
 
 diversity <- function(dat, nbrhd, lc_class) {
-  if(any(lc_class %in% unique(dat))) {
+  if(any(lc_class %in% raster::unique(dat))) {
     x.log <- function(x) ifelse(x==0, 0, x*log(x))
     entropy.r <- lapply(lc_class, function(i) {
-      calc(raster::focal(dat == i, nbrhd), x.log)
+      raster::calc(raster::focal(dat == i, nbrhd), x.log)
     })
     return ((0 - sum(raster::stack(entropy.r)))/log(length(lc_class)))
   } else {
@@ -35,9 +35,9 @@ winmove_raster <- function(dat, radius, type=c("circle", "Gauss", "rectangle"), 
   nbrhd <- raster::focalWeight(dat, radius, type=type)
   
   if(fn == "diversity") {
-    out <- diversity(dat_cell, nbrhd, ...)
+    out <- diversity(dat, nbrhd, ...)
   } else {
-    out <- raster::focal(dat_cell, nbrhd, get(fn), ...)
+    out <- raster::focal(dat, nbrhd, get(fn), ...)
   }
   return(out)
 }
@@ -61,7 +61,7 @@ winmove_cell <- function(cell, grid, dat, radius, type, fn, ...) {
   # incorporate the outside effect, this will then be removed. Need to think
   # about how this can be changed to allow for other uses
   # i can do this using pad = T but at the moment not sure I want that functionality available.
-  grid_buffer <- rgeos::gBuffer(grid, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
+  grid_buffer <- rgeos::gBuffer(grid_cell, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
   dat_cell <- raster::crop(dat, grid_buffer) 
   out <- winmove_raster(dat_cell, radius, type, fn, ...)
   return(out)
@@ -75,7 +75,7 @@ winmove_cell <- function(cell, grid, dat, radius, type, fn, ...) {
 #' @export
 
 winmove_cellmean <- function(winmove_cellr) {
-  out <- mean(as.matrix(winmove_cellr), na.rm=TRUE)
+  out <- mean(raster::as.matrix(winmove_cellr), na.rm=TRUE)
   return(out)
 }
 
