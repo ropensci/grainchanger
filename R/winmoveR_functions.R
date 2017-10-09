@@ -35,7 +35,7 @@ winmove_raster <- function(dat, radius, type=c("circle", "Gauss", "rectangle"), 
   nbrhd <- raster::focalWeight(dat, radius, type=type)
   
   if(fn == "diversity") {
-    out <- diversity(dat_cell, ndrhd, ...)
+    out <- diversity(dat_cell, nbrhd, ...)
   } else {
     out <- raster::focal(dat_cell, nbrhd, get(fn), ...)
   }
@@ -61,8 +61,8 @@ winmove_cell <- function(cell, grid, dat, radius, type, fn, ...) {
   # incorporate the outside effect, this will then be removed. Need to think
   # about how this can be changed to allow for other uses
   # i can do this using pad = T but at the moment not sure I want that functionality available.
-  grid_cell_buffer <- rgeos::gBuffer(grid_cell, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
-  dat_cell <- raster::crop(dat, grid_cell_buffer) 
+  grid_buffer <- rgeos::gBuffer(grid, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
+  dat_cell <- raster::crop(dat, grid_buffer) 
   out <- winmove_raster(dat_cell, radius, type, fn, ...)
   return(out)
 }
