@@ -29,10 +29,5 @@ Dependencies
 
 To update - with links to packages
 
-`NLMR` imports many great packages that it depends on. Many thanks to the developers of these tools:
+`winmoveR` imports the following package dependencies [`raster`](https://cran.r-project.org/web/packages/raster/raster.pdf), [`plyr`](https://cran.r-project.org/web/packages/plyr/index.html); [`rgeos`](https://cran.r-project.org/web/packages/rgeos/index.html); [`pbapply`](https://cran.rstudio.com/web/packages/pbapply/index.html). Thanks to the developers of these packages. 
 
-     [1] "R (>= 3.1.0)"  " checkmate"    " dismo"        " dplyr"       
-     [5] " ggplot2"      " igraph"       " magrittr"     " purrr"       
-     [9] " RandomFields" " raster"       " rasterVis"    " sp"          
-    [13] " spatstat"     " stats"        " tibble"       " tidyr"       
-    [17] " viridis"      " extrafont"
