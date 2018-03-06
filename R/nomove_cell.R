@@ -12,7 +12,7 @@ nomove_cell <- function(cell, grid, dat, fn, ...) {
   grid_cell <- grid[cell, ]
   dat_cell <- raster::crop(dat, grid_cell)
   if(fn == "diversity") {
-    out <- diversity_cell(dat_cell, ...)
+    out <- diversity(dat_cell, ...)
   } else {
     out <- get(fn)(raster::as.matrix(dat_cell), ...)
   }
