@@ -9,18 +9,7 @@
 #'@return A raster with the moving window values calculated
 #'@export
 
-winmove_nbrhd <- function(dat, radius, type=c("circle", "rectangle"), verbose = FALSE, fn, ...) {
-  res_dat <- raster::res(dat)
-  dims_cells <- floor(radius/res_dat)*2 + 1
-  dims_units <- res_dat*((dims_cells -1)/2)
-  # the reason for putting this in is that the radius that goes in isn't
-  # necessarily the one that comes out due to the need for the radius to be an
-  # exact multiple of the resolution
-  if(verbose) {
-    print("Moving window radius: ")
-    print(dims_units)
-  }
-  
+winmove_nbrhd <- function(dat, radius, type=c("circle", "rectangle"), fn, ...) {
   wdw <- raster::focalWeight(dat, radius, type=type)
   if(fn == "diversity") {
     out <- diversity_nbrhd(dat, wdw, ...)

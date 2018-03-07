@@ -4,8 +4,7 @@
 \alias{winmove_nbrhd}
 \title{Calculate the value of a given function for each cell, within a given neighbourhood.}
 \usage{
-winmove_nbrhd(dat, radius, type = c("circle", "rectangle"), verbose = FALSE,
-  fn, ...)
+winmove_nbrhd(dat, radius, type = c("circle", "rectangle"), fn, ...)
 }
 \arguments{
 \item{dat}{The raster dataset on which to calculate the moving window function}

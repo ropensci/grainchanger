@@ -4,7 +4,7 @@
 \alias{winmove_upscale}
 \title{Upscale the moving window value}
 \usage{
-winmove_upscale(grid, dat, radius, type, verbose = FALSE, fn, ...)
+winmove_upscale(grid, dat, radius, type, fn, ...)
 }
 \arguments{
 \item{grid}{the grid across which to calculate the upscaled moving window function}
