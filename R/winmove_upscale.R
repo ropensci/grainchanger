@@ -10,8 +10,8 @@
 #'@return Numeric vector containing moving window values calculated for each grid cell
 #'@export
 
-winmove_upscale <- function(grid, dat, radius, type, fn, ...) {
-  cell_div <- pbapply::pblapply(1:nrow(grid), winmove_cell, grid, dat, radius, type, fn, ...)
+winmove_upscale <- function(grid, dat, radius, type, verbose = FALSE, fn, ...) {
+  cell_div <- pbapply::pblapply(1:nrow(grid), winmove_cell, grid, dat, radius, type, verbose, fn, ...)
   cell_mean <- sapply(cell_div, winmove_cellmean)
   return(cell_mean)
 }
