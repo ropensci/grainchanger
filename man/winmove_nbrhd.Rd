@@ -13,9 +13,9 @@ winmove_nbrhd(dat, radius, type = c("circle", "rectangle"), fn, ...)
 
 \item{type}{The shape of the moving window}
 
-\item{fn}{The function to apply}
+\item{fn}{The function to apply - inbuilt functions are currently `diversity` (Shannon evenness of a given list of land-covers) and `prop` (proportion of a given land-cover). For inbuilt functions, land-cover should be passed in as an argument `lc_class`}
 
-\item{...}{further arguments passed to or from other methods}
+\item{...}{further arguments passed to or from other methods (`lc_class` as a list for `diversity` or integer for `prop`)}
 }
 \value{
 A raster with the moving window values calculated
