@@ -13,5 +13,5 @@
 winmove_upscale <- function(grid, dat, radius, type, fn, ...) {
   cell_div <- pbapply::pblapply(1:nrow(grid), winmove_cell, grid, dat, radius, type, fn, ...)
   cell_mean <- sapply(cell_div, winmove_cellmean)
-  return(cell_mean)
+  return(as.numeric(cell_mean))
 }
