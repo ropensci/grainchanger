@@ -10,6 +10,6 @@
 
 prop_nbrhd <- function (dat, nbrhd, lc_class) 
 {
-  prop <- raster::focal(dat==i, nbrhd)
+  prop <- raster::focal(dat==lc_class, nbrhd)
   return(prop)
 }
