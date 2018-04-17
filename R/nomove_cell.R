@@ -14,7 +14,7 @@ nomove_cell <- function(cell, grid, dat, fn, ...) {
   if(fn == "diversity") {
     out <- diversity(dat_cell, ...)
   } else if (fn == "prop") {
-    out <- sum(as.vector(dat_cell %in% ...)) / raster::ncell(dat_cell) 
+    out <- prop(dat_cell, ...)
   } else {
     out <- get(fn)(as.vector(dat_cell), ...)
   }
