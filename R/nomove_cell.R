@@ -13,6 +13,8 @@ nomove_cell <- function(cell, grid, dat, fn, ...) {
   dat_cell <- raster::crop(dat, grid_cell)
   if(fn == "diversity") {
     out <- diversity(dat_cell, ...)
+  } else if (fn == "prop") {
+    out <- sum(as.vector(dat_cell == lc_class)) / raster::ncell(dat_cell) 
   } else {
     out <- get(fn)(as.vector(dat_cell), ...)
   }
