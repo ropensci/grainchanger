@@ -9,7 +9,7 @@
 diversity <- function(dat, lc_class) {
   if(any(lc_class %in% raster::unique(dat))) {
     entropy.r <- plyr::ldply(lc_class, function(i) {
-      prop_class <- sum(as.matrix(dat == i)) / raster::ncell(dat) 
+      prop_class <- sum(as.vector(dat == i)) / raster::ncell(dat) 
       entropy <- xlog(prop_class)
     })
     entropy.r <- sum(entropy.r)
