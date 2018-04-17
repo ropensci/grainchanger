@@ -7,6 +7,6 @@
 #'@keywords composition, proportion, focal
 #'@export
 prop <- function(dat, lc_class) {
-  prop_class <- sum(raster::as.vector(dat %in% lc_class)) / raster::ncell(dat) 
+  prop_class <- sum(raster::as.matrix(dat %in% lc_class)) / raster::ncell(dat) 
   return(prop_class)
 }
