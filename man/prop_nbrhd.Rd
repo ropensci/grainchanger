@@ -11,13 +11,13 @@ prop_nbrhd(dat, nbrhd, lc_class)
 
 \item{nbrhd}{The neighbourhood on which to perform the calculation. Defined by raster::focalWeight(). If this is NULL, the calculation is performed on the full grid cell.}
 
-\item{lc_class}{The land-cover class for calculating the proportion}
+\item{lc_class}{The list of land-cover classes for calculating the proportion}
 }
 \value{
-raster with proportion of given land-cover in the neighbourhood surrounding each cell
+raster with proportion of given land-cover classes in the neighbourhood surrounding each cell
 }
 \description{
-This function calculates for each cell of a raster the proportion of a given land-cover type within a specified neighbourhood.
+This function calculates for each cell of a raster the proportion of a given land-cover type(s) within a specified neighbourhood.
 }
 \keyword{composition,}
 \keyword{focal}
