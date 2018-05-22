@@ -1,4 +1,4 @@
-Package: winmoveR
+Package: grainchanger
 Title: Calculate Functions Using Moving Window and Upscale
 Version: 0.0.0.9000
 Authors@R: person("Laura", "Graham", email = "LauraJaneEGraham@gmail.com", role = c("aut", "cre"))
