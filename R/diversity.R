@@ -7,14 +7,16 @@
 #'@keywords Shannon, diversity, evenness, focal
 #'@export
 diversity <- function(dat, lc_class) {
+  area <- raster::ncell(dat)
+  
   if(any(lc_class %in% raster::unique(dat))) {
-    entropy.r <- plyr::ldply(lc_class, function(i) {
-      prop_class <- sum(as.vector(dat == i)) / raster::ncell(dat) 
-      entropy <- xlog(prop_class)
-    })
-    entropy.r <- sum(entropy.r)
-    shannon <- (0 - entropy.r/log(length(lc_class)))
-    return (shannon)
+    p <- dat %>%
+      raster::values() %>%
+      table() / area
+    p <- p[as.character(lc_class)]
+    
+    H <- sum(-p * log(p, exp(1)), na.rm = TRUE) / log(length(p), exp(1))
+    return (H)
   } else {
     return(0)
   }
