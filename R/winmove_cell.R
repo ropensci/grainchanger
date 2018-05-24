@@ -19,6 +19,9 @@ winmove_cell <- function(cell, grid, dat, radius, type, fn, ...) {
   # i can do this using pad = T but at the moment not sure I want that functionality available.
   grid_buffer <- rgeos::gBuffer(grid_cell, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
   dat_cell <- raster::crop(dat, grid_buffer) 
-  out <- winmove_nbrhd(dat_cell, radius, type, fn, ...)
+  
+  wdw <- raster::focalWeight(dat_cell, radius, type=type)
+  wdw <- ifelse(wdw > 0, 1, NA)
+  out <- raster::focal(dat, wdw, function(x, ...) {get(fn)(x, ...)}, na.rm = TRUE, ...)
   return(out)
 }
