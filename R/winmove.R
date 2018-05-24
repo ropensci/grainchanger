@@ -11,17 +11,9 @@
 #'@return A raster with the moving window values calculated
 #'@export
 
-winmove_cell <- function(cell, grid, dat, radius, type, fn, ...) {
-  grid_cell <- grid[cell, ]
-  # i'm currently adding a buffer to remove edge effects and actually
-  # incorporate the outside effect, this will then be removed. Need to think
-  # about how this can be changed to allow for other uses
-  # i can do this using pad = T but at the moment not sure I want that functionality available.
-  grid_buffer <- rgeos::gBuffer(grid_cell, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
-  dat_cell <- raster::crop(dat, grid_buffer) 
-  
-  wdw <- raster::focalWeight(dat_cell, radius, type=type)
+winmove <- function(dat, radius, type, fn, ...) {
+  wdw <- raster::focalWeight(dat, radius, type=type)
   wdw <- ifelse(wdw > 0, 1, NA)
-  out <- raster::focal(dat, wdw, function(x, ...) {get(fn)(x, ...)}, na.rm = TRUE, ...)
+  out <- raster::focal(dat, wdw, function(x) {get(fn)(x, ...)})
   return(out)
 }

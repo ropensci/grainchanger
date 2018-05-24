@@ -22,8 +22,9 @@ diversity <- function(dat, lc_class, index = "shei", na.rm = TRUE) {
   if(any(lc_class %in% raster::unique(dat))) {
     # patch richness metrics
     if(index %in% c("pr", "prd", "rpr")) {
-      H <- unique(dat)
+      H <- length(unique(dat))
       if(index == "prd") {
+        # TODO: this one seems wrong - need to fix
         H <- H / area
       }
       if(index == "rpr") {

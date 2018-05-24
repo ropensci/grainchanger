@@ -11,12 +11,6 @@
 nomove_cell <- function(cell, grid, dat, fn, ...) {
   grid_cell <- grid[cell, ]
   dat_cell <- raster::crop(dat, grid_cell)
-  if(fn == "diversity") {
-    out <- diversity(dat_cell, ...)
-  } else if (fn == "prop") {
-    out <- prop(dat_cell, ...)
-  } else {
-    out <- get(fn)(as.vector(dat_cell), ...)
-  }
+  out <- get(fn)(as.vector(dat_cell), ...)
   return(out)
 }
