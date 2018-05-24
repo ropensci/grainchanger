@@ -2,12 +2,12 @@
 % Please edit documentation in R/prop.R
 \name{prop}
 \alias{prop}
-\title{Calculate Shannon evenness for a given raster and list of landcover classes}
+\title{Proportion of landscape}
 \usage{
-prop(dat, lc_class)
+prop(dat, lc_class, na.rm = TRUE)
 }
 \arguments{
-\item{dat}{The raster dataset on which to calculate proportion}
+\item{dat}{A raster or vector}
 
 \item{lc_class}{The list of land cover classes for which proportion should be calculated.}
 }
@@ -15,7 +15,7 @@ prop(dat, lc_class)
 numeric. Proportion of specified land cover classes in the raster
 }
 \description{
-This function calculates a value for Shannon evenness for an input raster based on a list of landcover classes.
+This function calculates the total proportion of the landscape covered by a given land cover type(s)
 }
 \keyword{composition,}
 \keyword{focal}

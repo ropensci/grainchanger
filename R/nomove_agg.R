@@ -28,5 +28,3 @@ nomove_agg <- function(grid, dat, fn, ...) {
   }
   return(cell_values)
 }
-
-out <- raster::focal(dat, wdw, function(x) {get(fn)(x, ...)})

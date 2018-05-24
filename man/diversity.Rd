@@ -2,22 +2,24 @@
 % Please edit documentation in R/diversity.R
 \name{diversity}
 \alias{diversity}
-\title{Calculate Shannon evenness for a given raster and list of landcover classes}
+\title{Calculate diversity index for a given input and list of land-cover classes}
 \usage{
-diversity(dat, lc_class)
+diversity(dat, lc_class, index = "shei", na.rm = TRUE)
 }
 \arguments{
-\item{dat}{The raster dataset on which to calculate Shannon evenness}
+\item{dat}{The raster dataset on which to calculate the diversity index}
 
-\item{lc_class}{The list of land cover classes for which Shannon evenness should be calculated.}
+\item{lc_class}{The list of land cover classes to include in the diversity index calculation}
 }
 \value{
-numeric. Shannon evenness for the raster based on the given landcover classes
+numeric. Diversity index based on the given landcover classes
 }
 \description{
-This function calculates a value for Shannon evenness for an input raster based on a list of landcover classes.
+This function calculates a diversity index for an input vector of values or raster based on a list of landcover classes.
 }
 \keyword{Shannon,}
+\keyword{Simpson,}
 \keyword{diversity,}
 \keyword{evenness,}
 \keyword{focal}
+\keyword{richness,}
