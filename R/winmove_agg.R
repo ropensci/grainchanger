@@ -16,14 +16,13 @@ winmove_agg <- function(grid, dat, radius, type, fn, ...) {
     grid <- as(grid, "SpatialPolygonsDataFrame")
   }
   
-  winmove_cellr <- lapply(1:nrow(grid), function(cell) {
+  out <- sapply(1:nrow(grid), function(cell) {
     grid_cell <- grid[cell, ]
     grid_buffer <- rgeos::gBuffer(grid_cell, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
     dat_cell <- raster::crop(dat, grid_buffer) 
     winmove_cellr <- winmove(dat_cell, radius, type, fn, ...)
-    as.numeric(mean(raster::as.matrix(winmove_cellr), na.rm=TRUE))
+    mean(raster::values(winmove_cellr), na.rm=TRUE)
   })
   
-  return(out)
-  
+  return(as.numeric(out))
 }

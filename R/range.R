@@ -10,7 +10,7 @@ var_range <- function(dat, na.rm = TRUE) {
     dat <- raster::values(dat)
   }
   
-  var_range <- max(dat) - min(dat)
+  var_range <- max(dat, ...) - min(dat, ...)
   
   return(var_range)
 }
