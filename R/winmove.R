@@ -14,6 +14,6 @@
 winmove <- function(dat, radius, type, fn, ...) {
   wdw <- raster::focalWeight(dat, radius, type=type)
   wdw <- ifelse(wdw > 0, 1, NA)
-  out <- raster::focal(dat, wdw, function(x) {get(fn)(x, ...)})
+  out <- raster::focal(dat, wdw, function(x) {get(fn)(x, na.rm = TRUE, ...)})
   return(out)
 }

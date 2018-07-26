@@ -16,5 +16,5 @@ prop <- function(dat, lc_class, na.rm = TRUE) {
   p <- p[as.character(lc_class)]
   p <- sum(p, na.rm = na.rm)
   
-  return(prop)
+  return(p)
 }
