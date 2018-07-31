@@ -34,8 +34,7 @@ diversity <- function(dat, lc_class, index = "shei", na.rm = TRUE) {
     
     # more complex diversity metrics
     if (index %in% c("shdi", "sidi", "msidi", "shei", "siei", "msiei")) {
-      p <- table(dat) / area
-      p <- p[as.character(lc_class)]
+      p <- sapply(lc_class, function(x) sum(dat == x)) / area
       
       if(index %in% c("shdi", "shei")) {
         x <- -p * log(p, exp(1))

@@ -12,9 +12,6 @@ prop <- function(dat, lc_class, na.rm = TRUE) {
   }
   
   area <- length(dat)
-  p <- table(dat) / area
-  p <- p[as.character(lc_class)]
-  p <- sum(p, na.rm = na.rm)
-  
+  p <- sum(dat %in% lc_class) / area
   return(p)
 }
