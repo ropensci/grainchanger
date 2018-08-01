@@ -6,6 +6,8 @@
 #'@return numeric. Diversity index based on the given landcover classes
 #'@keywords Shannon, Simpson, richness, diversity, evenness, focal
 #'@export
+#' @useDynLib grainchanger
+#' @importFrom Rcpp sourceCpp
 
 diversity <- function(dat, lc_class, index = "shei", na.rm = TRUE) {
   if(class(dat) == "RasterLayer") {
@@ -34,7 +36,7 @@ diversity <- function(dat, lc_class, index = "shei", na.rm = TRUE) {
     
     # more complex diversity metrics
     if (index %in% c("shdi", "sidi", "msidi", "shei", "siei", "msiei")) {
-      p <- sapply(lc_class, function(x) sum(dat == x)) / area
+      p <- freq_c(dat, lc_class) / area
       
       if(index %in% c("shdi", "shei")) {
         x <- -p * log(p, exp(1))
