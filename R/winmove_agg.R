@@ -15,14 +15,13 @@ winmove_agg <- function(grid, dat, radius, type, fn, ...) {
   if(class(grid) == "RasterLayer") {
     grid <- as(grid, "SpatialPolygonsDataFrame")
   }
-  
-  out <- sapply(1:nrow(grid), function(cell) {
+  out <- furrr::future_map_dbl(1:nrow(grid), function(cell, grid, dat, radius, type, fn, ...) {
     grid_cell <- grid[cell, ]
     grid_buffer <- rgeos::gBuffer(grid_cell, width = radius, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = radius/2)
     dat_cell <- raster::crop(dat, grid_buffer) 
     winmove_cellr <- winmove(dat_cell, radius, type, fn, ...)
     mean(raster::values(winmove_cellr), na.rm=TRUE)
-  })
+  }, grid, dat, radius, type, fn, ...)
   
-  return(as.numeric(out))
+  return(out)
 }
