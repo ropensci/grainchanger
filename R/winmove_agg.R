@@ -10,7 +10,7 @@
 #'  size of sigma, and optionally another number to determine the size of the matrix
 #'  returned (default is 3 times sigma)
 #'@param type The shape of the moving window
-#'@param fn The function to apply
+#'@param fun The function to apply
 #'@param ... further arguments passed to or from other methods
 #'@return Numeric vector containing moving window values calculated for each grid cell
 #'@export
@@ -21,13 +21,13 @@ winmove_agg <- function(grid, dat, d, type, fun, ...) {
     grid <- as(grid, "SpatialPolygonsDataFrame")
   }
   
-  out <- furrr::future_map_dbl(1:nrow(grid), function(cell, grid, dat, d, type, fn, ...) {
+  out <- furrr::future_map_dbl(1:nrow(grid), function(cell, grid, dat, d, type, fun, ...) {
     grid_cell <- grid[cell, ]
     grid_buffer <- rgeos::gBuffer(grid_cell, width = d, capStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d/2)
     dat_cell <- raster::crop(dat, grid_buffer) 
-    winmove_cellr <- winmove(dat_cell, d, type, fn, ...)
+    winmove_cellr <- winmove(dat_cell, d, type, fun, ...)
     mean(raster::values(winmove_cellr), na.rm=TRUE)
-  }, grid, dat, d, type, fn, ...)
+  }, grid, dat, d, type, fun, ...)
   
   return(out)
 }
