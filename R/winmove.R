@@ -4,16 +4,36 @@
 #'@param cell the row identifier of the grid cell
 #'@param grid the grid from which to take the cell
 #'@param dat The raster dataset on which to calculate the moving window function
-#'@param radius The radius of the moving window
+#'@param d numeric. If `type=circle`, the radius of the circle (in units of the CRS). If
+#'  `type=rectangle` the dimension of the rectangle (one or two numbers). If `type=Gauss` the
+#'  size of sigma, and optionally another number to determine the size of the matrix
+#'  returned (default is 3 times sigma)
 #'@param type The shape of the moving window
-#'@param fn The function to apply 
+#'@param fun The function to apply 
 #'@param ... further arguments passed to or from other methods
 #'@return A raster with the moving window values calculated
 #'@export
 
-winmove <- function(dat, radius, type, fn, ...) {
-  wdw <- raster::focalWeight(dat, radius, type=type)
-  wdw <- ifelse(wdw > 0, 1, NA)
-  out <- raster::focal(dat, wdw, function(x) {get(fn)(x, na.rm = TRUE, ...)})
+winmove <- function(dat, d, type, fun, ...) {
+  
+  if(fun == "prop") {
+    out <- wm_prop(dat, d, type, ...)
+    return(out)
+  } 
+  
+  if(fun == "mean") {
+    out <- wm_mean(dat, d, type)
+    return(out)
+  }
+  
+  if(fun == "shei") {
+    out <- wm_shei(dat, d, type, ...)
+    return(out)
+  }
+
+  # this catches all others (i.e. in-built or user-defined functions)
+  w <- raster::focalWeight(dat, d, type=type)
+  w <- ifelse(w > 0, 1, NA)
+  out <- raster::focal(dat, w, function(x) {get(fun)(x, na.rm = TRUE, ...)})
   return(out)
 }

@@ -10,5 +10,5 @@ LazyData: true
 Imports: raster, rgeos, plyr, pbapply,
     Rcpp
 Suggests: rgdal
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.0
 LinkingTo: Rcpp

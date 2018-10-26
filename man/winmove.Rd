@@ -4,12 +4,10 @@
 \alias{winmove}
 \title{Calculate the value of a given function for each cell, within a given neighbourhood, for a cell in a larger resolution grid.}
 \usage{
-winmove(dat, radius, type, fn, ...)
+winmove(dat, d, type, fn, ...)
 }
 \arguments{
 \item{dat}{The raster dataset on which to calculate the moving window function}
-
-\item{radius}{The radius of the moving window}
 
 \item{type}{The shape of the moving window}
 
@@ -20,6 +18,8 @@ winmove(dat, radius, type, fn, ...)
 \item{cell}{the row identifier of the grid cell}
 
 \item{grid}{the grid from which to take the cell}
+
+\item{radius}{The radius of the moving window}
 }
 \value{
 A raster with the moving window values calculated
