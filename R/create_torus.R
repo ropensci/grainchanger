@@ -9,6 +9,8 @@
 create_torus <- function(dat, r) {
   # This function takes as input a raster and an integer radius value.
 
+  resolution = raster::res(dat)[1]
+  r =  r / resolution
   
   #   1. Convert raster to matrix
   dat_m <- raster::as.matrix(dat)
@@ -45,9 +47,9 @@ create_torus <- function(dat, r) {
   # specify resolution ----
   raster::extent(dat_pad) <- c(
     0,
-    ncol(dat_pad),
+    ncol(dat_pad) * resolution,
     0,
-    nrow(dat_pad)
+    nrow(dat_pad) * resolution
   )
   
   return(dat_pad)
