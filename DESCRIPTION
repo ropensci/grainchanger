@@ -7,8 +7,7 @@ Depends: R (>= 3.3.3)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: raster, rgeos, plyr, pbapply,
-    Rcpp
+Imports: raster, rgeos, plyr, Rcpp, sf
 Suggests: rgdal
 RoxygenNote: 6.1.0
 LinkingTo: Rcpp

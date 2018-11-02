@@ -4,22 +4,25 @@
 \alias{winmove}
 \title{Calculate the value of a given function for each cell, within a given neighbourhood, for a cell in a larger resolution grid.}
 \usage{
-winmove(dat, d, type, fn, ...)
+winmove(dat, d, type, fun, ...)
 }
 \arguments{
 \item{dat}{The raster dataset on which to calculate the moving window function}
 
+\item{d}{numeric. If `type=circle`, the radius of the circle (in units of the CRS). If
+`type=rectangle` the dimension of the rectangle (one or two numbers). If `type=Gauss` the
+size of sigma, and optionally another number to determine the size of the matrix
+returned (default is 3 times sigma)}
+
 \item{type}{The shape of the moving window}
 
-\item{fn}{The function to apply}
+\item{fun}{The function to apply}
 
 \item{...}{further arguments passed to or from other methods}
 
 \item{cell}{the row identifier of the grid cell}
 
 \item{grid}{the grid from which to take the cell}
-
-\item{radius}{The radius of the moving window}
 }
 \value{
 A raster with the moving window values calculated

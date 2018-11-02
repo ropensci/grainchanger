@@ -4,18 +4,22 @@
 \alias{winmove_agg}
 \title{Moving-window aggregation}
 \usage{
-winmove_agg(grid, dat, radius, type, fn, ...)
+winmove_agg(g, dat, d, type, fun, ...)
 }
 \arguments{
-\item{grid}{the grid across which to calculate the upscaled moving window function (raster or SpatialPolygon)}
+\item{g}{the grid across which to calculate the upscaled moving window function
+(raster or sf object)}
 
 \item{dat}{The raster dataset on which to calculate the moving window function}
 
-\item{radius}{The radius of the moving window}
+\item{d}{numeric. If `type=circle`, the radius of the circle (in units of the CRS). If
+`type=rectangle` the dimension of the rectangle (one or two numbers). If `type=Gauss` the
+size of sigma, and optionally another number to determine the size of the matrix
+returned (default is 3 times sigma)}
 
 \item{type}{The shape of the moving window}
 
-\item{fn}{The function to apply}
+\item{fun}{The function to apply}
 
 \item{...}{further arguments passed to or from other methods}
 }
@@ -23,5 +27,6 @@ winmove_agg(grid, dat, radius, type, fn, ...)
 Numeric vector containing moving window values calculated for each grid cell
 }
 \description{
-Calculate the mean moving window value for a given radius/shape/function for each cell in a larger resolution grid.
+Calculate the mean moving window value for a given radius/shape/function for each cell
+in a larger resolution grid.
 }

@@ -16,7 +16,7 @@ wm_shei <- function(dat, d, type, lc_class) {
     p <- wm_prop(dat, d, type, i)
     -1*p*log(p)
   })
-  sum(raster::stack(H))/log(length(lc_class))
+  sum(raster::stack(H), na.rm = TRUE)/log(length(lc_class))
 }
 
 # mean (it's quicker using weighted sum than mean)

@@ -66,3 +66,15 @@ diversity <- function(dat, lc_class, index = "shei", na.rm = TRUE) {
   }
 }
 
+diversity_nbrhd <- function(dat, nbrhd, lc_class) {
+  if (any(lc_class %in% raster::unique(dat))) {
+    H <- lapply(lc_class, function(i) {
+      raster::calc(raster::focal(dat == i, nbrhd), xlog)
+    })
+    H <- sum(raster::stack(H), na.rm = TRUE)/log(length(lc_class))
+    return(H)
+  }
+  else {
+    return(0)
+  }
+}
