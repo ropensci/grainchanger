@@ -4,16 +4,16 @@
 \alias{nomove_agg}
 \title{Upscale the function value}
 \usage{
-nomove_agg(grid, dat, fn, ...)
+nomove_agg(g, dat, fun, ...)
 }
 \arguments{
-\item{grid}{the grid across which to calculate the upscaled moving window function (Raster or SpatialPolygon)}
-
 \item{dat}{The raster dataset on which to calculate the moving window function}
 
-\item{fn}{The function to apply}
-
 \item{...}{further arguments passed to or from other methods}
+
+\item{grid}{the grid across which to calculate the upscaled moving window function (Raster or SpatialPolygon)}
+
+\item{fn}{The function to apply}
 }
 \value{
 Raster (if input is Raster) or numeric vector (if input is SpatialPolygon) containing values calculated for each coarser cell

@@ -7,7 +7,22 @@ Depends: R (>= 3.3.3)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
-Imports: raster, rgeos, plyr, Rcpp, sf
-Suggests: rgdal
+Imports: 
+    raster,
+    rgeos,
+    plyr,
+    Rcpp,
+    sf,
+    RcppArmadillo
+Suggests: 
+    rgdal,
+    testthat,
+    spelling,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.1.0
-LinkingTo: Rcpp
+LinkingTo: 
+    Rcpp,
+    RcppArmadillo
+Language: en-GB
+VignetteBuilder: knitr

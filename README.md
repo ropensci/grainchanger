@@ -1,3 +1,6 @@
+
+[![Travis build status](https://travis-ci.org/laurajanegraham/grainchanger.svg?branch=master)](https://travis-ci.org/laurajanegraham/grainchanger)
+
 grainchanger
 ===
 
