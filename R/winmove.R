@@ -15,6 +15,9 @@
 #'@export
 
 winmove <- function(dat, d, type, fun, ...) {
+
+  checkmate::assertClass(dat, "RasterLayer")
+  checkmate::assertCount(d)
   
   if(fun == "prop") {
     out <- wm_prop(dat, d, type, ...)

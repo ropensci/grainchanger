@@ -24,3 +24,11 @@ wm_mean <- function(dat, d, type) {
   w <- raster::focalWeight(dat, d, type)
   raster::focal(dat, w)
 }
+
+nm_shei <- function(dat, lc_class) {
+  H <- sapply(lc_class, function(i) {
+    p <- sum(dat == i) / raster::ncell(dat)
+    -1*p*log(p)
+  })
+  sum(H, na.rm = TRUE)/log(length(lc_class))
+}

@@ -3,7 +3,7 @@
 #'Calculate the mean moving window value for a given radius/shape/function for each cell
 #'in a larger resolution grid.
 #'@param g the grid across which to calculate the upscaled moving window function
-#'  (raster or sf object)
+#'  (raster, SpatialPolygonsDataFrame, or sf object)
 #'@param dat The raster dataset on which to calculate the moving window function
 #'@param d numeric. If `type=circle`, the radius of the circle (in units of the CRS). If
 #'  `type=rectangle` the dimension of the rectangle (one or two numbers). If `type=Gauss` the
@@ -16,13 +16,25 @@
 #'@export
 
 winmove_agg <- function(g, dat, d, type, fun, ...) {
+  checkmate::assert(
+    checkmate::checkClass(g, "RasterLayer"), 
+    checkmate::checkClass(g, "SpatialPolygonsDataFrame"),
+    checkmate::checkClass(g, "sf")
+  )
+  
+  checkmate::assertClass(dat, "RasterLayer")
+  checkmate::assertCount(d)
+  
   # convert raster to grid
   if("RasterLayer" %in% class(g)) {
     g <- as(g, "SpatialPolygonsDataFrame")
-    g <- st_as_sf(g)
   }
   
-  out <- furrr::future_map_dbl(st_geometry(g), function(grid_cell, dat, d, type, fun, ...) {
+  if("SpatialPolygonsDataFrame" %in% class(g)) {
+    g <- sf::st_as_sf(g)
+  }
+  
+  out <- furrr::future_map_dbl(sf::st_geometry(g), function(grid_cell, dat, d, type, fun, ...) {
     grid_buffer <- sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d/2)
     grid_buffer <- sf::st_geometry(grid_buffer)
     grid_buffer <- sf::st_sf(grid_buffer)
