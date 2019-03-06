@@ -61,7 +61,7 @@ g_sf$mwda <- winmove_agg(g = g_sf,
             fun = "shei",
             lc_class = 0:3)
 
-p1 <- util_plot(cat_ls)
+p1 <- show_landscape(cat_ls)
 
 p2 <- ggplot(g_sf) + 
   geom_sf(aes(fill = mwda))
@@ -78,7 +78,7 @@ g_sf$range <- nomove_agg(g = g_sf,
             dat = cat_ls, 
             fun = "var_range")
 
-p1 <- util_plot(cont_ls)
+p1 <- show_landscape(cont_ls)
 
 p2 <- ggplot(g_sf) + 
   geom_sf(aes(fill = range))
@@ -121,7 +121,7 @@ The `create_torus` function takes as input a square or rectangular landscape and
 ```{r torus}
 torus <- create_torus(cat_ls, 5)
 
-util_plot(torus)
+show_landscape(torus)
 ```
 
 ## Meta
