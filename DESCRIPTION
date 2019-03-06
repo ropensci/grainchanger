@@ -9,9 +9,13 @@ Authors@R: c(person("Laura", "Graham",
              role = "ctb",
              email = "sciaini.marco@gmail.com",
              comment = "Input on package development and structure"))
-Description: Data aggregation via moving window or direct methods. Aggregate a fine-resolutionraster to a grid. The moving window method smooths the surface using a specified function within a moving window of a specified size and shape prior to aggregation. The direct method simply aggregates to the grid using the specified function.
+Description: Data aggregation via moving window or direct methods. Aggregate a 
+    fine-resolution raster to a grid. The moving window method smooths the surface 
+    using a specified function within a moving window of a specified size and shape 
+    prior to aggregation. The direct method simply aggregates to the grid using the 
+    specified function.
 Depends: R (>= 3.3.3)
-License: What license is it under?
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Imports: 
