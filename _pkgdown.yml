@@ -1,0 +1,23 @@
+reference:
+- title: Aggregation functions
+  desc: ~
+  contents:
+  - '`winmove_agg`'
+  - '`nomove_agg`'
+  
+- title: Moving window smoothing
+  desc: ~
+  contents:
+  - '`winmove`'
+  
+- title: Additional utilities
+  desc: ~
+  contents:
+  - '`create_torus`'
+  
+- title: Data
+  desc: ~ 
+  contents:
+  - '`cat_ls`'
+  - '`cont_ls`'
+  - '`g_sf`'

@@ -72,7 +72,7 @@ ggplot(g_sf) + geom_sf(aes(fill = range))
 There are a number of inbuilt functions in the grainchanger package, with their useage outlined below. While it is possible to use user-defined functions within both `winmove_agg` and `nomove_agg`, we welcome suggestions for additional functions. Please [add as an issue](https://github.com/laurajanegraham/grainchanger/issues) - doing it this way means we can maximise the speed of the function. 
 
 ```{r functions, echo = FALSE}
-function_overview <- tibble::tibble(
+function_overview <- data.frame(
   `Function Name` = c("wm_prop", "wm_classes", "wm_shei", "wm_mean", "nm_shei", "nm_prop", "var_range"),
   `Description` = c("Calculate the proportion of a given class within the moving window", 
                     "Calculate the number of classes within the moving window",
