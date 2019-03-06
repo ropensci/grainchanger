@@ -1,8 +1,8 @@
 Package: grainchanger
-Title: Calculate Functions Using Moving Window and Upscale
+Title: Moving-window and direct data aggregation
 Version: 0.0.0.9000
 Authors@R: person("Laura", "Graham", email = "LauraJaneEGraham@gmail.com", role = c("aut", "cre"))
-Description: This package acts as a wrapper for the raster package and allows users to upscale fine resolution rasters to a coarser gird using specified functions either using moving windows or not. 
+Description: Data aggregation via moving window or direct methods. 
 Depends: R (>= 3.3.3)
 License: What license is it under?
 Encoding: UTF-8
@@ -11,18 +11,12 @@ Imports:
     raster,
     rgeos,
     plyr,
-    Rcpp,
-    sf,
-    RcppArmadillo
+    sf
 Suggests: 
-    rgdal,
     testthat,
     spelling,
     knitr,
     rmarkdown
 RoxygenNote: 6.1.0
-LinkingTo: 
-    Rcpp,
-    RcppArmadillo
 Language: en-GB
 VignetteBuilder: knitr
