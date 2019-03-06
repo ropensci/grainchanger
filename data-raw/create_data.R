@@ -1,5 +1,5 @@
 # categorical and continuous data
-cont_ls <- NLMR::nlm_mpd(65, 65)
+cont_ls <- NLMR::nlm_mpd(65, 65, roughness = 0.9)
 cat_ls <- landscapetools::util_classify(cont_ls, weighting = c(0.25, 0.25, 0.25, 0.25))
 
 # create grids
