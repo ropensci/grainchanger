@@ -34,7 +34,8 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    ggplot2
+    ggplot2,
+    landscapetools
 RoxygenNote: 6.1.0
 Language: en-GB
 VignetteBuilder: knitr
