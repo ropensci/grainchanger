@@ -4,9 +4,9 @@
 \name{grainchanger-package}
 \alias{grainchanger}
 \alias{grainchanger-package}
-\title{grainchanger: Calculate Functions Using Moving Window and Upscale}
+\title{grainchanger: Moving-window and direct data aggregation}
 \description{
-This package acts as a wrapper for the raster package and allows users to upscale fine resolution rasters to a coarser gird using specified functions either using moving windows or not.
+Data aggregation via moving window or direct methods.
 }
 \author{
 \strong{Maintainer}: Laura Graham \email{LauraJaneEGraham@gmail.com}
