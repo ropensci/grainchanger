@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Moving-window aggregation — winmove_agg • grainchanger</title>
+<title>Moving-window data aggregation — winmove_agg • grainchanger</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -30,10 +37,12 @@
 
 
 
-<meta property="og:title" content="Moving-window aggregation — winmove_agg" />
+<meta property="og:title" content="Moving-window data aggregation — winmove_agg" />
 
-<meta property="og:description" content="Calculate the mean moving window value for a given radius/shape/function for each cell
+<meta property="og:description" content="Calculate the mean moving window value for a given radius, shape and function for each cell
 in a larger resolution grid." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -64,7 +73,7 @@ in a larger resolution grid." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grainchanger</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -87,7 +96,7 @@ in a larger resolution grid." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples</a>
+      <a href="../articles/getting-started.html">Using Grainchanger</a>
     </li>
   </ul>
 </li>
@@ -97,7 +106,12 @@ in a larger resolution grid." />
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/laurajanegraham/grainchanger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -110,14 +124,14 @@ in a larger resolution grid." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Moving-window aggregation</h1>
-    
+    <h1>Moving-window data aggregation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/laurajanegraham/grainchanger/blob/master/R/winmove_agg.R'><code>R/winmove_agg.R</code></a></small>
     <div class="hidden name"><code>winmove_agg.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculate the mean moving window value for a given radius/shape/function for each cell
+    <p>Calculate the mean moving window value for a given radius, shape and function for each cell
 in a larger resolution grid.</p>
     
     </div>
@@ -129,18 +143,18 @@ in a larger resolution grid.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>g</th>
-      <td><p>the grid across which to calculate the upscaled moving window function
-(raster or sf object)</p></td>
+      <td><p>the grid across which to calculate the aggregated moving window function
+(raster, SpatialPolygonsDataFrame, or sf object)</p></td>
     </tr>
     <tr>
       <th>dat</th>
-      <td><p>The raster dataset on which to calculate the moving window function</p></td>
+      <td><p>The raster dataset to aggregate</p></td>
     </tr>
     <tr>
       <th>d</th>
-      <td><p>numeric. If `type=circle`, the radius of the circle (in units of the CRS). If
-`type=rectangle` the dimension of the rectangle (one or two numbers). If `type=Gauss` the
-size of sigma, and optionally another number to determine the size of the matrix
+      <td><p>numeric. If <code>type=circle</code>, the radius of the circle (in units of the CRS). If
+<code>type=rectangle</code> the dimension of the rectangle (one or two numbers). If <code>type=Gauss</code>
+the size of sigma, and optionally another number to determine the size of the matrix
 returned (default is 3 times sigma)</p></td>
     </tr>
     <tr>
@@ -149,7 +163,10 @@ returned (default is 3 times sigma)</p></td>
     </tr>
     <tr>
       <th>fun</th>
-      <td><p>The function to apply</p></td>
+      <td><p>The function to apply. The function fun should take multiple numbers, and
+return a single number. For example mean, modal, min or max. It should also accept a
+na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
+will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -161,7 +178,27 @@ returned (default is 3 times sigma)</p></td>
 
     <p>Numeric vector containing moving window values calculated for each grid cell</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p><code>grainchanger</code> has several built-in functions. Functions currently included are:</p><ul>
+<li><p><code>wm_shei</code> - Shannon evenness, requires the additional argument <code>lc_class</code> (vector or scalar)</p></li>
+<li><p><code>wm_prop</code> - Proportion, requires the additional argument <code>lc_class</code> (scalar)</p></li>
+<li><p><code>wm_classes</code> - Unique number of classes in a categorical landscape</p></li>
+<li><p><code>var_range</code> - Range (max - min)</p></li>
+</ul>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># load required data</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>g_sf</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cont_ls</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cat_ls</span>)
+
+<span class='co'>#'# aggregate using mean</span>
+<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>winmove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cont_ls</span>, <span class='fl'>5</span>, <span class='st'>"rectangle"</span>, <span class='st'>"mean"</span>)
+
+<span class='co'># aggregate using Shannon evenness</span>
+<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>winmove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cat_ls</span>, <span class='fl'>5</span>, <span class='st'>"rectangle"</span>, <span class='st'>"shei"</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>3</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -169,7 +206,11 @@ returned (default is 3 times sigma)</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

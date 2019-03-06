@@ -8,6 +8,13 @@
 
 <title>Function reference • grainchanger</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -31,6 +38,9 @@
 
 
 <meta property="og:title" content="Function reference" />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -60,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grainchanger</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -83,7 +93,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples</a>
+      <a href="../articles/getting-started.html">Using Grainchanger</a>
     </li>
   </ul>
 </li>
@@ -93,7 +103,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/laurajanegraham/grainchanger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -127,45 +142,45 @@
       <tr>
         
         <td>
-          <p><code><a href="create_torus.html">create_torus()</a></code> </p>
+          <p><code><a href="cat_ls.html">cat_ls</a></code> </p>
         </td>
-        <td><p>Pad a raster by a specified radius to create the effect of a torus. Allows for moving window analysis that avoids edge effects</p></td>
+        <td><p>Example categorical raster</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="diversity.html">diversity()</a></code> </p>
+          <p><code><a href="cont_ls.html">cont_ls</a></code> </p>
         </td>
-        <td><p>Calculate diversity index for a given input and list of land-cover classes</p></td>
+        <td><p>Example continuous raster</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_torus.html">create_torus()</a></code> </p>
+        </td>
+        <td><p>Pad a raster by a specified radius</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="g_sf.html">g_sf</a></code> </p>
+        </td>
+        <td><p>Example grid</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="nomove_agg.html">nomove_agg()</a></code> </p>
         </td>
-        <td><p>Upscale the function value</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prop.html">prop()</a></code> </p>
-        </td>
-        <td><p>Proportion of landscape</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="var_range.html">var_range()</a></code> </p>
-        </td>
-        <td><p>Variable range</p></td>
+        <td><p>Direct data aggregation</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="winmove.html">winmove()</a></code> </p>
         </td>
-        <td><p>Calculate the value of a given function for each cell, within a given neighbourhood, for a cell in a larger resolution grid.</p></td>
+        <td><p>Create moving window surface</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="winmove_agg.html">winmove_agg()</a></code> </p>
         </td>
-        <td><p>Moving-window aggregation</p></td>
+        <td><p>Moving-window data aggregation</p></td>
       </tr>
     </tbody>
     </table>

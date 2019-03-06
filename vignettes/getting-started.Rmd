@@ -23,6 +23,8 @@ library(ggplot2)
 library(landscapetools)
 ```
 
+## Data aggregation
+
 The `grainchanger` package provides functionality for data aggregation to a grid via moving-window or direct methods. 
 
 ### Moving-window data aggregation
@@ -43,7 +45,7 @@ g_sf$mwda <- winmove_agg(
   lc_class = 0:3
 )
 
-util_plot(cat_ls)
+#util_plot(cat_ls)
 
 ggplot(g_sf) + geom_sf(aes(fill = mwda))
 ```

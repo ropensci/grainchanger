@@ -23,7 +23,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Laura Graham \email{LauraJaneEGraham@gmail.com} (0000-0002-3042-5435)
+\strong{Maintainer}: Laura Graham \email{LauraJaneEGraham@gmail.com} (0000-0002-3611-7281)
 
 Other contributors:
 \itemize{

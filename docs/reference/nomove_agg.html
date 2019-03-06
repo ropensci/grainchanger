@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Upscale the function value — nomove_agg • grainchanger</title>
+<title>Direct data aggregation — nomove_agg • grainchanger</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -30,9 +37,11 @@
 
 
 
-<meta property="og:title" content="Upscale the function value — nomove_agg" />
+<meta property="og:title" content="Direct data aggregation — nomove_agg" />
 
 <meta property="og:description" content="Calculate the value for a given function for each cell in a larger resolution grid." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grainchanger</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -86,7 +95,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples</a>
+      <a href="../articles/getting-started.html">Using Grainchanger</a>
     </li>
   </ul>
 </li>
@@ -96,7 +105,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/laurajanegraham/grainchanger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -109,8 +123,8 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Upscale the function value</h1>
-    
+    <h1>Direct data aggregation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/laurajanegraham/grainchanger/blob/master/R/nomove_agg.R'><code>R/nomove_agg.R</code></a></small>
     <div class="hidden name"><code>nomove_agg.Rd</code></div>
     </div>
 
@@ -120,22 +134,26 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>nomove_agg</span>(<span class='no'>grid</span>, <span class='no'>dat</span>, <span class='no'>fn</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>nomove_agg</span>(<span class='no'>g</span>, <span class='no'>dat</span>, <span class='no'>fun</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>grid</th>
-      <td><p>the grid across which to calculate the upscaled moving window function (Raster or SpatialPolygon)</p></td>
+      <th>g</th>
+      <td><p>the grid across which to calculate the aggregated moving window function
+(raster, SpatialPolygonsDataFrame, or sf object)</p></td>
     </tr>
     <tr>
       <th>dat</th>
-      <td><p>The raster dataset on which to calculate the moving window function</p></td>
+      <td><p>The raster dataset to aggregate</p></td>
     </tr>
     <tr>
-      <th>fn</th>
-      <td><p>The function to apply</p></td>
+      <th>fun</th>
+      <td><p>The function to apply. The function fun should take multiple numbers, and
+return a single number. For example mean, modal, min or max. It should also accept a
+na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
+will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -145,9 +163,31 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Raster (if input is Raster) or numeric vector (if input is SpatialPolygon) containing values calculated for each coarser cell</p>
+    <p>Raster (if input is Raster) or numeric vector (if input is sp or sf object)
+ containing values calculated for each coarser cell</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>grainchanger</code> has several built-in functions. Functions currently included are:</p><ul>
+<li><p><code>nm_shei</code> - Shannon evenness, requires the additional argument <code>lc_class</code> (vector or scalar)</p></li>
+<li><p><code>nm_prop</code> - Proportion, requires the additional argument <code>lc_class</code> (scalar)</p></li>
+<li><p><code>var_range</code> - Range (max - min)</p></li>
+</ul>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># load required data</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>g_sf</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cont_ls</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cat_ls</span>)
+
+<span class='co'># aggregate using mean</span>
+<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>nomove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cont_ls</span>, <span class='st'>"mean"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: 'purrr'</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from 'package:testthat':</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    is_null</span></div><div class='input'>
+<span class='co'># aggregate using Shannon evenness</span>
+<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>nomove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cont_ls</span>, <span class='st'>"nm_shei"</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>3</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -155,7 +195,11 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
