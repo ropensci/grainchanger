@@ -1,7 +1,7 @@
 # proportion
-wm_prop <- function(dat, d, type, i) {
+wm_prop <- function(dat, d, type, lc_class) {
   w <- raster::focalWeight(dat, d, type)
-  raster::focal(dat == i, w)
+  raster::focal(dat == lc_class, w)
 }
 
 # unique
@@ -31,4 +31,27 @@ nm_shei <- function(dat, lc_class) {
     -1*p*log(p)
   })
   sum(H, na.rm = TRUE)/log(length(lc_class))
+}
+
+nm_prop <- function(dat, lc_class, na.rm = TRUE) {
+  if(class(dat) == "RasterLayer") {
+    dat <- raster::values(dat)
+  }
+  
+  area <- length(dat)
+  p <- sum(dat %in% lc_class) / area
+  return(p)
+}
+
+var_range <- function(dat, na.rm = TRUE) {
+  if(class(dat) == "RasterLayer") {
+    dat <- raster::values(dat)
+  }
+  
+  if(sum(is.na(dat)) == length(dat)) {
+    return(NA)
+  } else {
+    var_range <- max(dat, na.rm = na.rm) - min(dat, na.rm = na.rm)
+    return(var_range)
+  }
 }

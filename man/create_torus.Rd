@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_torus.R
 \name{create_torus}
 \alias{create_torus}
-\title{Pad a raster by a specified radius to create the effect of a torus. Allows for moving window analysis that avoids edge effects}
+\title{Pad a raster by a specified radius}
 \usage{
 create_torus(dat, r)
 }
@@ -15,7 +15,14 @@ create_torus(dat, r)
 raster. Original raster padded by radius r with torus effect
 }
 \description{
-This function calculates a value for Shannon evenness for an input raster based on a list of landcover classes.
+This function pads a raster by a specified number of cells, creating the effect of a
+torus. Allows for moving window analysis that avoids edge effects (e.g. on simulated
+landscapes).
+}
+\examples{
+data(cat_ls)
+d = create_torus(dat = cat_ls, r = 5)
+
 }
 \keyword{raster}
 \keyword{torus,}

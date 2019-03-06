@@ -1,14 +1,27 @@
-#'Pad a raster by a specified radius to create the effect of a torus. Allows for moving window analysis that avoids edge effects
+#'Pad a raster by a specified radius
 #'
-#'This function calculates a value for Shannon evenness for an input raster based on a list of landcover classes. 
+#'This function pads a raster by a specified number of cells, creating the effect of a
+#'torus. Allows for moving window analysis that avoids edge effects (e.g. on simulated
+#'landscapes).
+#'
 #'@param dat The raster dataset to pad
 #'@param r The radius by which to pad the raster
+#'
 #'@return raster. Original raster padded by radius r with torus effect
+#'
 #'@keywords torus, raster
+#'
+#'@examples
+#'data(cat_ls)
+#'d = create_torus(dat = cat_ls, r = 5)
+#'
 #'@export
+
 create_torus <- function(dat, r) {
   # This function takes as input a raster and an integer radius value.
-
+  checkmate::assert_class(dat, "RasterLayer")
+  checkmate::assert_numeric(r)
+  
   resolution = raster::res(dat)[1]
   r =  r / resolution
   

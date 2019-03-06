@@ -2,22 +2,50 @@
 % Please edit documentation in R/nomove_agg.R
 \name{nomove_agg}
 \alias{nomove_agg}
-\title{Upscale the function value}
+\title{Direct data aggregation}
 \usage{
 nomove_agg(g, dat, fun, ...)
 }
 \arguments{
-\item{dat}{The raster dataset on which to calculate the moving window function}
+\item{g}{the grid across which to calculate the aggregated moving window function
+(raster, SpatialPolygonsDataFrame, or sf object)}
+
+\item{dat}{The raster dataset to aggregate}
 
 \item{...}{further arguments passed to or from other methods}
 
-\item{grid}{the grid across which to calculate the upscaled moving window function (Raster or SpatialPolygon)}
-
-\item{fn}{The function to apply}
+\item{fn}{The function to apply. The function fun should take multiple numbers, and
+return a single number. For example mean, modal, min or max. It should also accept a
+na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
+will fail, but function(x, ...){na.omit(length(x))} works. See Details}
 }
 \value{
-Raster (if input is Raster) or numeric vector (if input is SpatialPolygon) containing values calculated for each coarser cell
+Raster (if input is Raster) or numeric vector (if input is sp or sf object)
+ containing values calculated for each coarser cell
 }
 \description{
 Calculate the value for a given function for each cell in a larger resolution grid.
 }
+\details{
+\code{grainchanger} has several built-in functions. Functions currently included are: 
+\itemize{
+\item \code{nm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
+\item \code{nm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+\item \code{var_range} - Range (max - min) 
+}
+}
+\examples{
+# load required data
+data(g_sf)
+data(cont_ls)
+data(cat_ls)
+
+# aggregate using mean
+d = nomove_agg(g_sf, cont_ls, "mean")
+
+# aggregate using Shannon evenness
+d = nomove_agg(g_sf, cont_ls, "nm_shei", lc_class = 0:3)
+
+}
+\keyword{aggregate}
+\keyword{spatial,}

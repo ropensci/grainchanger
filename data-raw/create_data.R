@@ -10,30 +10,22 @@ g_sf <- as(g_raster, "SpatialPolygonsDataFrame")
 g_sp <- sf::st_as_sf(g_sf)
 
 # data for testing output still the same
-nm_agg_shei <- nomove_agg(grainchanger::g_sf, 
-                          grainchanger::cat_ls, 
-                          "shei", lc_class = 0:3)
+nm_agg_shei <- nomove_agg(g_sf, cat_ls, "shei", lc_class = 0:3)
 
-nm_agg_mean <- nomove_agg(grainchanger::g_sf, 
-                          grainchanger::cont_ls, 
-                          "mean")
+nm_agg_mean <- nomove_agg(g_sf, cont_ls, "mean")
 
-wm_agg_shei <-  winmove_agg(grainchanger::g_sf, 
-                            grainchanger::cat_ls, 
-                            5, "rectangle", "shei", lc_class = 0:3)
+wm_agg_shei <-  winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 
-wm_agg_mean <- winmove_agg(grainchanger::g_sf, 
-                           grainchanger::cont_ls, 
-                           5, "rectangle", "mean")
+wm_agg_mean <- winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
 
-wm_shei_dat <- winmove(grainchanger::cat_ls, 
-                       5, "rectangle", "shei", lc_class = 0:3)
+wm_shei_dat <- winmove(cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 
-wm_mean_dat <- winmove(grainchanger::cont_ls, 
-        5, "rectangle", "mean")
+wm_mean_dat <- winmove(cont_ls, 5, "rectangle", "mean")
+
+torus = create_torus(cat_ls, 5)
 
 # data for examples
-usethis::use_data(cont_ls, cat_ls, g_sf)
+usethis::use_data(cont_ls, cat_ls, g_sf, overwrite = TRUE)
 
 # internal data
-usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_mean, wm_agg_shei, wm_agg_mean, wm_shei_dat, wm_mean_dat, internal = TRUE)
+usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_mean, wm_agg_shei, wm_agg_mean, wm_shei_dat, wm_mean_dat, torus, internal = TRUE, overwrite = TRUE)

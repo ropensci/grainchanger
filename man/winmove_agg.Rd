@@ -2,24 +2,27 @@
 % Please edit documentation in R/winmove_agg.R
 \name{winmove_agg}
 \alias{winmove_agg}
-\title{Moving-window aggregation}
+\title{Moving-window data aggregation}
 \usage{
 winmove_agg(g, dat, d, type, fun, ...)
 }
 \arguments{
-\item{g}{the grid across which to calculate the upscaled moving window function
-(raster or sf object)}
+\item{g}{the grid across which to calculate the aggregated moving window function
+(raster, SpatialPolygonsDataFrame, or sf object)}
 
-\item{dat}{The raster dataset on which to calculate the moving window function}
+\item{dat}{The raster dataset to aggregate}
 
-\item{d}{numeric. If `type=circle`, the radius of the circle (in units of the CRS). If
-`type=rectangle` the dimension of the rectangle (one or two numbers). If `type=Gauss` the
-size of sigma, and optionally another number to determine the size of the matrix
+\item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the CRS). If
+\code{type=rectangle} the dimension of the rectangle (one or two numbers). If \code{type=Gauss}
+the size of sigma, and optionally another number to determine the size of the matrix
 returned (default is 3 times sigma)}
 
 \item{type}{The shape of the moving window}
 
-\item{fun}{The function to apply}
+\item{fun}{The function to apply. The function fun should take multiple numbers, and
+return a single number. For example mean, modal, min or max. It should also accept a
+na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
+will fail, but function(x, ...){na.omit(length(x))} works. See Details}
 
 \item{...}{further arguments passed to or from other methods}
 }
@@ -27,6 +30,31 @@ returned (default is 3 times sigma)}
 Numeric vector containing moving window values calculated for each grid cell
 }
 \description{
-Calculate the mean moving window value for a given radius/shape/function for each cell
+Calculate the mean moving window value for a given radius, shape and function for each cell
 in a larger resolution grid.
 }
+\details{
+\code{grainchanger} has several built-in functions. Functions currently included are: 
+\itemize{
+\item \code{wm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
+\item \code{wm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+\item \code{wm_classes} - Unique number of classes in a categorical landscape
+\item \code{var_range} - Range (max - min) 
+}
+}
+\examples{
+# load required data
+data(g_sf)
+data(cont_ls)
+data(cat_ls)
+
+#'# aggregate using mean
+d = winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
+
+# aggregate using Shannon evenness
+d = winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
+
+}
+\keyword{aggregate}
+\keyword{focal,}
+\keyword{spatial,}

@@ -1,20 +1,50 @@
-#' Upscale the function value
-#' 
-#' Calculate the value for a given function for each cell in a larger resolution grid. 
-#'@param grid the grid across which to calculate the upscaled moving window function (Raster or SpatialPolygon)
-#'@param dat The raster dataset on which to calculate the moving window function
-#'@param fn The function to apply 
+#'Direct data aggregation
+#'
+#'Calculate the value for a given function for each cell in a larger resolution grid.
+#'
+#'@param g the grid across which to calculate the aggregated moving window function
+#'  (raster, SpatialPolygonsDataFrame, or sf object)
+#'@param dat The raster dataset to aggregate
+#'@param fn The function to apply. The function fun should take multiple numbers, and
+#'  return a single number. For example mean, modal, min or max. It should also accept a
+#'  na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
+#'  will fail, but function(x, ...){na.omit(length(x))} works. See Details
 #'@param ... further arguments passed to or from other methods
-#'@return Raster (if input is Raster) or numeric vector (if input is sp or sf object) containing values calculated for each coarser cell
+#'
+#'@return Raster (if input is Raster) or numeric vector (if input is sp or sf object)
+#'  containing values calculated for each coarser cell
+#' 
+#'@keywords spatial, aggregate
+#'   
+#'@details \code{grainchanger} has several built-in functions. Functions currently included are: 
+#'\itemize{
+#' \item \code{nm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
+#' \item \code{nm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+#' \item \code{var_range} - Range (max - min) 
+#'}
+#' 
+#'@examples
+#'# load required data
+#'data(g_sf)
+#'data(cont_ls)
+#'data(cat_ls)
+#'
+#'# aggregate using mean
+#'d = nomove_agg(g_sf, cont_ls, "mean")
+#'
+#'# aggregate using Shannon evenness
+#'d = nomove_agg(g_sf, cont_ls, "nm_shei", lc_class = 0:3)
+#'
 #'@export
+
 nomove_agg <- function(g, dat, fun, ...) {
   checkmate::assert(
-    checkmate::checkClass(g, "RasterLayer"), 
-    checkmate::checkClass(g, "SpatialPolygonsDataFrame"),
-    checkmate::checkClass(g, "sf")
+    checkmate::check_class(g, "RasterLayer"), 
+    checkmate::check_class(g, "SpatialPolygonsDataFrame"),
+    checkmate::check_class(g, "sf")
   )
   
-  checkmate::assertClass(dat, "RasterLayer")
+  checkmate::assert_class(dat, "RasterLayer")
   
   if(fun == "shei") fun <- "nm_shei"
   
