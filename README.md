@@ -56,6 +56,7 @@ is included as a column on the grid `sf` object.
 library(grainchanger)
 library(ggplot2)
 library(patchwork)
+library(landscapetools)
 
 g_sf$mwda <- winmove_agg(g = g_sf,
             dat = cat_ls, 
@@ -66,7 +67,7 @@ g_sf$mwda <- winmove_agg(g = g_sf,
 #> Loading required package: raster
 #> Loading required package: sp
 
-p1 <- landscapetools::util_plot(cat_ls)
+p1 <- util_plot(cat_ls)
 
 p2 <- ggplot(g_sf) + 
   geom_sf(aes(fill = mwda))
@@ -89,7 +90,7 @@ g_sf$range <- nomove_agg(g = g_sf,
             dat = cat_ls, 
             fun = "var_range")
 
-p1 <- landscapetools::util_plot(cont_ls)
+p1 <- util_plot(cont_ls)
 
 p2 <- ggplot(g_sf) + 
   geom_sf(aes(fill = range))
@@ -132,7 +133,7 @@ testing methods on simulated landscapes (such as those from
 ``` r
 torus <- create_torus(cat_ls, 5)
 
-landscapetools::util_plot(torus)
+util_plot(torus)
 ```
 
 <img src="man/figures/README-torus-1.png" width="100%" />

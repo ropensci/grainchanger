@@ -25,7 +25,7 @@ wm_mean_dat <- winmove(cont_ls, 5, "rectangle", "mean")
 torus = create_torus(cat_ls, 5)
 
 # data for examples
-usethis::use_data(cont_ls, cat_ls, g_sf, overwrite = TRUE)
+usethis::use_data(cont_ls, cat_ls, g_sf, overwrite = TRUE, compress = "bzip2")
 
 # internal data
-usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_mean, wm_agg_shei, wm_agg_mean, wm_shei_dat, wm_mean_dat, torus, internal = TRUE, overwrite = TRUE)
+usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_mean, wm_agg_shei, wm_agg_mean, wm_shei_dat, wm_mean_dat, torus, internal = TRUE, overwrite = TRUE, compress = "bzip2")

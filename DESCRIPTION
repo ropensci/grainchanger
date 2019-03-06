@@ -1,10 +1,14 @@
 Package: grainchanger
 Title: Moving-window and direct data aggregation
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(person("Laura", "Graham", 
              email = "LauraJaneEGraham@gmail.com", 
              role = c("aut", "cre"),
              comment = c(ORCID = "0000-0002-3042-5435")),
+             person("Felix", "Eigenbrod",
+             role = "ctb",
+             email = "f.eigenbrod@soton.ac.uk",
+             comment = "Input on initial conceptual development"),
              person("Marco", "Sciaini",
              role = "ctb",
              email = "sciaini.marco@gmail.com",
@@ -14,7 +18,7 @@ Description: Data aggregation via moving window or direct methods. Aggregate a
     using a specified function within a moving window of a specified size and shape 
     prior to aggregation. The direct method simply aggregates to the grid using the 
     specified function.
-Depends: R (>= 3.3.3)
+Depends: R (>= 3.3)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -29,7 +33,9 @@ Suggests:
     spelling,
     knitr,
     rmarkdown,
-    covr
+    covr,
+    ggplot2,
+    patchwork
 RoxygenNote: 6.1.0
 Language: en-GB
 VignetteBuilder: knitr

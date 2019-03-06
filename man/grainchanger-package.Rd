@@ -6,6 +6,8 @@
 \alias{grainchanger-package}
 \title{grainchanger: Moving-window and direct data aggregation}
 \description{
+\if{html}{\figure{logo.png}{options: align='right'}}
+
 Data aggregation via moving window or direct methods. Aggregate a 
     fine-resolution raster to a grid. The moving window method smooths the surface 
     using a specified function within a moving window of a specified size and shape 
@@ -25,6 +27,7 @@ Useful links:
 
 Other contributors:
 \itemize{
+  \item Felix Eigenbrod \email{f.eigenbrod@soton.ac.uk} (Input on initial conceptual development) [contributor]
   \item Marco Sciaini \email{sciaini.marco@gmail.com} (Input on package development and structure) [contributor]
 }
 

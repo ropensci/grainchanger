@@ -25,9 +25,15 @@ before_install:
   - Rscript -e 'update.packages(ask = FALSE)'
 
 after_success:
-  - Rscript -e 'covr::codecov(branch = "develop")'
+  - Rscript -e 'covr::codecov(branch = "master")'
 
 notifications:
   email:
   on_success: change
 on_failure: change
+
+before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
