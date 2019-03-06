@@ -22,7 +22,8 @@ Imports:
     raster,
     sf,
     furrr,
-    checkmate
+    checkmate,
+    methods
 Suggests: 
     testthat,
     spelling,

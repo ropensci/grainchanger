@@ -54,7 +54,7 @@ winmove_agg <- function(g, dat, d, type, fun, ...) {
   
   # convert raster to grid
   if("RasterLayer" %in% class(g)) {
-    g <- as(g, "SpatialPolygonsDataFrame")
+    g <- methods::as(g, "SpatialPolygonsDataFrame")
   }
   
   if("SpatialPolygonsDataFrame" %in% class(g)) {

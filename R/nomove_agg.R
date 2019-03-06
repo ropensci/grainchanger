@@ -5,7 +5,7 @@
 #'@param g the grid across which to calculate the aggregated moving window function
 #'  (raster, SpatialPolygonsDataFrame, or sf object)
 #'@param dat The raster dataset to aggregate
-#'@param fn The function to apply. The function fun should take multiple numbers, and
+#'@param fun The function to apply. The function fun should take multiple numbers, and
 #'  return a single number. For example mean, modal, min or max. It should also accept a
 #'  na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
 #'  will fail, but function(x, ...){na.omit(length(x))} works. See Details
@@ -61,8 +61,9 @@ nomove_agg <- function(g, dat, fun, ...) {
   # aggregation to a polygon does some cropping and calculating
   if("sf" %in% class(g)) {
     out <- furrr::future_map_dbl(sf::st_geometry(g), function(grid_cell, dat, fun, ...) {
-      grid_cell <- grid_cell %>% sf::st_geometry() %>% sf::st_sf()
-      dat_cell <- raster::crop(dat, grid_cell)
+      grid_cell <-  sf::st_geometry(grid_cell)
+      grid_cell_sf <- sf::st_sf(grid_cell)
+      dat_cell <- raster::crop(dat, grid_cell_sf)
       value <- get(fun)(as.vector(dat_cell), ...)
     }, dat, fun, ...)
   }

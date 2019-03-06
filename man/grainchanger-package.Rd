@@ -6,10 +6,27 @@
 \alias{grainchanger-package}
 \title{grainchanger: Moving-window and direct data aggregation}
 \description{
-Data aggregation via moving window or direct methods.
+Data aggregation via moving window or direct methods. Aggregate a 
+    fine-resolution raster to a grid. The moving window method smooths the surface 
+    using a specified function within a moving window of a specified size and shape 
+    prior to aggregation. The direct method simply aggregates to the grid using the 
+    specified function.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/laurajanegraham/grainchanger}
+  \item Report bugs at \url{https://github.com/laurajanegraham/grainchanger/issues}
+}
+
 }
 \author{
-\strong{Maintainer}: Laura Graham \email{LauraJaneEGraham@gmail.com}
+\strong{Maintainer}: Laura Graham \email{LauraJaneEGraham@gmail.com} (0000-0002-3042-5435)
+
+Other contributors:
+\itemize{
+  \item Marco Sciaini \email{sciaini.marco@gmail.com} (Input on package development and structure) [contributor]
+}
 
 }
 \keyword{internal}

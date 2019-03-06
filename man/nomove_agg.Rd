@@ -12,12 +12,12 @@ nomove_agg(g, dat, fun, ...)
 
 \item{dat}{The raster dataset to aggregate}
 
-\item{...}{further arguments passed to or from other methods}
-
-\item{fn}{The function to apply. The function fun should take multiple numbers, and
+\item{fun}{The function to apply. The function fun should take multiple numbers, and
 return a single number. For example mean, modal, min or max. It should also accept a
 na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
 will fail, but function(x, ...){na.omit(length(x))} works. See Details}
+
+\item{...}{further arguments passed to or from other methods}
 }
 \value{
 Raster (if input is Raster) or numeric vector (if input is sp or sf object)
