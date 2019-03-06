@@ -55,27 +55,30 @@ is included as a column on the grid `sf` object.
 ``` r
 library(grainchanger)
 library(ggplot2)
-library(patchwork)
 library(landscapetools)
 
+# categorical landscape
+show_landscape(cat_ls)
+#> Loading required package: raster
+#> Loading required package: sp
+```
+
+<img src="man/figures/README-mwda_example-1.png" width="100%" />
+
+``` r
+
+# moving-window aggregation using Shannon evenness
 g_sf$mwda <- winmove_agg(g = g_sf,
             dat = cat_ls, 
             d = 5,
             type = "rectangle",
             fun = "shei",
             lc_class = 0:3)
-#> Loading required package: raster
-#> Loading required package: sp
 
-p1 <- show_landscape(cat_ls)
-
-p2 <- ggplot(g_sf) + 
-  geom_sf(aes(fill = mwda))
-
-p1 + p2
+ggplot(g_sf) + geom_sf(aes(fill = mwda))
 ```
 
-<img src="man/figures/README-mwda_example-1.png" width="100%" />
+<img src="man/figures/README-mwda_example-2.png" width="100%" />
 
 ### Direct data aggregation
 
@@ -86,19 +89,23 @@ column on the grid `sf` object. `var_range` is an inbuilt function in
 the `grainchanger` package.
 
 ``` r
+# continuous landscape
+show_landscape(cont_ls)
+```
+
+<img src="man/figures/README-dda_example-1.png" width="100%" />
+
+``` r
+
+# direct aggregation using range
 g_sf$range <- nomove_agg(g = g_sf,
             dat = cat_ls, 
             fun = "var_range")
 
-p1 <- show_landscape(cont_ls)
-
-p2 <- ggplot(g_sf) + 
-  geom_sf(aes(fill = range))
-
-p1 + p2
+ggplot(g_sf) + geom_sf(aes(fill = range))
 ```
 
-<img src="man/figures/README-dda_example-1.png" width="100%" />
+<img src="man/figures/README-dda_example-2.png" width="100%" />
 
 ## Functions
 
@@ -110,7 +117,7 @@ issue](https://github.com/laurajanegraham/grainchanger/issues) - doing
 it this way means we can maximise the speed of the
 function.
 
-| Function Name | Description                                                                | Additional arguments |
+| Function.Name | Description                                                                | Additional.arguments |
 | :------------ | :------------------------------------------------------------------------- | :------------------- |
 | wm\_prop      | Calculate the proportion of a given class within the moving window         | lc\_class (numeric)  |
 | wm\_classes   | Calculate the number of classes within the moving window                   |                      |

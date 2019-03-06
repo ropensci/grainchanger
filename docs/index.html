@@ -132,41 +132,40 @@
 <p>The below example shows the moving-window data aggregation in action. It aggregates a categorical raster to a grid using Shannon evenness as the function calculated within a square moving window of 5 units. This value is included as a column on the grid <code>sf</code> object.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(grainchanger)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(patchwork)</a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(landscapetools)</a>
-<a class="sourceLine" id="cb2-5" title="5"></a>
-<a class="sourceLine" id="cb2-6" title="6">g_sf<span class="op">$</span>mwda &lt;-<span class="st"> </span><span class="kw"><a href="reference/winmove_agg.html">winmove_agg</a></span>(<span class="dt">g =</span> g_sf,</a>
-<a class="sourceLine" id="cb2-7" title="7">            <span class="dt">dat =</span> cat_ls, </a>
-<a class="sourceLine" id="cb2-8" title="8">            <span class="dt">d =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb2-9" title="9">            <span class="dt">type =</span> <span class="st">"rectangle"</span>,</a>
-<a class="sourceLine" id="cb2-10" title="10">            <span class="dt">fun =</span> <span class="st">"shei"</span>,</a>
-<a class="sourceLine" id="cb2-11" title="11">            <span class="dt">lc_class =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="co">#&gt; Loading required package: raster</span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; Loading required package: sp</span></a>
-<a class="sourceLine" id="cb2-14" title="14"></a>
-<a class="sourceLine" id="cb2-15" title="15">p1 &lt;-<span class="st"> </span><span class="kw">show_landscape</span>(cat_ls)</a>
-<a class="sourceLine" id="cb2-16" title="16"></a>
-<a class="sourceLine" id="cb2-17" title="17">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(g_sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> mwda))</a>
-<a class="sourceLine" id="cb2-19" title="19"></a>
-<a class="sourceLine" id="cb2-20" title="20">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(landscapetools)</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co"># categorical landscape</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="kw">show_landscape</span>(cat_ls)</a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">#&gt; Loading required package: raster</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">#&gt; Loading required package: sp</span></a></code></pre></div>
 <p><img src="reference/figures/README-mwda_example-1.png" width="100%"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co"># moving-window aggregation using Shannon evenness</span></a>
+<a class="sourceLine" id="cb3-3" title="3">g_sf<span class="op">$</span>mwda &lt;-<span class="st"> </span><span class="kw"><a href="reference/winmove_agg.html">winmove_agg</a></span>(<span class="dt">g =</span> g_sf,</a>
+<a class="sourceLine" id="cb3-4" title="4">            <span class="dt">dat =</span> cat_ls, </a>
+<a class="sourceLine" id="cb3-5" title="5">            <span class="dt">d =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6">            <span class="dt">type =</span> <span class="st">"rectangle"</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7">            <span class="dt">fun =</span> <span class="st">"shei"</span>,</a>
+<a class="sourceLine" id="cb3-8" title="8">            <span class="dt">lc_class =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">ggplot</span>(g_sf) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> mwda))</a></code></pre></div>
+<p><img src="reference/figures/README-mwda_example-2.png" width="100%"></p>
 </div>
 <div id="direct-data-aggregation-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#direct-data-aggregation-1" class="anchor"></a>Direct data aggregation</h3>
 <p>The below example shows the direct data aggregation in action. It aggregates a continuous raster to a grid using the range as the function calculated for each cell of the larger grid. This value is included as a column on the grid <code>sf</code> object. <code>var_range</code> is an inbuilt function in the <code>grainchanger</code> package.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">g_sf<span class="op">$</span>range &lt;-<span class="st"> </span><span class="kw"><a href="reference/nomove_agg.html">nomove_agg</a></span>(<span class="dt">g =</span> g_sf,</a>
-<a class="sourceLine" id="cb3-2" title="2">            <span class="dt">dat =</span> cat_ls, </a>
-<a class="sourceLine" id="cb3-3" title="3">            <span class="dt">fun =</span> <span class="st">"var_range"</span>)</a>
-<a class="sourceLine" id="cb3-4" title="4"></a>
-<a class="sourceLine" id="cb3-5" title="5">p1 &lt;-<span class="st"> </span><span class="kw">show_landscape</span>(cont_ls)</a>
-<a class="sourceLine" id="cb3-6" title="6"></a>
-<a class="sourceLine" id="cb3-7" title="7">p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(g_sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> range))</a>
-<a class="sourceLine" id="cb3-9" title="9"></a>
-<a class="sourceLine" id="cb3-10" title="10">p1 <span class="op">+</span><span class="st"> </span>p2</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># continuous landscape</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">show_landscape</span>(cont_ls)</a></code></pre></div>
 <p><img src="reference/figures/README-dda_example-1.png" width="100%"></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co"># direct aggregation using range</span></a>
+<a class="sourceLine" id="cb5-3" title="3">g_sf<span class="op">$</span>range &lt;-<span class="st"> </span><span class="kw"><a href="reference/nomove_agg.html">nomove_agg</a></span>(<span class="dt">g =</span> g_sf,</a>
+<a class="sourceLine" id="cb5-4" title="4">            <span class="dt">dat =</span> cat_ls, </a>
+<a class="sourceLine" id="cb5-5" title="5">            <span class="dt">fun =</span> <span class="st">"var_range"</span>)</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="kw">ggplot</span>(g_sf) <span class="op">+</span><span class="st"> </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> range))</a></code></pre></div>
+<p><img src="reference/figures/README-dda_example-2.png" width="100%"></p>
 </div>
 </div>
 <div id="functions" class="section level2">
@@ -175,9 +174,9 @@
 <p>There are a number of inbuilt functions in the grainchanger package, with their useage outlined below. While it is possible to use user-defined functions within both <code>winmove_agg</code> and <code>nomove_agg</code>, we welcome suggestions for additional functions. Please <a href="https://github.com/laurajanegraham/grainchanger/issues">add as an issue</a> - doing it this way means we can maximise the speed of the function.</p>
 <table class="table table">
 <thead><tr class="header">
-<th align="left">Function Name</th>
+<th align="left">Function.Name</th>
 <th align="left">Description</th>
-<th align="left">Additional arguments</th>
+<th align="left">Additional.arguments</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -225,9 +224,9 @@
 <h3 class="hasAnchor">
 <a href="#create-torus" class="anchor"></a>Create torus</h3>
 <p>The <code>create_torus</code> function takes as input a square or rectangular landscape and pads it by a specified radius, creating the effect of a torus. We developed this function in order to avoid edge effects when testing methods on simulated landscapes (such as those from <a href="https://ropensci.github.io/NLMR/">NLMR</a>).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">torus &lt;-<span class="st"> </span><span class="kw"><a href="reference/create_torus.html">create_torus</a></span>(cat_ls, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw">show_landscape</span>(torus)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">torus &lt;-<span class="st"> </span><span class="kw"><a href="reference/create_torus.html">create_torus</a></span>(cat_ls, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw">show_landscape</span>(torus)</a></code></pre></div>
 <p><img src="reference/figures/README-torus-1.png" width="100%"></p>
 </div>
 </div>

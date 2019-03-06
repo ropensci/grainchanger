@@ -51,9 +51,12 @@ The below example shows the moving-window data aggregation in action. It aggrega
 ```{r mwda_example}
 library(grainchanger)
 library(ggplot2)
-library(patchwork)
 library(landscapetools)
 
+# categorical landscape
+show_landscape(cat_ls)
+
+# moving-window aggregation using Shannon evenness
 g_sf$mwda <- winmove_agg(g = g_sf,
             dat = cat_ls, 
             d = 5,
@@ -61,12 +64,7 @@ g_sf$mwda <- winmove_agg(g = g_sf,
             fun = "shei",
             lc_class = 0:3)
 
-p1 <- show_landscape(cat_ls)
-
-p2 <- ggplot(g_sf) + 
-  geom_sf(aes(fill = mwda))
-
-p1 + p2
+ggplot(g_sf) + geom_sf(aes(fill = mwda))
 ```
 
 ### Direct data aggregation
@@ -74,16 +72,15 @@ p1 + p2
 The below example shows the direct data aggregation in action. It aggregates a continuous raster to a grid using the range as the function calculated for each cell of the larger grid. This value is included as a column on the grid `sf` object. `var_range` is an inbuilt function in the `grainchanger` package.
 
 ```{r dda_example}
+# continuous landscape
+show_landscape(cont_ls)
+
+# direct aggregation using range
 g_sf$range <- nomove_agg(g = g_sf,
             dat = cat_ls, 
             fun = "var_range")
 
-p1 <- show_landscape(cont_ls)
-
-p2 <- ggplot(g_sf) + 
-  geom_sf(aes(fill = range))
-
-p1 + p2
+ggplot(g_sf) + geom_sf(aes(fill = range))
 ```
 
 ## Functions
@@ -91,7 +88,7 @@ p1 + p2
 There are a number of inbuilt functions in the grainchanger package, with their useage outlined below. While it is possible to use user-defined functions within both `winmove_agg` and `nomove_agg`, we welcome suggestions for additional functions. Please [add as an issue](https://github.com/laurajanegraham/grainchanger/issues) - doing it this way means we can maximise the speed of the function. 
 
 ```{r functions, echo = FALSE}
-function_overview <- tibble::tibble(
+function_overview <- data.frame(
   `Function Name` = c("wm_prop", "wm_classes", "wm_shei", "wm_mean", "nm_shei", "nm_prop", "var_range"),
   `Description` = c("Calculate the proportion of a given class within the moving window", 
                     "Calculate the number of classes within the moving window",
