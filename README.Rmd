@@ -1,0 +1,133 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# grainchanger <img src="man/figures/logo.png" align="right" width="150" />
+
+<!-- badges: start -->
+  [![Travis build status](https://travis-ci.org/laurajanegraham/grainchanger.svg?branch=master)](https://travis-ci.org/laurajanegraham/grainchanger)
+  [![Codecov test coverage](https://codecov.io/gh/laurajanegraham/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/laurajanegraham/grainchanger?branch=master)
+<!-- badges: end -->
+
+The `grainchanger` package provides functionality for data aggregation to a grid via moving-window or direct methods. 
+
+### Moving-window data aggregation
+
+The moving-window data aggregation method smooths the surface using a specified function within a moving window of a specified size and shape prior to aggregation. 
+
+![Schematic of the moving-window data aggregation approach](man/figures/mwda_schematic.png)
+
+The moving window approach allows users to capture some information about landscape structure at the scale at which the process acts in the landscape.
+
+### Direct data aggregation 
+
+The direct method simply aggregates to the grid using the specified function, essentially acting as a wrapper for the `raster` aggregate function. 
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("laurajanegraham/grainchanger")
+```
+## Example
+
+### Moving-window data aggregation
+
+The below example shows the moving-window data aggregation in action. It aggregates a categorical raster to a grid using Shannon evenness as the function calculated within a square moving window of 5 units. This value is included as a column on the grid `sf` object. 
+
+```{r mwda_example}
+library(grainchanger)
+library(ggplot2)
+library(patchwork)
+
+g_sf$mwda <- winmove_agg(g = g_sf,
+            dat = cat_ls, 
+            d = 5,
+            type = "rectangle",
+            fun = "shei",
+            lc_class = 0:3)
+
+p1 <- landscapetools::util_plot(cat_ls)
+
+p2 <- ggplot(g_sf) + 
+  geom_sf(aes(fill = mwda))
+
+p1 + p2
+```
+
+### Direct data aggregation
+
+The below example shows the direct data aggregation in action. It aggregates a continuous raster to a grid using the range as the function calculated for each cell of the larger grid. This value is included as a column on the grid `sf` object. `var_range` is an inbuilt function in the `grainchanger` package.
+
+```{r dda_example}
+g_sf$range <- nomove_agg(g = g_sf,
+            dat = cat_ls, 
+            fun = "var_range")
+
+p1 <- landscapetools::util_plot(cont_ls)
+
+p2 <- ggplot(g_sf) + 
+  geom_sf(aes(fill = range))
+
+p1 + p2
+```
+
+## Functions
+
+There are a number of inbuilt functions in the grainchanger package, with their useage outlined below. While it is possible to use user-defined functions within both `winmove_agg` and `nomove_agg`, we welcome suggestions for additional functions. Please [add as an issue](https://github.com/laurajanegraham/grainchanger/issues) - doing it this way means we can maximise the speed of the function. 
+
+```{r functions, echo = FALSE}
+function_overview <- tibble::tibble(
+  `Function Name` = c("wm_prop", "wm_classes", "wm_shei", "wm_mean", "nm_shei", "nm_prop", "var_range"),
+  `Description` = c("Calculate the proportion of a given class within the moving window", 
+                    "Calculate the number of classes within the moving window",
+                    "Calculate the Shannon evenness within the moving window", 
+                    "Calculate the mean value within the moving window", 
+                    "Calculate the Shannon evenness within the larger cell",
+                    "Calculate the proportion of a given class within the larger cell",
+                    "Calculate the range of values (can be used with or without a moving window"),
+  `Additional arguments` = c("lc_class (numeric)", 
+                             "",
+                             "lc_class (numeric)",
+                             "", 
+                             "lc_class (numeric)",
+                             "lc_class (numeric)",
+                             "")
+)
+
+knitr::kable(function_overview)
+```
+
+## Additional utilities
+
+### Create torus
+
+The `create_torus` function takes as input a square or rectangular landscape and pads it by a specified radius, creating the effect of a torus. We developed this function in order to avoid edge effects when testing methods on simulated landscapes (such as those from [NLMR](https://ropensci.github.io/NLMR/)). 
+
+```{r torus}
+torus <- create_torus(cat_ls, 5)
+
+landscapetools::util_plot(torus)
+```
+
+## Meta
+
+* Please [report any issues or bugs](https://github.com/laurajanegraham/grainchanger/issues/new/).
+* License: GPL3
+* Get citation information for `grainchanger` in R doing `citation(package = 'grainchanger')`
+* Please note that the 'grainchanger' project is released with a
+  [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+  By contributing to this project, you agree to abide by its terms.

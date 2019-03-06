@@ -6,8 +6,8 @@ cat_ls <- landscapetools::util_classify(cont_ls, weighting = c(0.25, 0.25, 0.25,
 g_raster <- raster::aggregate(cont_ls, 13)
 raster::values(g_raster) <- 1
 
-g_sf <- as(g_raster, "SpatialPolygonsDataFrame")
-g_sp <- sf::st_as_sf(g_sf)
+g_sp <- as(g_raster, "SpatialPolygonsDataFrame")
+g_sf <- sf::st_as_sf(g_sf)
 
 # data for testing output still the same
 nm_agg_shei <- nomove_agg(g_sf, cat_ls, "shei", lc_class = 0:3)
