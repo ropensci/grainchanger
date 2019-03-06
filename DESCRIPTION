@@ -1,7 +1,14 @@
 Package: grainchanger
 Title: Moving-window and direct data aggregation
 Version: 0.0.0.9000
-Authors@R: person("Laura", "Graham", email = "LauraJaneEGraham@gmail.com", role = c("aut", "cre"))
+Authors@R: c(person("Laura", "Graham", 
+             email = "LauraJaneEGraham@gmail.com", 
+             role = c("aut", "cre"),
+             comment = c(ORCID = "0000-0002-3042-5435")),
+             person("Marco", "Sciaini",
+             role = "ctb",
+             email = "sciaini.marco@gmail.com",
+             comment = "Input on package development and structure")
 Description: Data aggregation via moving window or direct methods. 
 Depends: R (>= 3.3.3)
 License: What license is it under?
@@ -9,9 +16,8 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     raster,
-    rgeos,
-    plyr,
-    sf
+    sf,
+    furrr
 Suggests: 
     testthat,
     spelling,
@@ -20,3 +26,4 @@ Suggests:
 RoxygenNote: 6.1.0
 Language: en-GB
 VignetteBuilder: knitr
+0000-0002-3611-7281
