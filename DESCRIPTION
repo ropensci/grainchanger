@@ -15,7 +15,7 @@ Description: Data aggregation via moving window or direct methods. Aggregate a
     prior to aggregation. The direct method simply aggregates to the grid using the 
     specified function.
 Depends: R (>= 3.3.3)
-License: GPL-2
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -27,7 +27,10 @@ Suggests:
     testthat,
     spelling,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 RoxygenNote: 6.1.0
 Language: en-GB
 VignetteBuilder: knitr
+URL: https://github.com/laurajanegraham/grainchanger
+BugReports: https://github.com/laurajanegraham/grainchanger/issues
