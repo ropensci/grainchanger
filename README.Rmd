@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
   [![Travis build status](https://travis-ci.org/laurajanegraham/grainchanger.svg?branch=master)](https://travis-ci.org/laurajanegraham/grainchanger)
   [![Codecov test coverage](https://codecov.io/gh/laurajanegraham/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/laurajanegraham/grainchanger?branch=master)
+[![CRAN status](https://www.r-pkg.org/badges/version/grainchanger)](https://cran.r-project.org/package=grainchanger)
 <!-- badges: end -->
 
 The `grainchanger` package provides functionality for data aggregation to a grid via moving-window or direct methods. 
@@ -126,6 +127,4 @@ show_landscape(torus)
 * Please [report any issues or bugs](https://github.com/laurajanegraham/grainchanger/issues/new/).
 * License: GPL3
 * Get citation information for `grainchanger` in R doing `citation(package = 'grainchanger')`
-* Please note that the 'grainchanger' project is released with a
-  [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
-  By contributing to this project, you agree to abide by its terms.
+* Please note that the 'grainchanger' project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
