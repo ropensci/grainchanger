@@ -100,11 +100,11 @@ show_landscape(cont_ls)
 ``` r
 
 # direct aggregation using range
-g_sf$range <- nomove_agg(g = g_sf,
-            dat = cat_ls, 
+g_sf$dda <- nomove_agg(g = g_sf,
+            dat = cont_ls, 
             fun = "var_range")
 
-ggplot(g_sf) + geom_sf(aes(fill = range))
+ggplot(g_sf) + geom_sf(aes(fill = dda))
 ```
 
 <img src="man/figures/README-dda_example-2.png" width="100%" />

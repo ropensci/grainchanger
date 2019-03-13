@@ -77,11 +77,11 @@ The below example shows the direct data aggregation in action. It aggregates a c
 show_landscape(cont_ls)
 
 # direct aggregation using range
-g_sf$range <- nomove_agg(g = g_sf,
-            dat = cat_ls, 
+g_sf$dda <- nomove_agg(g = g_sf,
+            dat = cont_ls, 
             fun = "var_range")
 
-ggplot(g_sf) + geom_sf(aes(fill = range))
+ggplot(g_sf) + geom_sf(aes(fill = dda))
 ```
 
 ## Functions
