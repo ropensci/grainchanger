@@ -57,14 +57,14 @@ The direct method simply aggregates to the grid using the specified function, es
 The below example shows the direct data aggregation in action. It aggregates a continuous raster to a grid using the range as the function calculated for each cell of the larger grid. This value is included as a column on the grid `sf` object. `var_range` is an inbuilt function in the `grainchanger` package.
 
 ```{r dda_example, fig.show='hold'}
-g_sf$range <- nomove_agg(
-  g = g_sf,
-  dat = cat_ls, 
-  fun = "var_range")
-
 show_landscape(cont_ls)
 
-ggplot(g_sf) + geom_sf(aes(fill = range))
+g_sf$dda <- nomove_agg(
+  g = g_sf,
+  dat = cont_ls, 
+  fun = "var_range")
+
+ggplot(g_sf) + geom_sf(aes(fill = dda))
 ```
 
 ## Functions
