@@ -11,6 +11,10 @@ warnings_are_errors: false
 matrix:
   include:
     - os: linux
+      deploy:
+        provider: script
+        script: Rscript -e 'pkgdown::deploy_site_github()'
+        skip_cleanup: true
     - os: osx
       osx_image: xcode9.2
       before_install:
@@ -33,10 +37,3 @@ notifications:
 on_failure: change
 
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github()'
-  skip_cleanup: true
-  on: 
-    branch: master
-    condition: os = linux
