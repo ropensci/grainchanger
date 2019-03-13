@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moving-window and direct data aggregation • grainchanger</title>
+<title>Moving-Window and Direct Data Aggregation • grainchanger</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -15,7 +15,7 @@
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Moving-window and direct data aggregation">
+<script src="pkgdown.js"></script><meta property="og:title" content="Moving-Window and Direct Data Aggregation">
 <meta property="og:description" content="Data aggregation via moving window or direct methods. Aggregate a 
     fine-resolution raster to a grid. The moving window method smooths the surface 
     using a specified function within a moving window of a specified size and shape 
@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">grainchanger</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -135,7 +135,9 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(landscapetools)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># categorical landscape</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(cat_ls)</a></code></pre></div>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(cat_ls)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; Loading required package: raster</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; Loading required package: sp</span></a></code></pre></div>
 <p><img src="reference/figures/README-mwda_example-1.png" width="100%"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co"># moving-window aggregation using Shannon evenness</span></a>
@@ -159,7 +161,7 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># direct aggregation using range</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">g_sf<span class="op">$</span>dda &lt;-<span class="st"> </span><span class="kw"><a href="reference/nomove_agg.html">nomove_agg</a></span>(<span class="dt">g =</span> g_sf,</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">            <span class="dt">dat =</span> cat_ls, </a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">            <span class="dt">dat =</span> cont_ls, </a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">            <span class="dt">fun =</span> <span class="st">"var_range"</span>)</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(g_sf) <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">fill =</span> dda))</a></code></pre></div>
@@ -222,9 +224,9 @@
 <h3 class="hasAnchor">
 <a href="#create-torus" class="anchor"></a>Create torus</h3>
 <p>The <code>create_torus</code> function takes as input a square or rectangular landscape and pads it by a specified radius, creating the effect of a torus. We developed this function in order to avoid edge effects when testing methods on simulated landscapes (such as those from <a href="https://ropensci.github.io/NLMR/">NLMR</a>).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">torus_out &lt;-<span class="st"> </span><span class="kw"><a href="reference/create_torus.html">create_torus</a></span>(cat_ls, <span class="dv">5</span>)</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">torus &lt;-<span class="st"> </span><span class="kw"><a href="reference/create_torus.html">create_torus</a></span>(cat_ls, <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(torus_out)</a></code></pre></div>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(torus)</a></code></pre></div>
 <p><img src="reference/figures/README-torus-1.png" width="100%"></p>
 </div>
 </div>
@@ -246,6 +248,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=grainchanger">https://​cloud.r-project.org/​package=grainchanger</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/laurajanegraham/grainchanger">https://​github.com/​laurajanegraham/​grainchanger</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/laurajanegraham/grainchanger/issues">https://​github.com/​laurajanegraham/​grainchanger/​issues</a>
