@@ -14,7 +14,7 @@ nm_agg_shei <- nomove_agg(g_sf, cat_ls, "shei", lc_class = 0:3)
 
 nm_agg_mean <- nomove_agg(g_sf, cont_ls, "mean")
 
-wm_agg_shei <-  winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
+wm_agg_shei <- winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 
 wm_agg_mean <- winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
 
@@ -22,7 +22,7 @@ wm_shei_dat <- winmove(cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 
 wm_mean_dat <- winmove(cont_ls, 5, "rectangle", "mean")
 
-torus = create_torus(cat_ls, 5)
+torus <- create_torus(cat_ls, 5)
 
 # data for examples
 usethis::use_data(cont_ls, cat_ls, g_sf, overwrite = TRUE, compress = "bzip2")

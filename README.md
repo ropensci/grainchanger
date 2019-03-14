@@ -11,6 +11,10 @@ status](https://travis-ci.org/laurajanegraham/grainchanger.svg?branch=master)](h
 coverage](https://codecov.io/gh/laurajanegraham/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/laurajanegraham/grainchanger?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/grainchanger)](https://cran.r-project.org/package=grainchanger)
+[![](https://cranlogs.r-pkg.org/badges/grainchanger)](https://cran.r-project.org/package=grainchanger)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 The `grainchanger` package provides functionality for data aggregation

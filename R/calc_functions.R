@@ -1,54 +1,61 @@
+#' @noRd
 # proportion
 wm_prop <- function(dat, d, type, lc_class) {
   w <- raster::focalWeight(dat, d, type)
   raster::focal(dat == lc_class, w)
 }
 
+#' @noRd
 # unique
 wm_classes <- function(dat, d, type) {
   w <- ifelse(raster::focalWeight(dat, d, type) == 0, 0, 1)
   raster::focal(dat, w, function(x) length(raster::unique(x)))
 }
 
+#' @noRd
 # diversity metrics
 wm_shei <- function(dat, d, type, lc_class) {
   H <- lapply(lc_class, function(i) {
     p <- wm_prop(dat, d, type, i)
-    -1*p*log(p)
+    -1 * p * log(p)
   })
-  sum(raster::stack(H), na.rm = TRUE)/log(length(lc_class))
+  sum(raster::stack(H), na.rm = TRUE) / log(length(lc_class))
 }
 
+#' @noRd
 # mean (it's quicker using weighted sum than mean)
 wm_mean <- function(dat, d, type) {
   w <- raster::focalWeight(dat, d, type)
   raster::focal(dat, w)
 }
 
+#' @noRd
 nm_shei <- function(dat, lc_class) {
   H <- sapply(lc_class, function(i) {
     p <- sum(dat == i) / raster::ncell(dat)
-    -1*p*log(p)
+    -1 * p * log(p)
   })
-  sum(H, na.rm = TRUE)/log(length(lc_class))
+  sum(H, na.rm = TRUE) / log(length(lc_class))
 }
 
+#' @noRd
 nm_prop <- function(dat, lc_class, na.rm = TRUE) {
-  if(class(dat) == "RasterLayer") {
+  if (class(dat) == "RasterLayer") {
     dat <- raster::values(dat)
   }
-  
+
   area <- length(dat)
   p <- sum(dat %in% lc_class) / area
   return(p)
 }
 
+#' @noRd
 var_range <- function(dat, na.rm = TRUE) {
-  if(class(dat) == "RasterLayer") {
+  if (class(dat) == "RasterLayer") {
     dat <- raster::values(dat)
   }
-  
-  if(sum(is.na(dat)) == length(dat)) {
+
+  if (sum(is.na(dat)) == length(dat)) {
     return(NA)
   } else {
     var_range <- max(dat, na.rm = na.rm) - min(dat, na.rm = na.rm)

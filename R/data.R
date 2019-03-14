@@ -1,7 +1,7 @@
 #' Example continuous raster
 #'
-#' An example map to show functionality on continuous surfaces. 
-#' 
+#' An example map to show functionality on continuous surfaces.
+#'
 #' @details Generated with \code{nlm_mpd()} from \code{NLMR}.
 #'
 #' @format A raster layer object.
@@ -12,8 +12,8 @@
 
 #' Example categorical raster
 #'
-#' An example map to show functionality on categorical surfaces. 
-#' 
+#' An example map to show functionality on categorical surfaces.
+#'
 #' @details Generated with \code{nlm_mpd()} from \code{NLMR} and classified with \code{util_classify()} from \code{landscapetools}.
 #'
 #' @format A raster layer object.
@@ -26,8 +26,8 @@
 
 #' Example grid
 #'
-#' An example grid to show functionality when aggregating using an sf object. 
-#' 
+#' An example grid to show functionality when aggregating using an sf object.
+#'
 #' @details Generated with \code{nlm_mpd()} and converted to sf.
 #'
 #' @format An sf object.
@@ -35,6 +35,3 @@
 #'     for simulating and modifying neutral landscape models in R. Methods in Ecololgy and Evolution. 2018;
 #'     00:1-9. https://doi.org/10.1111/2041-210X.13076
 "g_sf"
-
-
-
