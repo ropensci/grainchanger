@@ -46,7 +46,8 @@ nomove_agg <- function(g, dat, fun, ...) {
   checkmate::assert_class(dat, "RasterLayer")
 
   if (fun == "shei") fun <- "nm_shei"
-
+  if (fun == "prop") fun <- "nm_prop"
+  
   # raster aggregation just acts as a wrapper for raster::aggregate (but it's less difficult to work out)
   if ("RasterLayer" %in% class(g)) {
     a <- raster::res(g) / raster::res(dat)
