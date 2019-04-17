@@ -4,7 +4,7 @@
 \alias{nomove_agg}
 \title{Direct data aggregation}
 \usage{
-nomove_agg(g, dat, fun, ...)
+nomove_agg(g, dat, fun, is_grid = TRUE, ...)
 }
 \arguments{
 \item{g}{the grid across which to calculate the aggregated moving window function
@@ -14,25 +14,27 @@ nomove_agg(g, dat, fun, ...)
 
 \item{fun}{The function to apply. The function fun should take multiple numbers, and
 return a single number. For example mean, modal, min or max. It should also accept a
-na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
-will fail, but function(x, ...){na.omit(length(x))} works. See Details}
+na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example,
+length will fail, but function(x, ...){na.omit(length(x))} works. See Details}
+
+\item{is_grid}{Use \code{TRUE} if \code{g} contains only rectangular cells (i.e. a
+grid). If \code{g} is any other polygon file, this should be set to false}
 
 \item{...}{further arguments passed to or from other methods}
 }
 \value{
 Raster (if input is Raster) or numeric vector (if input is sp or sf object)
- containing values calculated for each coarser cell
+  containing values calculated for each coarser cell
 }
 \description{
 Calculate the value for a given function for each cell in a larger resolution grid.
 }
 \details{
-\code{grainchanger} has several built-in functions. Functions currently included are: 
-\itemize{
-\item \code{nm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
-\item \code{nm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
-\item \code{var_range} - Range (max - min) 
-}
+\code{grainchanger} has several built-in functions. Functions currently
+  included are: \itemize{ \item \code{nm_shei} - Shannon evenness, requires the
+  additional argument \code{lc_class} (vector or scalar) \item \code{nm_prop} -
+  Proportion, requires the additional argument \code{lc_class} (scalar) \item
+  \code{var_range} - Range (max - min) }
 }
 \examples{
 # load required data
@@ -41,11 +43,10 @@ data(cont_ls)
 data(cat_ls)
 
 # aggregate using mean
-d = nomove_agg(g_sf, cont_ls, "mean")
+d <- nomove_agg(g_sf, cont_ls, "mean")
 
 # aggregate using Shannon evenness
-d = nomove_agg(g_sf, cont_ls, "nm_shei", lc_class = 0:3)
-
+d <- nomove_agg(g_sf, cont_ls, "nm_shei", lc_class = 0:3)
 }
 \keyword{aggregate}
 \keyword{spatial,}

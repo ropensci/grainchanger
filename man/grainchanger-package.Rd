@@ -4,7 +4,7 @@
 \name{grainchanger-package}
 \alias{grainchanger}
 \alias{grainchanger-package}
-\title{grainchanger: Moving-window and direct data aggregation}
+\title{grainchanger: Moving-Window and Direct Data Aggregation}
 \description{
 \if{html}{\figure{logo.png}{options: align='right'}}
 

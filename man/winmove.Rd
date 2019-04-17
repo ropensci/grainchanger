@@ -31,12 +31,12 @@ Smooth a raster surface using a moving window with a given function, radius and 
 }
 \details{
 \code{grainchanger} has several built-in functions. Functions currently
- included are: 
- \itemize{ 
-  \item \code{wm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
-  \item \code{wm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar) 
-  \item \code{wm_classes} - Unique number of classes in a categorical landscape 
-  \item \code{var_range} - Range (max - min) 
+ included are:
+ \itemize{
+  \item \code{wm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
+  \item \code{wm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+  \item \code{wm_classes} - Unique number of classes in a categorical landscape
+  \item \code{var_range} - Range (max - min)
 }
 }
 \examples{
@@ -45,11 +45,10 @@ data(cat_ls)
 data(cont_ls)
 
 # calculate the moving window mean
-d = winmove(cont_ls, 5, "rectangle", "mean")
+d <- winmove(cont_ls, 5, "rectangle", "mean")
 
 # calculate the moving window Shannon evenness
-d = winmove(cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
-
+d <- winmove(cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 }
 \keyword{focal,}
 \keyword{spatial}

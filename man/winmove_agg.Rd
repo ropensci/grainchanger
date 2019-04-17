@@ -4,7 +4,7 @@
 \alias{winmove_agg}
 \title{Moving-window data aggregation}
 \usage{
-winmove_agg(g, dat, d, type, fun, ...)
+winmove_agg(g, dat, d, type, fun, is_grid = TRUE, ...)
 }
 \arguments{
 \item{g}{the grid across which to calculate the aggregated moving window function
@@ -24,6 +24,9 @@ return a single number. For example mean, modal, min or max. It should also acce
 na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
 will fail, but function(x, ...){na.omit(length(x))} works. See Details}
 
+\item{is_grid}{Use \code{TRUE} if \code{g} contains only rectangular cells (i.e. a
+grid). If \code{g} is any other polygon file, this should be set to false}
+
 \item{...}{further arguments passed to or from other methods}
 }
 \value{
@@ -34,12 +37,12 @@ Calculate the mean moving window value for a given radius, shape and function fo
 in a larger resolution grid.
 }
 \details{
-\code{grainchanger} has several built-in functions. Functions currently included are: 
+\code{grainchanger} has several built-in functions. Functions currently included are:
 \itemize{
 \item \code{wm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
 \item \code{wm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
 \item \code{wm_classes} - Unique number of classes in a categorical landscape
-\item \code{var_range} - Range (max - min) 
+\item \code{var_range} - Range (max - min)
 }
 }
 \examples{
@@ -48,12 +51,11 @@ data(g_sf)
 data(cont_ls)
 data(cat_ls)
 
-#'# aggregate using mean
-d = winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
+#' # aggregate using mean
+d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
 
 # aggregate using Shannon evenness
-d = winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
-
+d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 }
 \keyword{aggregate}
 \keyword{focal,}

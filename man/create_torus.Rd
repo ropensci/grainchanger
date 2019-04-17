@@ -21,8 +21,7 @@ landscapes).
 }
 \examples{
 data(cat_ls)
-d = create_torus(dat = cat_ls, r = 5)
-
+d <- create_torus(dat = cat_ls, r = 5)
 }
 \keyword{raster}
 \keyword{torus,}
