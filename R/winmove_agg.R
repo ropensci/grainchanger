@@ -53,7 +53,7 @@ winmove_agg <- function(g, dat, d, type, fun, is_grid = TRUE, ...) {
   checkmate::assert_class(dat, "RasterLayer")
   checkmate::assert_numeric(d)
 
-  if(is_grid) warning("aggregation assumes all cells are rectangular\nset is.grid = FALSE if g is not a grid")
+  if(is_grid) warning("aggregation assumes all cells are rectangular\nset is_grid = FALSE if g is not a grid")
   
   # convert raster to grid
   if ("RasterLayer" %in% class(g)) {
@@ -68,9 +68,8 @@ winmove_agg <- function(g, dat, d, type, fun, is_grid = TRUE, ...) {
     grid_buffer <- sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d / 2)
     grid_buffer <- sf::st_geometry(grid_buffer)
     grid_buffer <- sf::st_sf(grid_buffer)
-    if(is.grid) {
-      dat_cell <- raster::crop(dat, grid_buffer)  
-    } else {
+    dat_cell <- raster::crop(dat, grid_buffer)  
+    if(!is_grid) {
       dat_cell <- raster::mask(dat, grid_buffer)   # mask is slower, but needs to be used if polygons are not rectangular
     }
     winmove_cellr <- winmove(dat_cell, d, type, fun, ...)

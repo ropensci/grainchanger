@@ -46,7 +46,7 @@ nomove_agg <- function(g, dat, fun, is_grid = TRUE, ...) {
 
   checkmate::assert_class(dat, "RasterLayer")
   
-  if(is_grid) warning("aggregation assumes all cells are rectangular\nset is.grid = FALSE if g is not a grid")
+  if(is_grid) warning("aggregation assumes all cells are rectangular\nset is_grid = FALSE if g is not a grid")
 
   if (fun == "shei") fun <- "nm_shei"
   if (fun == "prop") fun <- "nm_prop"
@@ -68,9 +68,8 @@ nomove_agg <- function(g, dat, fun, is_grid = TRUE, ...) {
     out <- furrr::future_map_dbl(sf::st_geometry(g), function(grid_cell, dat, fun, ...) {
       grid_cell <- sf::st_geometry(grid_cell)
       grid_cell_sf <- sf::st_sf(grid_cell)
-      if(is.grid) {
-        dat_cell <- raster::crop(dat, grid_cell_sf)  
-      } else {
+      dat_cell <- raster::crop(dat, grid_cell_sf)  
+      if(!is_grid) {
         dat_cell <- raster::mask(dat, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
       }
       value <- get(fun)(as.vector(dat_cell), ...)
