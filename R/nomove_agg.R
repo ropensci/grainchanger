@@ -70,7 +70,7 @@ nomove_agg <- function(g, dat, fun, is_grid = TRUE, ...) {
       grid_cell_sf <- sf::st_sf(grid_cell)
       dat_cell <- raster::crop(dat, grid_cell_sf)  
       if(!is_grid) {
-        dat_cell <- raster::mask(dat, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
+        dat_cell <- raster::mask(dat_cell, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
       }
       value <- get(fun)(as.vector(dat_cell), ...)
     }, dat, fun, ...)

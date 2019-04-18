@@ -70,7 +70,7 @@ winmove_agg <- function(g, dat, d, type, fun, is_grid = TRUE, ...) {
     grid_buffer <- sf::st_sf(grid_buffer)
     dat_cell <- raster::crop(dat, grid_buffer)  
     if(!is_grid) {
-      dat_cell <- raster::mask(dat, grid_buffer)   # mask is slower, but needs to be used if polygons are not rectangular
+      dat_cell <- raster::mask(dat_cell, grid_buffer)   # mask is slower, but needs to be used if polygons are not rectangular
     }
     winmove_cellr <- winmove(dat_cell, d, type, fun, ...)
     mean(raster::values(winmove_cellr), na.rm = TRUE)
