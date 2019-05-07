@@ -31,6 +31,7 @@ wm_mean <- function(dat, d, type) {
 
 #' @noRd
 nm_shei <- function(dat, lc_class) {
+  dat <- na.omit(dat)
   H <- sapply(lc_class, function(i) {
     p <- sum(dat == i) / raster::ncell(dat)
     -1 * p * log(p)

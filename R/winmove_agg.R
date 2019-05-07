@@ -64,7 +64,7 @@ winmove_agg <- function(g, dat, d, type, fun, is_grid = TRUE, ...) {
     g <- sf::st_as_sf(g)
   }
 
-  out <- furrr::future_map_dbl(sf::st_geometry(g), function(grid_cell, dat, d, type, fun, ...) {
+  out <- furrr::future_map_dbl(sf::st_geometry(g), function(grid_cell, dat, d, type, fun, agg_fun, ...) {
     grid_buffer <- sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d / 2)
     grid_buffer <- sf::st_geometry(grid_buffer)
     grid_buffer <- sf::st_sf(grid_buffer)
@@ -73,7 +73,7 @@ winmove_agg <- function(g, dat, d, type, fun, is_grid = TRUE, ...) {
       dat_cell <- raster::mask(dat_cell, grid_buffer)   # mask is slower, but needs to be used if polygons are not rectangular
     }
     winmove_cellr <- winmove(dat_cell, d, type, fun, ...)
-    mean(raster::values(winmove_cellr), na.rm = TRUE)
+    get(agg_fun)(raster::values(winmove_cellr), na.rm = TRUE)
   }, dat, d, type, fun, ...)
 
   return(out)

@@ -70,9 +70,13 @@ nomove_agg <- function(g, dat, fun, is_grid = TRUE, ...) {
       grid_cell_sf <- sf::st_sf(grid_cell)
       dat_cell <- raster::crop(dat, grid_cell_sf)  
       if(!is_grid) {
+        # some concerns here that when the input data contains NA, it will be removed from the
+        # calculation of total area. Needs thought.
         dat_cell <- raster::mask(dat_cell, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
+        dat_cell <- raster::values(dat_cell)
+        dat_cell <- na.omit(dat_cell)
       }
-      value <- get(fun)(as.vector(dat_cell), ...)
+      value <- get(fun)(dat_cell, ...)
     }, dat, fun, ...)
   }
 
