@@ -1,8 +1,13 @@
 #' @noRd
 # proportion
 wm_prop <- function(dat, d, type, lc_class) {
-  w <- raster::focalWeight(dat, d, type)
-  raster::focal(dat == lc_class, w)
+  if(sum(raster::values(dat) > 0)) {
+    w <- raster::focalWeight(dat, d, type)
+    return(raster::focal(dat == lc_class, w))
+  }
+  else {
+    return(0)
+  }
 }
 
 #' @noRd
@@ -44,7 +49,7 @@ nm_prop <- function(dat, lc_class, na.rm = TRUE) {
   if (class(dat) == "RasterLayer") {
     dat <- raster::values(dat)
   }
-
+  
   area <- length(dat)
   p <- sum(dat %in% lc_class) / area
   return(p)
