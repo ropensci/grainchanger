@@ -1,7 +1,7 @@
 #' @noRd
 # proportion
 wm_prop <- function(dat, d, type, lc_class) {
-  if(sum(raster::values(dat) > 0)) {
+  if(sum(raster::values(dat)) > 0) {
     w <- raster::focalWeight(dat, d, type)
     return(raster::focal(dat == lc_class, w))
   }
