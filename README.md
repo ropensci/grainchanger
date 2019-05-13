@@ -61,10 +61,15 @@ is included as a column on the grid `sf` object.
 ``` r
 library(grainchanger)
 library(ggplot2)
+#> Registered S3 methods overwritten by 'ggplot2':
+#>   method         from 
+#>   [.quosures     rlang
+#>   c.quosures     rlang
+#>   print.quosures rlang
 library(landscapetools)
 
 # categorical landscape
-show_landscape(cat_ls)
+show_landscape(cat_ls, discrete = TRUE)
 #> Loading required package: raster
 #> Loading required package: sp
 ```
@@ -74,12 +79,14 @@ show_landscape(cat_ls)
 ``` r
 
 # moving-window aggregation using Shannon evenness
-g_sf$mwda <- winmove_agg(g = g_sf,
-            dat = cat_ls, 
-            d = 5,
-            type = "rectangle",
-            fun = "shei",
-            lc_class = 0:3)
+g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
+                         fine_dat = cat_ls, 
+                         d = 5,
+                         type = "rectangle",
+                         win_fun = "shei",
+                         agg_fun = "mean",
+                         lc_class = 0:3,
+                         quiet = TRUE)
 
 ggplot(g_sf) + geom_sf(aes(fill = mwda))
 ```
@@ -104,9 +111,9 @@ show_landscape(cont_ls)
 ``` r
 
 # direct aggregation using range
-g_sf$dda <- nomove_agg(g = g_sf,
-            dat = cont_ls, 
-            fun = "var_range")
+g_sf$dda <- nomove_agg(coarse_dat = g_sf,
+                       fine_dat = cont_ls, 
+                       fun = "var_range")
 
 ggplot(g_sf) + geom_sf(aes(fill = dda))
 ```
@@ -123,15 +130,12 @@ issue](https://github.com/laurajanegraham/grainchanger/issues) - doing
 it this way means we can maximise the speed of the
 function.
 
-| Function.Name | Description                                                                | Additional.arguments |
-| :------------ | :------------------------------------------------------------------------- | :------------------- |
-| wm\_prop      | Calculate the proportion of a given class within the moving window         | lc\_class (numeric)  |
-| wm\_classes   | Calculate the number of classes within the moving window                   |                      |
-| wm\_shei      | Calculate the Shannon evenness within the moving window                    | lc\_class (numeric)  |
-| wm\_mean      | Calculate the mean value within the moving window                          |                      |
-| nm\_shei      | Calculate the Shannon evenness within the larger cell                      | lc\_class (numeric)  |
-| nm\_prop      | Calculate the proportion of a given class within the larger cell           | lc\_class (numeric)  |
-| var\_range    | Calculate the range of values (can be used with or without a moving window |                      |
+| Function.Name | Description                               | Additional.arguments |
+| :------------ | :---------------------------------------- | :------------------- |
+| prop          | Calculate the proportion of a given class | lc\_class (numeric)  |
+| classes       | Calculate the number of classes           |                      |
+| shei          | Calculate the Shannon evenness            | lc\_class (numeric)  |
+| mean          | Calculate the range of values             |                      |
 
 ## Additional utilities
 
@@ -146,7 +150,7 @@ testing methods on simulated landscapes (such as those from
 ``` r
 torus <- create_torus(cat_ls, 5)
 
-show_landscape(torus)
+show_landscape(torus, discrete = TRUE)
 ```
 
 <img src="man/figures/README-torus-1.png" width="100%" />

@@ -39,30 +39,30 @@
 #' d <- winmove(cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 #' @export
 
-winmove <- function(dat, d, type, fun, ...) {
-  checkmate::assert_class(dat, "RasterLayer")
+winmove <- function(fine_dat, d, type, win_fun, ...) {
+  checkmate::assert_class(fine_dat, "RasterLayer")
   checkmate::assert_numeric(d)
 
-  if (fun == "prop") {
-    out <- wm_prop(dat, d, type, ...)
+  if (win_fun == "prop") {
+    out <- wm_prop(fine_dat, d, type, ...)
     return(out)
   }
 
-  if (fun == "mean") {
-    out <- wm_mean(dat, d, type)
+  if (win_fun == "mean") {
+    out <- wm_mean(fine_dat, d, type)
     return(out)
   }
 
-  if (fun == "shei") {
-    out <- wm_shei(dat, d, type, ...)
+  if (win_fun == "shei") {
+    out <- wm_shei(fine_dat, d, type, ...)
     return(out)
   }
 
   # this catches all others (i.e. in-built or user-defined functions)
-  w <- raster::focalWeight(dat, d, type = type)
+  w <- raster::focalWeight(fine_dat, d, type = type)
   w <- ifelse(w > 0, 1, NA)
-  out <- raster::focal(dat, w, function(x) {
-    get(fun)(x, na.rm = TRUE, ...)
+  out <- raster::focal(fine_dat, w, function(x) {
+    get(win_fun)(x, na.rm = TRUE, ...)
   })
   return(out)
 }

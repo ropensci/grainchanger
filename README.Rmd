@@ -57,15 +57,17 @@ library(ggplot2)
 library(landscapetools)
 
 # categorical landscape
-show_landscape(cat_ls)
+show_landscape(cat_ls, discrete = TRUE)
 
 # moving-window aggregation using Shannon evenness
-g_sf$mwda <- winmove_agg(g = g_sf,
-            dat = cat_ls, 
-            d = 5,
-            type = "rectangle",
-            fun = "shei",
-            lc_class = 0:3)
+g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
+                         fine_dat = cat_ls, 
+                         d = 5,
+                         type = "rectangle",
+                         win_fun = "shei",
+                         agg_fun = "mean",
+                         lc_class = 0:3,
+                         quiet = TRUE)
 
 ggplot(g_sf) + geom_sf(aes(fill = mwda))
 ```
@@ -79,9 +81,9 @@ The below example shows the direct data aggregation in action. It aggregates a c
 show_landscape(cont_ls)
 
 # direct aggregation using range
-g_sf$dda <- nomove_agg(g = g_sf,
-            dat = cont_ls, 
-            fun = "var_range")
+g_sf$dda <- nomove_agg(coarse_dat = g_sf,
+                       fine_dat = cont_ls, 
+                       fun = "var_range")
 
 ggplot(g_sf) + geom_sf(aes(fill = dda))
 ```
@@ -92,19 +94,13 @@ There are a number of inbuilt functions in the grainchanger package, with their 
 
 ```{r functions, echo = FALSE}
 function_overview <- data.frame(
-  `Function Name` = c("wm_prop", "wm_classes", "wm_shei", "wm_mean", "nm_shei", "nm_prop", "var_range"),
-  `Description` = c("Calculate the proportion of a given class within the moving window", 
-                    "Calculate the number of classes within the moving window",
-                    "Calculate the Shannon evenness within the moving window", 
-                    "Calculate the mean value within the moving window", 
-                    "Calculate the Shannon evenness within the larger cell",
-                    "Calculate the proportion of a given class within the larger cell",
-                    "Calculate the range of values (can be used with or without a moving window"),
+  `Function Name` = c("prop", "classes", "shei", "mean"),
+  `Description` = c("Calculate the proportion of a given class", 
+                    "Calculate the number of classes",
+                    "Calculate the Shannon evenness", 
+                    "Calculate the range of values"),
   `Additional arguments` = c("lc_class (numeric)", 
                              "",
-                             "lc_class (numeric)",
-                             "", 
-                             "lc_class (numeric)",
                              "lc_class (numeric)",
                              "")
 )
@@ -121,7 +117,7 @@ The `create_torus` function takes as input a square or rectangular landscape and
 ```{r torus}
 torus <- create_torus(cat_ls, 5)
 
-show_landscape(torus)
+show_landscape(torus, discrete = TRUE)
 ```
 
 ## Meta

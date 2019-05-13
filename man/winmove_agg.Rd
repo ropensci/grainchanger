@@ -4,28 +4,39 @@
 \alias{winmove_agg}
 \title{Moving-window data aggregation}
 \usage{
-winmove_agg(g, dat, d, type, fun, is_grid = TRUE, ...)
+winmove_agg(coarse_dat, fine_dat, d, win_fun, agg_fun = "mean",
+  type = c("circle", "Gauss", "rectangle"), is_grid = TRUE,
+  quiet = FALSE, g, dat, fun, ...)
 }
 \arguments{
-\item{g}{the grid across which to calculate the aggregated moving window function
-(raster, SpatialPolygonsDataFrame, or sf object)}
+\item{coarse_dat}{sf, Raster* or Spatial* object. The coarse grain data (response data)
+across which to calculate the aggregated moving window function}
 
-\item{dat}{The raster dataset to aggregate}
+\item{fine_dat}{Raster* object. The fine grain data (predictor / covariate data) to
+aggregate}
 
-\item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the CRS). If
-\code{type=rectangle} the dimension of the rectangle (one or two numbers). If \code{type=Gauss}
-the size of sigma, and optionally another number to determine the size of the matrix
-returned (default is 3 times sigma)}
+\item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the
+CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
+If \code{type=Gauss} the size of sigma, and optionally another number to determine
+the size of the matrix returned (default is 3 times sigma)}
 
-\item{type}{The shape of the moving window}
+\item{win_fun}{character. The function to apply to the moving window. The function fun
+should take multiple numbers, and return a single number. For example mean, modal,
+min or max. It should also accept a na.rm argument (or ignore it, e.g. as one of the
+'dots' arguments. For example, length will fail, but function(x,
+...){na.omit(length(x))} works. See Details}
 
-\item{fun}{The function to apply. The function fun should take multiple numbers, and
-return a single number. For example mean, modal, min or max. It should also accept a
-na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
-will fail, but function(x, ...){na.omit(length(x))} works. See Details}
+\item{agg_fun}{character. The function by which to aggregate. By default this is set to
+\code{mean}}
 
-\item{is_grid}{Use \code{TRUE} if \code{g} contains only rectangular cells (i.e. a
-grid). If \code{g} is any other polygon file, this should be set to false}
+\item{type}{character. The shape of the moving window}
+
+\item{is_grid}{logical. Use \code{TRUE} (default) if \code{g} contains only rectangular
+cells (i.e. a grid). If \code{g} is any other polygon file, this should be set to
+false}
+
+\item{quiet}{logical. If \code{FALSE} (default) and \code{is_grid == TRUE} the user
+gets a warning that the aggregation assumes all cells are rectangular}
 
 \item{...}{further arguments passed to or from other methods}
 }
@@ -33,17 +44,17 @@ grid). If \code{g} is any other polygon file, this should be set to false}
 Numeric vector containing moving window values calculated for each grid cell
 }
 \description{
-Calculate the mean moving window value for a given radius, shape and function for each cell
-in a larger resolution grid.
+Calculate the mean moving window value for a given radius, shape and function for each
+cell in a larger resolution grid.
 }
 \details{
-\code{grainchanger} has several built-in functions. Functions currently included are:
-\itemize{
-\item \code{wm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
-\item \code{wm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
-\item \code{wm_classes} - Unique number of classes in a categorical landscape
-\item \code{var_range} - Range (max - min)
-}
+\code{grainchanger} has several built-in functions. Functions currently
+  included are: \itemize{ 
+     \item \code{shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
+     \item \code{prop} - Proportion, requires the additional argument \code{lc_class} (scalar) 
+     \item \code{classes} - Unique number of classes in a categorical landscape 
+     \item \code{var_range} - Range (max - min) 
+  }
 }
 \examples{
 # load required data
