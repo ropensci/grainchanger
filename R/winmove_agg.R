@@ -98,15 +98,21 @@ winmove_agg <- function(coarse_dat,
   }
 
   out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, d, type, win_fun, agg_fun, ...) {
-    grid_buffer <- sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d / 2)
-    grid_buffer <- sf::st_geometry(grid_buffer)
-    grid_buffer <- sf::st_sf(grid_buffer)
-    dat_cell <- raster::crop(fine_dat, grid_buffer)  
-    if(!is_grid) {
-      dat_cell <- raster::mask(dat_cell, grid_buffer)   # mask is slower, but needs to be used if polygons are not rectangular
+    grid_buffer <- sf::st_sf(
+      sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d / 2)
+    )
+    #grid_buffer <- sf::st_geometry(grid_buffer)
+    if(is_grid) {
+      get(agg_fun)(raster::values(
+        winmove(raster::crop(fine_dat, grid_buffer), 
+                d, type, win_fun, lc_class)
+      ), na.rm = TRUE)
+    } else {
+      get(agg_fun)(raster::values(
+        winmove(raster::mask(raster::crop(fine_dat, grid_buffer), grid_buffer), 
+                d, type, win_fun, lc_class)
+      ), na.rm = TRUE)
     }
-    winmove_cellr <- winmove(dat_cell, d, type, win_fun, ...)
-    get(agg_fun)(raster::values(winmove_cellr), na.rm = TRUE)
   }, fine_dat, d, type, win_fun, agg_fun, ...)
 
   return(out)
