@@ -99,7 +99,9 @@ winmove_agg <- function(coarse_dat,
 
   out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, d, type, win_fun, agg_fun, ...) {
     grid_buffer <- sf::st_sf(
-      sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d / 2)
+      sf::st_geometry(
+          sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d / 2)
+      )
     )
     #grid_buffer <- sf::st_geometry(grid_buffer)
     if(is_grid) {
@@ -110,7 +112,7 @@ winmove_agg <- function(coarse_dat,
     } else {
       get(agg_fun)(raster::values(
         winmove(raster::mask(raster::crop(fine_dat, grid_buffer), grid_buffer), 
-                d, type, win_fun, lc_class)
+                d, type, win_fun, ...)
       ), na.rm = TRUE)
     }
   }, fine_dat, d, type, win_fun, agg_fun, ...)
