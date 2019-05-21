@@ -4,8 +4,8 @@
 \alias{winmove_agg}
 \title{Moving-window data aggregation}
 \usage{
-winmove_agg(coarse_dat, fine_dat, d, win_fun, agg_fun = "mean",
-  type = c("circle", "Gauss", "rectangle"), is_grid = TRUE,
+winmove_agg(coarse_dat, fine_dat, d, type = c("circle", "Gauss",
+  "rectangle"), win_fun, agg_fun = "mean", is_grid = TRUE,
   quiet = FALSE, g, dat, fun, ...)
 }
 \arguments{
@@ -20,6 +20,8 @@ CRS). If \code{type=rectangle} the dimension of the rectangle (one or two number
 If \code{type=Gauss} the size of sigma, and optionally another number to determine
 the size of the matrix returned (default is 3 times sigma)}
 
+\item{type}{character. The shape of the moving window}
+
 \item{win_fun}{character. The function to apply to the moving window. The function fun
 should take multiple numbers, and return a single number. For example mean, modal,
 min or max. It should also accept a na.rm argument (or ignore it, e.g. as one of the
@@ -28,8 +30,6 @@ min or max. It should also accept a na.rm argument (or ignore it, e.g. as one of
 
 \item{agg_fun}{character. The function by which to aggregate. By default this is set to
 \code{mean}}
-
-\item{type}{character. The shape of the moving window}
 
 \item{is_grid}{logical. Use \code{TRUE} (default) if \code{g} contains only rectangular
 cells (i.e. a grid). If \code{g} is any other polygon file, this should be set to
