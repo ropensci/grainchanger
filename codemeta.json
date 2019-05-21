@@ -61,6 +61,19 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "version": ">= 0.8-0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
       "provider": {
@@ -219,7 +232,7 @@
   ],
   "releaseNotes": "https://github.com/laurajanegraham/grainchanger/blob/master/NEWS.md",
   "readme": "https://github.com/laurajanegraham/grainchanger/blob/master/README.md",
-  "fileSize": "363.169KB",
+  "fileSize": "316.865KB",
   "contIntegration": [
     "https://travis-ci.org/laurajanegraham/grainchanger",
     "https://codecov.io/gh/laurajanegraham/grainchanger?branch=master"

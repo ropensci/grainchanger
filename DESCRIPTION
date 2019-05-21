@@ -30,6 +30,7 @@ Imports:
     methods,
     usethis
 Suggests: 
+    dplyr (>= 0.8-0),
     testthat,
     spelling,
     knitr,

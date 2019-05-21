@@ -66,12 +66,7 @@ create_torus <- function(dat, r) {
 
   #   5. Fix resolution
   # specify resolution ----
-  raster::extent(dat_pad) <- c(
-    0,
-    ncol(dat_pad) * resolution,
-    0,
-    nrow(dat_pad) * resolution
-  )
+  raster::extent(dat_pad) <- raster::extent(dat) + 2*r
 
   return(dat_pad)
 }
