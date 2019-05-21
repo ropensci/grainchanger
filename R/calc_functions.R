@@ -45,7 +45,7 @@ nm_shei <- function(dat, lc_class) {
 }
 
 #' @noRd
-nm_prop <- function(dat, lc_class, na.rm = TRUE) {
+nm_prop <- function(dat, lc_class) {
   if (class(dat) == "RasterLayer") {
     dat <- raster::values(dat)
   }
