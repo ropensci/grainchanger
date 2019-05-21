@@ -12,3 +12,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^grainchanger\.Rproj$
+^codemeta\.json$
+^appveyor\.yml$
