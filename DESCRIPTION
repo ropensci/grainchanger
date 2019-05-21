@@ -27,7 +27,8 @@ Imports:
     sf,
     furrr,
     checkmate,
-    methods
+    methods,
+    usethis
 Suggests: 
     testthat,
     spelling,

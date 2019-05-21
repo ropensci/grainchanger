@@ -2,8 +2,8 @@
 # proportion
 wm_prop <- function(dat, d, type, lc_class) {
   if(sum(raster::values(dat), na.rm = TRUE) > 0) {
-    w <- raster::focalWeight(dat, d, type)
-    return(raster::focal(dat == lc_class, w))
+    return(raster::focal(dat == lc_class,
+                         raster::focalWeight(dat, d, type)))
   }
   else {
     return(0)
@@ -37,11 +37,11 @@ wm_mean <- function(dat, d, type) {
 #' @noRd
 nm_shei <- function(dat, lc_class) {
   dat <- na.omit(dat)
-  H <- sapply(lc_class, function(i) {
+  H <- lapply(lc_class, function(i) {
     p <- sum(dat == i) / raster::ncell(dat)
     -1 * p * log(p)
   })
-  sum(H, na.rm = TRUE) / log(length(lc_class))
+  sum(unlist(H), na.rm = TRUE) / log(length(lc_class))
 }
 
 #' @noRd

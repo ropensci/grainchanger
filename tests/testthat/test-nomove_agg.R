@@ -1,7 +1,10 @@
 context("nomove_agg")
 
 test_that("shei calculation is correct", {
-  d <- nomove_agg(g_sf, cat_ls, "shei", lc_class = 0:3)
+  d <- nomove_agg(coarse_dat = g_sf, 
+                  fine_dat = cat_ls, 
+                  fun = "shei", 
+                  lc_class = 0:3)
   expect_equal(d, nm_agg_shei)
 })
 

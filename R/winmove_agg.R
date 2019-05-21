@@ -86,7 +86,10 @@ winmove_agg <- function(coarse_dat,
   checkmate::assert_class(fine_dat, "RasterLayer")
   checkmate::assert_numeric(d)
 
-  if(is_grid & !quiet) warning("WARNING: aggregation assumes all cells are rectangular; set is_grid = FALSE if coarse_dat is not a grid\n")
+  if(is_grid & !quiet) {
+    usethis::ui_line("aggregation assumes all cells are rectangular")
+    usethis::ui_todo("set `is_grid = FALSE` if coarse_dat is not a grid")
+  }
   
   # convert raster to grid
   if ("RasterLayer" %in% class(coarse_dat)) {
@@ -107,7 +110,7 @@ winmove_agg <- function(coarse_dat,
     if(is_grid) {
       get(agg_fun)(raster::values(
         winmove(raster::crop(fine_dat, grid_buffer), 
-                d, type, win_fun, lc_class)
+                d, type, win_fun, ...)
       ), na.rm = TRUE)
     } else {
       get(agg_fun)(raster::values(

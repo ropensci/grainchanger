@@ -52,12 +52,12 @@ nomove_agg <- function(coarse_dat,
   
   # code to deal with old parameter names
   if (!missing(g)) {
-    warning("use 'coarse_dat' instead of 'g'\n")
+    usethis::ui_warn("use 'coarse_dat' instead of 'g'\n")
     coarse_dat <- g
   }
   
   if (!missing(dat)) {
-    warning("use 'fine_dat' instead of 'dat'\n")
+    usethis::ui_warn("use 'fine_dat' instead of 'dat'\n")
     fine_dat <- dat
   }
 
@@ -69,7 +69,10 @@ nomove_agg <- function(coarse_dat,
 
   checkmate::assert_class(fine_dat, "RasterLayer")
   
-  if(is_grid & !quiet) warning("WARNING: aggregation assumes all cells are rectangular set is_grid = FALSE if g is not a grid")
+  if(is_grid & !quiet) {
+    usethis::ui_line("aggregation assumes all cells are rectangular")
+    usethis::ui_todo("set `is_grid = FALSE` if coarse_dat is not a grid")
+  }
 
   if (fun == "shei") fun <- "nm_shei"
   if (fun == "prop") fun <- "nm_prop"
@@ -88,17 +91,18 @@ nomove_agg <- function(coarse_dat,
 
   # aggregation to a polygon does some cropping and calculating
   if ("sf" %in% class(coarse_dat)) {
-    out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, dat, fun, ...) {
+    out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, fun, ...) {
       grid_cell <- sf::st_geometry(grid_cell)
       grid_cell_sf <- sf::st_sf(grid_cell)
-      dat_cell <- raster::crop(dat, grid_cell_sf)  
+      dat_cell <- raster::crop(fine_dat, grid_cell_sf)  
       if(!is_grid) {
         # some concerns here that when the input data contains NA, it will be removed from the
         # calculation of total area. Needs thought.
         dat_cell <- raster::mask(dat_cell, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
-        dat_cell <- raster::values(dat_cell)
-        dat_cell <- na.omit(dat_cell)
       }
+      dat_cell <- raster::values(dat_cell)
+      dat_cell <- na.omit(dat_cell)
+      
       value <- get(fun)(dat_cell, ...)
     }, fine_dat, fun, ...)
   }
