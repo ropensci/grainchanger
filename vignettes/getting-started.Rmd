@@ -80,7 +80,7 @@ function_overview <- data.frame(
                     "Calculate the mean value within the moving window", 
                     "Calculate the Shannon evenness within the larger cell",
                     "Calculate the proportion of a given class within the larger cell",
-                    "Calculate the range of values (can be used with or without a moving window"),
+                    "Calculate the range of values (can be used with or without a moving window)"),
   `Additional arguments` = c("lc_class (numeric)", 
                              "",
                              "lc_class (numeric)",
