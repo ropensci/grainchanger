@@ -5,9 +5,9 @@
 #' landscapes).
 #'
 #' @param dat The raster dataset to pad
-#' @param r The radius by which to pad the raster
+#' @param npad The amount by which to pad the raster (in the same units as the raster)
 #'
-#' @return raster. Original raster padded by radius r with torus effect
+#' @return raster. Original raster padded by r cells with torus effect
 #'
 #' @keywords torus, raster
 #'
@@ -16,13 +16,18 @@
 #' d <- create_torus(dat = cat_ls, r = 5)
 #' @export
 
-create_torus <- function(dat, r) {
+create_torus <- function(dat, npad) {
+  # code to deal with old parameter names
+  if (!missing(r)) {
+    usethis::ui_warn("use `dpad` instead of `r`")
+    dpad <- r
+  }
   # This function takes as input a raster and an integer radius value.
   checkmate::assert_class(dat, "RasterLayer")
-  checkmate::assert_numeric(r)
+  checkmate::assert_numeric(dpad)
 
   resolution <- raster::res(dat)[1]
-  r <- r / resolution
+  dpad <- ceiling(dpad / resolution)
 
   #   1. Convert raster to matrix
   dat_m <- raster::as.matrix(dat)
@@ -30,35 +35,35 @@ create_torus <- function(dat, r) {
   ncols <- ncol(dat_m)
 
   #   2. Create new matrix of dim + radius*2
-  dat_pad_m <- matrix(NA, nrow = nrows + 2 * r, ncol = ncols + 2 * r)
+  dat_pad_m <- matrix(NA, nrow = nrows + 2 * dpad, ncol = ncols + 2 * dpad)
 
   #   3. Infill with values from the matrix
   # top
-  dat_pad_m[1:r, (r + 1):(ncols + r)] <- 
-    dat_m[(nrows - r + 1):nrows, ]
+  dat_pad_m[1:dpad, (dpad + 1):(ncols + dpad)] <- 
+    dat_m[(nrows - dpad + 1):nrows, ]
   # left
-  dat_pad_m[(r + 1):(nrows + r), 1:r] <- 
-    dat_m[, (ncols - r + 1):ncols]
+  dat_pad_m[(dpad + 1):(nrows + dpad), 1:dpad] <- 
+    dat_m[, (ncols - dpad + 1):ncols]
   # bottom
-  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), (r + 1):(ncols + r)] <- 
-    dat_m[1:r, ]
+  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), (dpad + 1):(ncols + dpad)] <- 
+    dat_m[1:dpad, ]
   # right
-  dat_pad_m[(r + 1):(nrows + r), (ncols + r + 1):(ncols + 2 * r)] <- 
-    dat_m[, 1:r]
+  dat_pad_m[(dpad + 1):(nrows + dpad), (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
+    dat_m[, 1:dpad]
   # top left corner
-  dat_pad_m[1:r, 1:r] <- 
-    dat_m[(nrows - r + 1):nrows, (ncols - r + 1):ncols]
+  dat_pad_m[1:dpad, 1:dpad] <- 
+    dat_m[(nrows - dpad + 1):nrows, (ncols - dpad + 1):ncols]
   # top right corner
-  dat_pad_m[1:r, (ncols + r + 1):(ncols + 2 * r)] <- 
-    dat_m[(nrows - r + 1):nrows, 1:r]
+  dat_pad_m[1:dpad, (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
+    dat_m[(nrows - dpad + 1):nrows, 1:dpad]
   # bottom left corner
-  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), 1:r] <- 
-    dat_m[1:r, (ncols - r + 1):ncols]
+  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), 1:dpad] <- 
+    dat_m[1:dpad, (ncols - dpad + 1):ncols]
   # bottom right corner
-  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), (ncols + r + 1):(ncols + 2 * r)] <- 
-    dat_m[1:r, 1:r]
+  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
+    dat_m[1:dpad, 1:dpad]
   # centre
-  dat_pad_m[(r + 1):(nrows + r), (r + 1):(ncols + r)] <- 
+  dat_pad_m[(dpad + 1):(nrows + dpad), (dpad + 1):(ncols + dpad)] <- 
     dat_m
 
   #   4. convert to raster
@@ -66,7 +71,7 @@ create_torus <- function(dat, r) {
 
   #   5. Fix resolution
   # specify resolution ----
-  raster::extent(dat_pad) <- raster::extent(dat) + 2*r
+  raster::extent(dat_pad) <- raster::extent(dat) + 2*dpad
 
   return(dat_pad)
 }
