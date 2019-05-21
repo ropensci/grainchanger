@@ -34,23 +34,32 @@ create_torus <- function(dat, r) {
 
   #   3. Infill with values from the matrix
   # top
-  dat_pad_m[1:r, (r + 1):(ncols + r)] <- dat_m[(nrows - r + 1):nrows, ]
+  dat_pad_m[1:r, (r + 1):(ncols + r)] <- 
+    dat_m[(nrows - r + 1):nrows, ]
   # left
-  dat_pad_m[(r + 1):(nrows + r), 1:r] <- dat_m[, (ncols - r + 1):ncols]
+  dat_pad_m[(r + 1):(nrows + r), 1:r] <- 
+    dat_m[, (ncols - r + 1):ncols]
   # bottom
-  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), (r + 1):(ncols + r)] <- dat_m[1:r, ]
+  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), (r + 1):(ncols + r)] <- 
+    dat_m[1:r, ]
   # right
-  dat_pad_m[(r + 1):(nrows + r), (ncols + r + 1):(ncols + 2 * r)] <- dat_m[, 1:r]
+  dat_pad_m[(r + 1):(nrows + r), (ncols + r + 1):(ncols + 2 * r)] <- 
+    dat_m[, 1:r]
   # top left corner
-  dat_pad_m[1:r, 1:r] <- dat_m[(nrows - r + 1):nrows, (ncols - r + 1):ncols]
+  dat_pad_m[1:r, 1:r] <- 
+    dat_m[(nrows - r + 1):nrows, (ncols - r + 1):ncols]
   # top right corner
-  dat_pad_m[1:r, (ncols + r + 1):(ncols + 2 * r)] <- dat_m[(nrows - r + 1):nrows, 1:r]
+  dat_pad_m[1:r, (ncols + r + 1):(ncols + 2 * r)] <- 
+    dat_m[(nrows - r + 1):nrows, 1:r]
   # bottom left corner
-  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), 1:r] <- dat_m[1:r, (ncols - r + 1):ncols]
+  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), 1:r] <- 
+    dat_m[1:r, (ncols - r + 1):ncols]
   # bottom right corner
-  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), (ncols + r + 1):(ncols + 2 * r)] <- dat_m[1:r, 1:r]
+  dat_pad_m[(nrows + r + 1):(nrows + 2 * r), (ncols + r + 1):(ncols + 2 * r)] <- 
+    dat_m[1:r, 1:r]
   # centre
-  dat_pad_m[(r + 1):(nrows + r), (r + 1):(ncols + r)] <- dat_m
+  dat_pad_m[(r + 1):(nrows + r), (r + 1):(ncols + r)] <- 
+    dat_m
 
   #   4. convert to raster
   dat_pad <- raster::raster(dat_pad_m)
