@@ -57,25 +57,8 @@ winmove_agg <- function(coarse_dat,
                         win_fun, 
                         agg_fun = "mean", 
                         is_grid = TRUE, 
-                        quiet = FALSE, 
-                        g, dat, fun,
+                        quiet = FALSE,
                         ...) {
-  
-  # code to deal with old parameter names
-  if (!missing(g)) {
-    warning("use 'coarse_dat' instead of 'g'\n")
-    coarse_dat <- g
-  }
-  
-  if (!missing(dat)) {
-    warning("use 'fine_dat' instead of 'dat'\n")
-    fine_dat <- dat
-  }
-  
-  if (!missing(fun)) {
-    warning("use 'win_fun' instead of 'fun'\n")
-    win_fun <- fun
-  }
   
   checkmate::assert(
     checkmate::check_class(coarse_dat, "RasterLayer"),
@@ -108,15 +91,16 @@ winmove_agg <- function(coarse_dat,
     )
     #grid_buffer <- sf::st_geometry(grid_buffer)
     if(is_grid) {
-      get(agg_fun)(raster::values(
-        winmove(raster::crop(fine_dat, grid_buffer), 
-                d, type, win_fun, ...)
-      ), na.rm = TRUE)
+      dat_cell <- raster::crop(fine_dat, grid_buffer)
+      dat_cell <- raster::extend(fine_dat, grid_buffer)
+      win_cell <- winmove(dat_cell, d, type, win_fun, ...)
+      get(agg_fun)(raster::values(win_cell), na.rm = TRUE)
     } else {
-      get(agg_fun)(raster::values(
-        winmove(raster::mask(raster::crop(fine_dat, grid_buffer), grid_buffer), 
-                d, type, win_fun, ...)
-      ), na.rm = TRUE)
+      dat_cell <- raster::crop(fine_dat, grid_buffer)
+      dat_cell <- raster::extend(fine_dat, grid_buffer)
+      dat_cell <- raster::mask(dat_cell, grid_buffer)
+      win_cell <- winmove(dat_cell, d, type, win_fun, ...)
+      get(agg_fun)(raster::values(win_cell), na.rm = TRUE)
     }
   }, fine_dat, d, type, win_fun, agg_fun, ...)
 

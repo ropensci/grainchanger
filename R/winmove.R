@@ -2,13 +2,13 @@
 #'
 #' Smooth a raster surface using a moving window with a given function, radius and shape.
 #'
-#' @param dat The raster dataset on which to calculate the moving window function
+#' @param fine_dat The raster dataset on which to calculate the moving window function
 #' @param d numeric. If \code{type=circle}, the radius of the circle (in units of the CRS). If
 #'  \code{type=rectangle} the dimension of the rectangle (one or two numbers). If \code{type=Gauss}
 #'  the size of sigma, and optionally another number to determine the size of the matrix
 #'  returned (default is 3 times sigma)
 #' @param type The shape of the moving window
-#' @param fun The function to apply. The function fun should take multiple numbers, and
+#' @param win_fun The function to apply. The function fun should take multiple numbers, and
 #'  return a single number. For example mean, modal, min or max. It should also accept a
 #'  na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
 #'  will fail, but function(x, ...){na.omit(length(x))} works. See Details
@@ -40,6 +40,7 @@
 #' @export
 
 winmove <- function(fine_dat, d, type, win_fun, ...) {
+  
   checkmate::assert_class(fine_dat, "RasterLayer")
   checkmate::assert_numeric(d)
 
@@ -49,7 +50,7 @@ winmove <- function(fine_dat, d, type, win_fun, ...) {
   }
 
   if (win_fun == "mean") {
-    out <- wm_mean(fine_dat, d, type)
+    out <- wm_mean(fine_dat, d, type, ...)
     return(out)
   }
 

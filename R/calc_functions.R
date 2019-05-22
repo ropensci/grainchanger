@@ -28,15 +28,24 @@ wm_shei <- function(dat, d, type, lc_class) {
 }
 
 #' @noRd
-# mean (it's quicker using weighted sum than mean)
-wm_mean <- function(dat, d, type) {
-  w <- raster::focalWeight(dat, d, type)
-  raster::focal(dat, w)
+# mean (it's quicker using weighted sum than mean, but mean needed if na.rm required)
+wm_mean <- function(dat, d, type, ...) {
+  args <- list(...)
+  exist <- "na.rm" %in% names(args)
+  if(!exist) na.rm = FALSE
+  
+  if(na.rm) {
+    w <- ifelse(raster::focalWeight(dat, d, type) == 0, 0, 1)
+    return(raster::focal(x = dat, w = w, fun = mean, na.rm = TRUE))
+  } else {
+    w <- raster::focalWeight(dat, d, type)
+    return(raster::focal(dat, w))
+  }
 }
 
 #' @noRd
 nm_shei <- function(dat, lc_class) {
-  dat <- na.omit(dat)
+  dat <- stats::na.omit(dat)
   H <- lapply(lc_class, function(i) {
     p <- sum(dat == i) / raster::ncell(dat)
     -1 * p * log(p)
