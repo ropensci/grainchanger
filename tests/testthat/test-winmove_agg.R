@@ -66,5 +66,5 @@ test_that("winmove_agg can take different grid inputs", {
                         d = 10, 
                         type = "rectangle", 
                         win_fun = "mean",
-                        agg_fun = "var"), "numeric")
+                        agg_fun = "var"), "RasterLayer")
 })

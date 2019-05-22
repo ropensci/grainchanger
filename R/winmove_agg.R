@@ -76,6 +76,7 @@ winmove_agg <- function(coarse_dat,
   
   # convert raster to grid
   if ("RasterLayer" %in% class(coarse_dat)) {
+    ras <- coarse_dat
     coarse_dat <- methods::as(coarse_dat, "SpatialPolygonsDataFrame")
   }
 
@@ -104,5 +105,8 @@ winmove_agg <- function(coarse_dat,
     }
   }, fine_dat, d, type, win_fun, agg_fun, ...)
 
+  if(exists("ras")) {
+    out <- raster::raster(matrix(out, nrow = 5, ncol = 5, byrow = TRUE))
+  }
   return(out)
 }
