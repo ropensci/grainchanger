@@ -92,12 +92,12 @@ winmove_agg <- function(coarse_dat,
     #grid_buffer <- sf::st_geometry(grid_buffer)
     if(is_grid) {
       dat_cell <- raster::crop(fine_dat, grid_buffer)
-      dat_cell <- raster::extend(fine_dat, grid_buffer)
+      dat_cell <- raster::extend(dat_cell, grid_buffer)
       win_cell <- winmove(dat_cell, d, type, win_fun, ...)
       get(agg_fun)(raster::values(win_cell), na.rm = TRUE)
     } else {
       dat_cell <- raster::crop(fine_dat, grid_buffer)
-      dat_cell <- raster::extend(fine_dat, grid_buffer)
+      dat_cell <- raster::extend(dat_cell, grid_buffer)
       dat_cell <- raster::mask(dat_cell, grid_buffer)
       win_cell <- winmove(dat_cell, d, type, win_fun, ...)
       get(agg_fun)(raster::values(win_cell), na.rm = TRUE)
