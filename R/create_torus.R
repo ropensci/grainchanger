@@ -5,7 +5,7 @@
 #' landscapes).
 #'
 #' @param dat The raster dataset to pad
-#' @param npad The amount by which to pad the raster (in the same units as the raster)
+#' @param dpad The amount by which to pad the raster (in the same units as the raster)
 #'
 #' @return raster. Original raster padded by r cells with torus effect
 #'
@@ -13,16 +13,12 @@
 #'
 #' @examples
 #' data(cat_ls)
-#' d <- create_torus(dat = cat_ls, r = 5)
+#' d <- create_torus(dat = cat_ls, dpad = 5)
 #' @export
 
-create_torus <- function(dat, npad) {
-  # code to deal with old parameter names
-  if (!missing(r)) {
-    usethis::ui_warn("use `dpad` instead of `r`")
-    dpad <- r
-  }
-  # This function takes as input a raster and an integer radius value.
+create_torus <- function(dat, dpad) {
+  
+  # This function takes as input a raster and an integer distance value.
   checkmate::assert_class(dat, "RasterLayer")
   checkmate::assert_numeric(dpad)
 

@@ -4,12 +4,12 @@
 \alias{create_torus}
 \title{Pad a raster by a specified radius}
 \usage{
-create_torus(dat, npad)
+create_torus(dat, dpad)
 }
 \arguments{
 \item{dat}{The raster dataset to pad}
 
-\item{npad}{The amount by which to pad the raster (in the same units as the raster)}
+\item{dpad}{The amount by which to pad the raster (in the same units as the raster)}
 }
 \value{
 raster. Original raster padded by r cells with torus effect
@@ -21,7 +21,7 @@ landscapes).
 }
 \examples{
 data(cat_ls)
-d <- create_torus(dat = cat_ls, r = 5)
+d <- create_torus(dat = cat_ls, dpad = 5)
 }
 \keyword{raster}
 \keyword{torus,}
