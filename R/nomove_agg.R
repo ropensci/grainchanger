@@ -6,7 +6,7 @@
 #'   data) across which to calculate the aggregated function
 #' @param fine_dat Raster* object. Raster* object. The fine grain data (predictor /
 #'   covariate data) to aggregate
-#' @param fun character. The function to apply. The function fun should take multiple numbers, and
+#' @param agg_fun character. The function to apply. The function fun should take multiple numbers, and
 #'   return a single number. For example mean, modal, min or max. It should also accept a
 #'   na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example,
 #'   length will fail, but function(x, ...){na.omit(length(x))} works. See Details
@@ -45,22 +45,14 @@
 
 nomove_agg <- function(coarse_dat, 
                        fine_dat, 
-                       fun, 
+                       agg_fun, 
                        is_grid = TRUE, 
                        quiet = FALSE, 
-                       g, dat, ...) {
+                       ...) {
   
-  # code to deal with old parameter names
-  if (!missing(g)) {
-    usethis::ui_warn("use 'coarse_dat' instead of 'g'\n")
-    coarse_dat <- g
-  }
+  if (agg_fun == "shei") agg_fun <- "nm_shei"
+  if (agg_fun == "prop") agg_fun <- "nm_prop"
   
-  if (!missing(dat)) {
-    usethis::ui_warn("use 'fine_dat' instead of 'dat'\n")
-    fine_dat <- dat
-  }
-
   checkmate::assert(
     checkmate::check_class(coarse_dat, "RasterLayer"),
     checkmate::check_class(coarse_dat, "SpatialPolygonsDataFrame"),
@@ -68,21 +60,19 @@ nomove_agg <- function(coarse_dat,
   )
 
   checkmate::assert_class(fine_dat, "RasterLayer")
+  checkmate::assert_function(get(agg_fun))
   
   if(is_grid & !quiet) {
     usethis::ui_line("aggregation assumes all cells are rectangular")
     usethis::ui_todo("set `is_grid = FALSE` if coarse_dat is not a grid")
   }
 
-  if (fun == "shei") fun <- "nm_shei"
-  if (fun == "prop") fun <- "nm_prop"
-  
   # raster aggregation just acts as a wrapper for raster::aggregate (but it's less difficult to work out)
   if ("RasterLayer" %in% class(coarse_dat)) {
     a <- raster::res(coarse_dat) / raster::res(fine_dat)
     fun_args <- list(...)
     out <- raster::aggregate(fine_dat, fact = a, fun = function(x, ...) {
-      do.call(get(fun), c(list(x), fun_args))
+      do.call(get(agg_fun), c(list(x), fun_args))
     })
   }
 
@@ -91,7 +81,7 @@ nomove_agg <- function(coarse_dat,
 
   # aggregation to a polygon does some cropping and calculating
   if ("sf" %in% class(coarse_dat)) {
-    out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, fun, ...) {
+    out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, agg_fun, ...) {
       grid_cell <- sf::st_geometry(grid_cell)
       grid_cell_sf <- sf::st_sf(grid_cell)
       dat_cell <- raster::crop(fine_dat, grid_cell_sf)  
@@ -101,10 +91,10 @@ nomove_agg <- function(coarse_dat,
         dat_cell <- raster::mask(dat_cell, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
       }
       dat_cell <- raster::values(dat_cell)
-      dat_cell <- na.omit(dat_cell)
+      dat_cell <- stats::na.omit(dat_cell)
       
-      value <- get(fun)(dat_cell, ...)
-    }, fine_dat, fun, ...)
+      value <- get(agg_fun)(dat_cell, ...)
+    }, fine_dat, agg_fun, ...)
   }
 
   return(out)
