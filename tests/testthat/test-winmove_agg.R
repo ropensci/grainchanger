@@ -3,7 +3,7 @@ context("winmove_agg")
 test_that("shei calculation is correct", {
   d <- winmove_agg(coarse_dat = g_sf, 
                    fine_dat = cat_ls, 
-                   d = 5, 
+                   d = 20, 
                    type = "rectangle", 
                    win_fun = "shei",
                    lc_class = 0:3)
@@ -11,12 +11,25 @@ test_that("shei calculation is correct", {
 })
 
 test_that("mean calculation is correct", {
-  d <- winmove_agg(coarse_dat = g_sf, 
+  d <- winmove_agg(coarse_dat = g_raster, 
                    fine_dat = cont_ls, 
-                   d = 5, 
+                   d = 20, 
                    type = "rectangle", 
-                   win_fun = "mean")
+                   win_fun = "mean",
+                   agg_fun = "var")
   expect_equal(d, wm_agg_mean)
+})
+
+
+test_that("mean calculation is correct with na.rm = TRUE", {
+  d <- winmove_agg(coarse_dat = g_raster, 
+                   fine_dat = cont_ls, 
+                   d = 10, 
+                   type = "circle", 
+                   win_fun = "mean",
+                   agg_fun = "sd",
+                   na.rm = TRUE)
+  expect_equal(d, wm_agg_mean_na)
 })
 
 

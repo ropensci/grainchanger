@@ -12,20 +12,35 @@ g_sf <- sf::st_as_sf(g_sf)
 # data for testing output still the same
 nm_agg_shei <- nomove_agg(g_sf, cat_ls, "shei", lc_class = 0:3)
 
-nm_agg_mean <- nomove_agg(g_sf, cont_ls, "mean")
+nm_agg_mean <- nomove_agg(g_raster, cont_ls, "mean")
 
-wm_agg_shei <- winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
+nm_agg_prop <- nomove_agg(g_sp, cat_ls, "prop", lc_class = 1)
 
-wm_agg_mean <- winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
+nm_agg_range <- nomove_agg(g_sf, cont_ls, "var_range")
+
+fn <- function(x, na.rm = TRUE) {
+  sum(2*x)
+}
+
+nm_agg_user <- nomove_agg(g_sp, cat_ls, "fn")
+
+wm_agg_shei <- winmove_agg(g_sf, cat_ls, 20, "rectangle", "shei", lc_class = 0:3)
+
+wm_agg_mean <- winmove_agg(g_raster, cont_ls, 20, "rectangle", "mean", "var")
+
+wm_agg_mean_na <- winmove_agg(g_raster, cont_ls, 10, "circle", "mean", "sd", na.rm = TRUE)
 
 wm_shei_dat <- winmove(cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
 
-wm_mean_dat <- winmove(cont_ls, 5, "rectangle", "mean")
+wm_mean_dat <- winmove(cont_ls, 2, "Gauss", "mean")
 
-torus <- create_torus(cat_ls, 5)
+wm_mean_na_dat <- winmove(cont_ls, 15, "circle", "mean", na.rm = TRUE)
+
+torus_5 <- create_torus(cat_ls, 5)
+torus_20 <- create_torus(cont_ls, 20)
 
 # data for examples
 usethis::use_data(cont_ls, cat_ls, g_sf, overwrite = TRUE, compress = "bzip2")
 
 # internal data
-usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_mean, wm_agg_shei, wm_agg_mean, wm_shei_dat, wm_mean_dat, torus, internal = TRUE, overwrite = TRUE, compress = "bzip2")
+usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_mean, nm_agg_prop, nm_agg_range, nm_agg_user, wm_agg_shei, wm_agg_mean, wm_agg_mean_na, wm_shei_dat, wm_mean_dat, wm_mean_na_dat, torus_5, torus_20, internal = TRUE, overwrite = TRUE, compress = "bzip2")
