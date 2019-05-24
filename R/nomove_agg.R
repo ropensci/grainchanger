@@ -54,6 +54,7 @@ nomove_agg <- function(coarse_dat,
     checkmate::check_class(coarse_dat, "RasterLayer"),
     checkmate::check_class(coarse_dat, "SpatialPolygonsDataFrame"),
     checkmate::check_class(coarse_dat, "sf"),
+    checkmate::check_class(coarse_dat, "sfc")
   )
 
   checkmate::assert_class(fine_dat, "RasterLayer")
@@ -76,24 +77,23 @@ nomove_agg <- function(coarse_dat,
   if ("SpatialPolygonsDataFrame" %in% class(coarse_dat)) coarse_dat <- sf::st_as_sf(coarse_dat)
   
   # aggregation to a polygon does some cropping and calculating
-  if ("sf" %in% class(coarse_dat)) {
-    out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, agg_fun, ...) {
-      grid_cell <- sf::st_geometry(grid_cell)
-      grid_cell_sf <- sf::st_sf(grid_cell)
-      dat_cell <- raster::crop(fine_dat, grid_cell_sf)  
-      if(!is_grid) {
-        # some concerns here that when the input data contains NA, it will be removed from the
-        # calculation of total area. Needs thought.
-        dat_cell <- raster::mask(dat_cell, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
-      }
-      dat_cell <- raster::values(dat_cell)
-      dat_cell <- stats::na.omit(dat_cell)
-      
-      # append the nomove class so it picks up the in-built function
-      class(dat_cell) <- append(class(dat_cell), "nomove")
-      value <- agg_fun(dat_cell, ...)
-    }, fine_dat, agg_fun, ...)
-  }
+  
+  out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, agg_fun, ...) {
+    grid_cell <- sf::st_geometry(grid_cell)
+    grid_cell_sf <- sf::st_sf(grid_cell)
+    dat_cell <- raster::crop(fine_dat, grid_cell_sf)  
+    if(!is_grid) {
+      # some concerns here that when the input data contains NA, it will be removed from the
+      # calculation of total area. Needs thought.
+      dat_cell <- raster::mask(dat_cell, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
+    }
+    dat_cell <- raster::values(dat_cell)
+    dat_cell <- stats::na.omit(dat_cell)
+    
+    # append the nomove class so it picks up the in-built function
+    class(dat_cell) <- append(class(dat_cell), "nomove")
+    value <- agg_fun(dat_cell, ...)
+  }, fine_dat, agg_fun, ...)
 
   if(raster_output) {
     raster::values(ras) <- matrix(out, nrow = dim(ras)[1], ncol = dim(ras)[2], byrow = TRUE)

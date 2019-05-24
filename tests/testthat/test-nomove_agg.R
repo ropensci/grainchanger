@@ -24,9 +24,10 @@ test_that("prop calculation is correct", {
 })
 
 test_that("range calculation is correct", {
-  d <- nomove_agg(coarse_dat = g_sf, 
+  d <- nomove_agg(coarse_dat = poly_sf, 
                   fine_dat = cont_ls, 
-                  agg_fun = var_range)
+                  agg_fun = var_range,
+                  is_grid = FALSE)
   expect_equal(d, nm_agg_range)
 })
 

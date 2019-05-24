@@ -63,7 +63,8 @@ winmove_agg <- function(coarse_dat,
   checkmate::assert(
     checkmate::check_class(coarse_dat, "RasterLayer"),
     checkmate::check_class(coarse_dat, "SpatialPolygonsDataFrame"),
-    checkmate::check_class(coarse_dat, "sf")
+    checkmate::check_class(coarse_dat, "sf"),
+    checkmate::check_class(coarse_dat, "sfc")
   )
 
   checkmate::assert_class(fine_dat, "RasterLayer")

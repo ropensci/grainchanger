@@ -10,13 +10,14 @@ test_that("shei calculation is correct", {
   expect_equal(d, wm_agg_shei)
 })
 
-test_that("mean calculation is correct", {
-  d <- winmove_agg(coarse_dat = g_raster, 
+test_that("mean calculation with non-rectangle coarse data is correct", {
+  d <- winmove_agg(coarse_dat = poly_sf, 
                    fine_dat = cont_ls, 
-                   d = 20, 
+                   d = 4, 
                    type = "rectangle", 
                    win_fun = mean,
-                   agg_fun = var)
+                   agg_fun = var,
+                   is_grid = FALSE)
   expect_equal(d, wm_agg_mean)
 })
 
