@@ -23,7 +23,14 @@ test_that("user defined function works", {
   expect_equal(d, wm_user_dat)
 })
 
-
+test_that("prop calculation is correct when lc given does not exist", {
+  d <- winmove(fine_dat = cat_ls, 
+                   d = 5, 
+                   type = "rectangle", 
+                   win_fun = prop,
+                   lc_class = 10)
+  expect_true(all(na.omit(raster::values(d)) == 0))
+})
 
 test_that("output is raster of same resolution as input", {
   d <- winmove(cont_ls, 5, "rectangle", mean)
