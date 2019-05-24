@@ -15,6 +15,14 @@ test_that("mean na.rm = TRUE calculation is correct", {
   expect_equal(d, wm_mean_na_dat)
 })
 
+test_that("user defined function works", {
+  user_fn <- function(x, lc_class, ...) {
+    return(sum(x == lc_class))
+  }
+  d <- winmove(cat_ls, 4, "rectangle", user_fn, lc_class = 2)
+  expect_equal(d, wm_user_dat)
+})
+
 
 
 test_that("output is raster of same resolution as input", {

@@ -8,6 +8,14 @@ test_that("shei calculation is correct", {
   expect_equal(d, nm_agg_shei)
 })
 
+test_that("shdi calculation is correct", {
+  d <- nomove_agg(coarse_dat = g_sf, 
+                  fine_dat = cat_ls, 
+                  agg_fun = shdi, 
+                  lc_class = 1:3)
+  expect_equal(d, nm_agg_shdi)
+})
+
 test_that("mean calculation is correct", {
   d <- nomove_agg(coarse_dat = g_raster, 
                   fine_dat = cont_ls, 

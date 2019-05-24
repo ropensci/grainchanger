@@ -10,6 +10,35 @@ test_that("shei calculation is correct", {
   expect_equal(d, wm_agg_shei)
 })
 
+test_that("shdi calculation is correct", {
+  d <- winmove_agg(coarse_dat = g_sf, 
+                   fine_dat = cat_ls, 
+                   d = 3, 
+                   type = "Gauss", 
+                   win_fun = shdi,
+                   lc_class = 0:3)
+  expect_equal(d, wm_agg_shdi)
+})
+
+test_that("var_range calculation is correct", {
+  d <- winmove_agg(coarse_dat = poly_sf, 
+                   fine_dat = cont_ls, 
+                   d = 3, 
+                   type = "rectangle", 
+                   win_fun = var_range)
+  expect_equal(d, wm_agg_range)
+})
+
+test_that("prop calculation is correct when lc given does not exist", {
+  d <- winmove_agg(coarse_dat = g_sf, 
+                   fine_dat = cat_ls, 
+                   d = 5, 
+                   type = "rectangle", 
+                   win_fun = prop,
+                   lc_class = 10)
+  expect_true(all(d == 0))
+})
+
 test_that("mean calculation with non-rectangle coarse data is correct", {
   d <- winmove_agg(coarse_dat = poly_sf, 
                    fine_dat = cont_ls, 

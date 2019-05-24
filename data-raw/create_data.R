@@ -22,6 +22,11 @@ nm_agg_prop <- nomove_agg(g_sp, cat_ls, prop, lc_class = 1)
 
 nm_agg_range <- nomove_agg(poly_sf, cont_ls, var_range, is_grid = FALSE)
 
+nm_agg_shdi <- nomove_agg(coarse_dat = g_sf, 
+           fine_dat = cat_ls, 
+           agg_fun = shdi, 
+           lc_class = 1:3)
+
 fn <- function(x, na.rm = TRUE) {
   sum(2*x)
 }
@@ -29,6 +34,19 @@ fn <- function(x, na.rm = TRUE) {
 nm_agg_user <- nomove_agg(g_sp, cat_ls, fn)
 
 wm_agg_shei <- winmove_agg(g_sf, cat_ls, 20, "rectangle", shei, lc_class = 0:3)
+
+wm_agg_shdi <- winmove_agg(coarse_dat = g_sf, 
+                           fine_dat = cat_ls, 
+                           d = 3, 
+                           type = "Gauss", 
+                           win_fun = shdi,
+                           lc_class = 0:3)
+
+wm_agg_range <- winmove_agg(coarse_dat = poly_sf, 
+                            fine_dat = cont_ls, 
+                            d = 3, 
+                            type = "rectangle", 
+                            win_fun = var_range)
 
 wm_agg_mean <- winmove_agg(poly_sf, cont_ls, 4, "rectangle", mean, var, is_grid = FALSE)
 
@@ -40,6 +58,11 @@ wm_mean_dat <- winmove(cont_ls, 2, "Gauss", mean)
 
 wm_mean_na_dat <- winmove(cont_ls, 15, "circle", mean, na.rm = TRUE)
 
+user_fn <- function(x, lc_class, ...) {
+  return(sum(x == lc_class))
+}
+wm_user_dat <- winmove(cat_ls, 4, "rectangle", user_fn, lc_class = 2)
+
 torus_5 <- create_torus(cat_ls, 5)
 torus_20 <- create_torus(cont_ls, 20)
 
@@ -47,4 +70,4 @@ torus_20 <- create_torus(cont_ls, 20)
 usethis::use_data(cont_ls, cat_ls, g_sf, poly_sf, overwrite = TRUE, compress = "bzip2")
 
 # internal data
-usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_mean, nm_agg_prop, nm_agg_range, nm_agg_user, wm_agg_shei, wm_agg_mean, wm_agg_mean_na, wm_shei_dat, wm_mean_dat, wm_mean_na_dat, torus_5, torus_20, internal = TRUE, overwrite = TRUE, compress = "bzip2")
+usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_shdi, nm_agg_mean, nm_agg_prop, nm_agg_range, nm_agg_user, wm_agg_shei, wm_agg_shdi, wm_agg_range, wm_agg_mean, wm_agg_mean_na, wm_shei_dat, wm_mean_dat, wm_mean_na_dat, torus_5, torus_20, internal = TRUE, overwrite = TRUE, compress = "bzip2")

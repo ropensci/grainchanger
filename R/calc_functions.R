@@ -20,7 +20,7 @@ var_range <- function(x, ...) UseMethod("var_range")
 
 #' @name var_range
 #' @export
-var_range.winmove <- function(dat, na.rm = TRUE) {
+var_range.winmove <- function(x, d, type, na.rm = TRUE) {
   w <- ifelse(raster::focalWeight(x, d, type) == 0, 0, 1)
   return(raster::focal(x = x, w = w, fun = function(dat) {
     max(dat, na.rm = na.rm) - min(dat, na.rm = na.rm)
