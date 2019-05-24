@@ -63,10 +63,10 @@ data(cont_ls)
 data(cat_ls)
 
 #' # aggregate using mean
-d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
+d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", mean)
 
 # aggregate using Shannon evenness
-d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
+d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", shei, lc_class = 0:3)
 }
 \keyword{aggregate}
 \keyword{focal,}

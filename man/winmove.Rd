@@ -44,10 +44,10 @@ data(cat_ls)
 data(cont_ls)
 
 # calculate the moving window mean
-d <- winmove(cont_ls, 5, "rectangle", "mean")
+d <- winmove(cont_ls, 5, "rectangle", mean)
 
 # calculate the moving window Shannon evenness
-d <- winmove(cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
+d <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 0:3)
 }
 \keyword{focal,}
 \keyword{spatial}

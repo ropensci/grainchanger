@@ -37,10 +37,10 @@
 #' data(cat_ls)
 #'
 #' # aggregate using mean
-#' d <- nomove_agg(g_sf, cont_ls, "mean")
+#' d <- nomove_agg(g_sf, cont_ls, mean)
 #'
 #' # aggregate using Shannon evenness
-#' d <- nomove_agg(g_sf, cont_ls, "nm_shei", lc_class = 0:3)
+#' d <- nomove_agg(g_sf, cont_ls, nm_shei, lc_class = 0:3)
 #' @export
 
 nomove_agg <- function(coarse_dat, 
