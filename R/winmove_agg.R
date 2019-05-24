@@ -87,7 +87,7 @@ winmove_agg <- function(coarse_dat,
     coarse_dat <- sf::st_as_sf(coarse_dat)
   }
 
-  out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, d, type, win_fun, agg_fun, ...) {
+  out <- furrr::future_map(sf::st_geometry(coarse_dat), purrr::quietly(function(grid_cell, fine_dat, d, type, win_fun, agg_fun, ...) {
     grid_buffer <- sf::st_sf(
       sf::st_geometry(
           sf::st_buffer(grid_cell, dist = d, endCapStyle = "SQUARE", joinStyle = "MITRE", mitreLimit = d / 2)
@@ -106,7 +106,14 @@ winmove_agg <- function(coarse_dat,
       
     }
     agg_fun(raster::values(win_cell), na.rm = TRUE)
-  }, fine_dat, d, type, win_fun, agg_fun, ...)
+  }), fine_dat, d, type, win_fun, agg_fun, ...)
+  
+  # more useful warning than "no non-missing arguments..."
+  warn <- length(unlist(furrr::future_map(out, function(x) x$warnings))) > 0
+  if(warn) usethis::ui_warn("There may be edge effects because the moving window extends beyond the extent of `fine_dat`")
+  
+  out <- furrr::future_map_dbl(out, function(x) x$result)
+  
   
   if(output_raster) {
     raster::values(ras) <- matrix(out, nrow = dim(ras)[1], ncol = dim(ras)[2], byrow = TRUE)

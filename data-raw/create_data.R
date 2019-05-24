@@ -70,4 +70,4 @@ torus_20 <- create_torus(cont_ls, 20)
 usethis::use_data(cont_ls, cat_ls, g_sf, poly_sf, overwrite = TRUE, compress = "bzip2")
 
 # internal data
-usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_shdi, nm_agg_mean, nm_agg_prop, nm_agg_range, nm_agg_user, wm_agg_shei, wm_agg_shdi, wm_agg_range, wm_agg_mean, wm_agg_mean_na, wm_shei_dat, wm_mean_dat, wm_mean_na_dat, torus_5, torus_20, internal = TRUE, overwrite = TRUE, compress = "bzip2")
+usethis::use_data(g_raster, g_sp, nm_agg_shei, nm_agg_shdi, nm_agg_mean, nm_agg_prop, nm_agg_range, nm_agg_user, wm_agg_shei, wm_agg_shdi, wm_agg_range, wm_agg_mean, wm_agg_mean_na, wm_shei_dat, wm_mean_dat, wm_mean_na_dat, wm_user_dat, torus_5, torus_20, internal = TRUE, overwrite = TRUE, compress = "bzip2")
