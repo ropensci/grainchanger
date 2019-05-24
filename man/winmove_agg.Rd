@@ -5,7 +5,7 @@
 \title{Moving-window data aggregation}
 \usage{
 winmove_agg(coarse_dat, fine_dat, d, type = c("circle", "Gauss",
-  "rectangle"), win_fun, agg_fun = "mean", is_grid = TRUE,
+  "rectangle"), win_fun, agg_fun = mean, is_grid = TRUE,
   quiet = FALSE, ...)
 }
 \arguments{

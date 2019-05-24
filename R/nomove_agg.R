@@ -6,7 +6,7 @@
 #'   data) across which to calculate the aggregated function
 #' @param fine_dat Raster* object. Raster* object. The fine grain data (predictor /
 #'   covariate data) to aggregate
-#' @param agg_fun character. The function to apply. The function fun should take multiple numbers, and
+#' @param agg_fun function The function to apply. The function fun should take multiple numbers, and
 #'   return a single number. For example mean, modal, min or max. It should also accept a
 #'   na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example,
 #'   length will fail, but function(x, ...){na.omit(length(x))} works. See Details
@@ -50,9 +50,6 @@ nomove_agg <- function(coarse_dat,
                        quiet = FALSE, 
                        ...) {
   
-  if (agg_fun == "shei") agg_fun <- "nm_shei"
-  if (agg_fun == "prop") agg_fun <- "nm_prop"
-  
   checkmate::assert(
     checkmate::check_class(coarse_dat, "RasterLayer"),
     checkmate::check_class(coarse_dat, "SpatialPolygonsDataFrame"),
@@ -60,25 +57,24 @@ nomove_agg <- function(coarse_dat,
   )
 
   checkmate::assert_class(fine_dat, "RasterLayer")
-  checkmate::assert_function(get(agg_fun))
+  checkmate::assert_function(agg_fun)
   
   if(is_grid & !quiet) {
     usethis::ui_line("aggregation assumes all cells are rectangular")
     usethis::ui_todo("set `is_grid = FALSE` if coarse_dat is not a grid")
   }
 
-  # raster aggregation just acts as a wrapper for raster::aggregate (but it's less difficult to work out)
+  # convert raster to grid
+  raster_output <- FALSE
   if ("RasterLayer" %in% class(coarse_dat)) {
-    a <- raster::res(coarse_dat) / raster::res(fine_dat)
-    fun_args <- list(...)
-    out <- raster::aggregate(fine_dat, fact = a, fun = function(x, ...) {
-      do.call(get(agg_fun), c(list(x), fun_args))
-    })
+    raster_output <- TRUE
+    ras <- coarse_dat
+    coarse_dat <- methods::as(coarse_dat, "SpatialPolygonsDataFrame")
   }
 
   # sp object gets converted to sf first
   if ("SpatialPolygonsDataFrame" %in% class(coarse_dat)) coarse_dat <- sf::st_as_sf(coarse_dat)
-
+  
   # aggregation to a polygon does some cropping and calculating
   if ("sf" %in% class(coarse_dat)) {
     out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, agg_fun, ...) {
@@ -93,9 +89,19 @@ nomove_agg <- function(coarse_dat,
       dat_cell <- raster::values(dat_cell)
       dat_cell <- stats::na.omit(dat_cell)
       
-      value <- get(agg_fun)(dat_cell, ...)
+      # append the nomove class so it picks up the in-built function
+      class(dat_cell) <- append(class(dat_cell), "nomove")
+      value <- agg_fun(dat_cell, ...)
     }, fine_dat, agg_fun, ...)
   }
 
+  if(raster_output) {
+    raster::values(ras) <- matrix(out, nrow = dim(ras)[1], ncol = dim(ras)[2], byrow = TRUE)
+    out <- ras
+  }
+  
   return(out)
 }
+
+#' @export
+nclass <- setClass("nomove", contains = "numeric")

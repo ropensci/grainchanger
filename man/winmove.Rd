@@ -9,17 +9,18 @@ winmove(fine_dat, d, type, win_fun, ...)
 \arguments{
 \item{fine_dat}{The raster dataset on which to calculate the moving window function}
 
-\item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the CRS). If
-\code{type=rectangle} the dimension of the rectangle (one or two numbers). If \code{type=Gauss}
-the size of sigma, and optionally another number to determine the size of the matrix
-returned (default is 3 times sigma)}
+\item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the
+CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
+If \code{type=Gauss} the size of sigma, and optionally another number to determine
+the size of the matrix returned (default is 3 times sigma)}
 
 \item{type}{The shape of the moving window}
 
-\item{win_fun}{The function to apply. The function fun should take multiple numbers, and
-return a single number. For example mean, modal, min or max. It should also accept a
-na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
-will fail, but function(x, ...){na.omit(length(x))} works. See Details}
+\item{win_fun}{function. The function to apply. If not choosing one of the inbuilt
+grainchanger functions, the function should take multiple numbers, and return a
+single number. For example mean, modal, min or max. It should also accept a na.rm
+argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length will
+fail, but function(x, ...){na.omit(length(x))} works. See Details}
 
 \item{...}{further arguments passed to or from other methods}
 }
@@ -31,13 +32,11 @@ Smooth a raster surface using a moving window with a given function, radius and 
 }
 \details{
 \code{grainchanger} has several built-in functions. Functions currently
- included are:
- \itemize{
-  \item \code{wm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
-  \item \code{wm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
-  \item \code{wm_classes} - Unique number of classes in a categorical landscape
-  \item \code{var_range} - Range (max - min)
-}
+  included are: \itemize{ \item \code{wm_shei} - Shannon evenness, requires the
+  additional argument \code{lc_class} (vector or scalar) \item \code{wm_prop} -
+  Proportion, requires the additional argument \code{lc_class} (scalar) \item
+  \code{wm_classes} - Unique number of classes in a categorical landscape \item
+  \code{var_range} - Range (max - min) }
 }
 \examples{
 # load required data

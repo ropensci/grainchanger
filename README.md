@@ -100,8 +100,6 @@ library(landscapetools)
 
 # categorical landscape
 show_landscape(cat_ls, discrete = TRUE)
-#> Loading required package: raster
-#> Loading required package: sp
 ```
 
 <img src="man/figures/README-mwda_example-1.png" width="100%" />
@@ -113,8 +111,8 @@ g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
                          fine_dat = cat_ls, 
                          d = 5,
                          type = "rectangle",
-                         win_fun = "shei",
-                         agg_fun = "mean",
+                         win_fun = shei,
+                         agg_fun = mean,
                          lc_class = 0:3,
                          quiet = TRUE)
 
@@ -143,7 +141,7 @@ show_landscape(cont_ls)
 # direct aggregation using range
 g_sf$dda <- nomove_agg(coarse_dat = g_sf,
                        fine_dat = cont_ls, 
-                       fun = "var_range")
+                       agg_fun = var_range)
 #> aggregation assumes all cells are rectangular
 #> <U+25CF> set `is_grid = FALSE` if coarse_dat is not a grid
 
@@ -165,9 +163,9 @@ function.
 | Function.Name | Description                               | Additional.arguments |
 | :------------ | :---------------------------------------- | :------------------- |
 | prop          | Calculate the proportion of a given class | lc\_class (numeric)  |
-| classes       | Calculate the number of classes           |                      |
+| shdi          | Calculate the Shannon diversity           |                      |
 | shei          | Calculate the Shannon evenness            | lc\_class (numeric)  |
-| mean          | Calculate the range of values             |                      |
+| range         | Calculate the range of values             |                      |
 
 ## Additional utilities
 

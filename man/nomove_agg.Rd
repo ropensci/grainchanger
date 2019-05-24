@@ -14,7 +14,7 @@ data) across which to calculate the aggregated function}
 \item{fine_dat}{Raster* object. Raster* object. The fine grain data (predictor /
 covariate data) to aggregate}
 
-\item{agg_fun}{character. The function to apply. The function fun should take multiple numbers, and
+\item{agg_fun}{function The function to apply. The function fun should take multiple numbers, and
  return a single number. For example mean, modal, min or max. It should also accept a
  na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example,
  length will fail, but function(x, ...){na.omit(length(x))} works. See Details

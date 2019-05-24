@@ -1,6 +1,45 @@
-#' @noRd
-# proportion
-wm_prop <- function(dat, d, type, lc_class) {
+# Mean (winmove only) ----
+#' @export
+mean <- function(x, ...) UseMethod("mean")
+
+#' @name mean
+#' @export
+mean.winmove <- function(x, d, type, na.rm = FALSE) {
+  if(na.rm) {
+    w <- ifelse(raster::focalWeight(x, d, type) == 0, 0, 1)
+    return(raster::focal(x = x, w = w, fun = mean, na.rm = TRUE))
+  } else {
+    w <- raster::focalWeight(x, d, type)
+    return(raster::focal(x, w))
+  }
+}
+
+# Range ----
+#' @export
+var_range <- function(x, ...) UseMethod("var_range")
+
+#' @name var_range
+#' @export
+var_range.winmove <- function(dat, na.rm = TRUE) {
+  w <- ifelse(raster::focalWeight(x, d, type) == 0, 0, 1)
+  return(raster::focal(x = x, w = w, fun = function(dat) {
+    max(dat, na.rm = na.rm) - min(dat, na.rm = na.rm)
+  }))
+}
+
+#' @name var_range
+#' @export
+var_range.nomove <- function(dat, na.rm = TRUE) {
+  return(max(dat, na.rm = na.rm) - min(dat, na.rm = na.rm))
+}
+
+# Proportion ----
+#' @export
+prop <- function(x, lc_class, ...) UseMethod("prop")
+
+#' @name prop
+#' @export
+prop.winmove <- function(dat, d, type, lc_class) {
   if(sum(raster::values(dat), na.rm = TRUE) > 0) {
     return(raster::focal(dat == lc_class,
                          raster::focalWeight(dat, d, type)))
@@ -10,66 +49,51 @@ wm_prop <- function(dat, d, type, lc_class) {
   }
 }
 
-#' @noRd
-# unique
-wm_classes <- function(dat, d, type) {
-  w <- ifelse(raster::focalWeight(dat, d, type) == 0, 0, 1)
-  raster::focal(dat, w, function(x) length(raster::unique(x)))
-}
-
-#' @noRd
-# diversity metrics
-wm_shei <- function(dat, d, type, lc_class) {
-  H <- lapply(lc_class, function(i) {
-    p <- wm_prop(dat, d, type, i)
-    -1 * p * log(p)
-  })
-  sum(raster::stack(H), na.rm = TRUE) / log(length(lc_class))
-}
-
-#' @noRd
-# mean (it's quicker using weighted sum than mean, but mean needed if na.rm required)
-wm_mean <- function(dat, d, type, na.rm = FALSE) {
-  if(na.rm) {
-    w <- ifelse(raster::focalWeight(dat, d, type) == 0, 0, 1)
-    return(raster::focal(x = dat, w = w, fun = mean, na.rm = TRUE))
-  } else {
-    w <- raster::focalWeight(dat, d, type)
-    return(raster::focal(dat, w))
-  }
-}
-
-#' @noRd
-nm_shei <- function(dat, lc_class) {
-  dat <- stats::na.omit(dat)
-  H <- lapply(lc_class, function(i) {
-    p <- sum(dat == i) / raster::ncell(dat)
-    -1 * p * log(p)
-  })
-  sum(unlist(H), na.rm = TRUE) / log(length(lc_class))
-}
-
-#' @noRd
-nm_prop <- function(dat, lc_class) {
-  if (class(dat) == "RasterLayer") {
-    dat <- raster::values(dat)
-  }
-  
+#' @name prop
+#' @export
+prop.nomove <- function(dat, lc_class) {
   area <- length(dat)
   p <- sum(dat %in% lc_class) / area
   return(p)
 }
 
-#' @noRd
-var_range <- function(dat, na.rm = TRUE) {
-  if (class(dat) == "RasterLayer") {
-    dat <- raster::values(dat)
-  }
+# Shannon diversity ----
+#' @export
+shdi <- function(x, lc_class, ...) UseMethod("shdi")
 
-  if (sum(is.na(dat)) == length(dat)) {
-    return(NA)
-  } else {
-    var_range <- max(dat, na.rm = na.rm) - min(dat, na.rm = na.rm)
-    return(var_range)
-  }
+#' @name shdi
+#' @export
+shdi.winmove <- function(x, lc_class, d, type) {
+  H <- lapply(lc_class, function(i) {
+    p <- prop(x, d, type, i)
+    -1 * p * log(p)
+  })
+  sum(raster::stack(H), na.rm = TRUE)
+}
+
+#' @name shdi
+#' @export
+shdi.nomove <- function(x, lc_class) {
+  dat <- stats::na.omit(x)
+  H <- lapply(lc_class, function(i) {
+    p <- sum(x == i) / raster::ncell(x)
+    -1 * p * log(p)
+  })
+  sum(unlist(H), na.rm = TRUE)
+}
+
+# Shannon evenness ----
+#' @export
+shei <- function(x, lc_class, ...) UseMethod("shei")
+
+#' @name shei
+#' @export
+shei.winmove <- function(x, lc_class, d, type) {
+  shdi(x, lc_class, d, type) / log(length(lc_class))
+}
+
+#' @name shei
+#' @export
+shei.nomove <- function(x, lc_class) {
+  shdi(x, lc_class) / log(length(lc_class))
 }

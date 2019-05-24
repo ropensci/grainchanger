@@ -55,7 +55,7 @@ winmove_agg <- function(coarse_dat,
                         d, 
                         type=c('circle', 'Gauss', 'rectangle'), 
                         win_fun, 
-                        agg_fun = "mean", 
+                        agg_fun = mean, 
                         is_grid = TRUE, 
                         quiet = FALSE,
                         ...) {
@@ -75,10 +75,12 @@ winmove_agg <- function(coarse_dat,
   }
   
   # convert raster to grid
+  output_raster <- FALSE
   if ("RasterLayer" %in% class(coarse_dat)) {
+    output_raster <- TRUE
     ras <- coarse_dat
     coarse_dat <- methods::as(coarse_dat, "SpatialPolygonsDataFrame")
-  }
+  } 
 
   if ("SpatialPolygonsDataFrame" %in% class(coarse_dat)) {
     coarse_dat <- sf::st_as_sf(coarse_dat)
@@ -95,18 +97,19 @@ winmove_agg <- function(coarse_dat,
       dat_cell <- raster::crop(fine_dat, grid_buffer)
       dat_cell <- raster::extend(dat_cell, grid_buffer)
       win_cell <- winmove(dat_cell, d, type, win_fun, ...)
-      get(agg_fun)(raster::values(win_cell), na.rm = TRUE)
     } else {
       dat_cell <- raster::crop(fine_dat, grid_buffer)
       dat_cell <- raster::extend(dat_cell, grid_buffer)
       dat_cell <- raster::mask(dat_cell, grid_buffer)
       win_cell <- winmove(dat_cell, d, type, win_fun, ...)
-      get(agg_fun)(raster::values(win_cell), na.rm = TRUE)
+      
     }
+    agg_fun(raster::values(win_cell), na.rm = TRUE)
   }, fine_dat, d, type, win_fun, agg_fun, ...)
-
-  if(exists("ras")) {
-    out <- raster::raster(matrix(out, nrow = 5, ncol = 5, byrow = TRUE))
+  
+  if(output_raster) {
+    raster::values(ras) <- matrix(out, nrow = dim(ras)[1], ncol = dim(ras)[2], byrow = TRUE)
+    out <- ras
   }
   return(out)
 }
