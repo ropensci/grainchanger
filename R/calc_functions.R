@@ -40,7 +40,7 @@ prop <- function(x, lc_class, ...) UseMethod("prop")
 #' @name prop
 #' @export
 prop.winmove <- function(dat, d, type, lc_class) {
-  if(sum(raster::values(dat), na.rm = TRUE) > 0) {
+  if(sum(raster::values(dat) == lc_class, na.rm = TRUE) > 0) {
     return(raster::focal(dat == lc_class,
                          raster::focalWeight(dat, d, type)))
   }
