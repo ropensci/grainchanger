@@ -42,7 +42,7 @@ g_sf$mwda <- winmove_agg(
   d = 5,
   type = "rectangle",
   win_fun = shei,
-  lc_class = 0:3
+  lc_class = 1:4
 )
 
 show_landscape(cat_ls)

@@ -45,7 +45,7 @@ prop.winmove <- function(dat, d, type, lc_class) {
                          raster::focalWeight(dat, d, type)))
   }
   else {
-    return(0)
+    return(raster::values(dat) <- 0)
   }
 }
 
@@ -68,7 +68,7 @@ shdi.winmove <- function(x, lc_class, d, type) {
     p <- prop(x, d, type, i)
     -1 * p * log(p)
   })
-  sum(raster::stack(H), na.rm = TRUE)
+  return(sum(raster::stack(H), na.rm = TRUE))
 }
 
 #' @name shdi
@@ -79,7 +79,7 @@ shdi.nomove <- function(x, lc_class) {
     p <- sum(x == i) / raster::ncell(x)
     -1 * p * log(p)
   })
-  sum(unlist(H), na.rm = TRUE)
+  return(sum(unlist(H), na.rm = TRUE))
 }
 
 # Shannon evenness ----

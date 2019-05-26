@@ -4,7 +4,7 @@ test_that("shei calculation is correct", {
   d <- nomove_agg(coarse_dat = g_sf, 
                   fine_dat = cat_ls, 
                   agg_fun = shei, 
-                  lc_class = 0:3)
+                  lc_class = 1:4)
   expect_equal(d, nm_agg_shei)
 })
 

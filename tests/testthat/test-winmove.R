@@ -1,7 +1,7 @@
 context("winmove")
 
 test_that("shei calculation is correct", {
-  d <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 0:3)
+  d <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 1:4)
   expect_equal(d, wm_shei_dat)
 })
 

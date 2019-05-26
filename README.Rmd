@@ -72,7 +72,7 @@ g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
                          type = "rectangle",
                          win_fun = shei,
                          agg_fun = mean,
-                         lc_class = 0:3,
+                         lc_class = 1:4,
                          quiet = TRUE)
 
 ggplot(g_sf) + geom_sf(aes(fill = mwda))

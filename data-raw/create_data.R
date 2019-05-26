@@ -14,7 +14,7 @@ g_sf <- sf::st_as_sf(g_sf)
 poly_sf <- sf::st_make_grid(sf::st_as_sfc(sf::st_bbox(cont_ls)), cellsize = 13, square = FALSE)
 
 # data for testing output still the same
-nm_agg_shei <- nomove_agg(g_sf, cat_ls, shei, lc_class = 0:3)
+nm_agg_shei <- nomove_agg(g_sf, cat_ls, shei, lc_class = 1:4)
 
 nm_agg_mean <- nomove_agg(g_raster, cont_ls, mean)
 
@@ -33,14 +33,14 @@ fn <- function(x, na.rm = TRUE) {
 
 nm_agg_user <- nomove_agg(g_sp, cat_ls, fn)
 
-wm_agg_shei <- winmove_agg(g_sf, cat_ls, 20, "rectangle", shei, lc_class = 0:3)
+wm_agg_shei <- winmove_agg(g_sf, cat_ls, 20, "rectangle", shei, lc_class = 1:4)
 
 wm_agg_shdi <- winmove_agg(coarse_dat = g_sf, 
                            fine_dat = cat_ls, 
                            d = 3, 
                            type = "Gauss", 
                            win_fun = shdi,
-                           lc_class = 0:3)
+                           lc_class = 1:4)
 
 wm_agg_range <- winmove_agg(coarse_dat = poly_sf, 
                             fine_dat = cont_ls, 
@@ -52,7 +52,7 @@ wm_agg_mean <- winmove_agg(poly_sf, cont_ls, 4, "rectangle", mean, var, is_grid 
 
 wm_agg_mean_na <- winmove_agg(g_raster, cont_ls, 10, "circle", mean, sd, na.rm = TRUE)
 
-wm_shei_dat <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 0:3)
+wm_shei_dat <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 1:4)
 
 wm_mean_dat <- winmove(cont_ls, 2, "Gauss", mean)
 

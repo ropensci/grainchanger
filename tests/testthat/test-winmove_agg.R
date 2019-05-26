@@ -6,7 +6,7 @@ test_that("shei calculation is correct", {
                    d = 20, 
                    type = "rectangle", 
                    win_fun = shei,
-                   lc_class = 0:3)
+                   lc_class = 1:4)
   expect_equal(d, wm_agg_shei)
 })
 
@@ -16,7 +16,7 @@ test_that("shdi calculation is correct", {
                    d = 3, 
                    type = "Gauss", 
                    win_fun = shdi,
-                   lc_class = 0:3)
+                   lc_class = 1:4)
   expect_equal(d, wm_agg_shdi)
 })
 
