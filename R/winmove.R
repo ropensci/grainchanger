@@ -35,7 +35,7 @@
 #' d <- winmove(cont_ls, 5, "rectangle", mean)
 #'
 #' # calculate the moving window Shannon evenness
-#' d <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 0:3)
+#' d <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 1:4)
 #' @export
 
 winmove <- function(fine_dat, d, type, win_fun, ...) {

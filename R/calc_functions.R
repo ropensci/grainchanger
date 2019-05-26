@@ -45,7 +45,8 @@ prop.winmove <- function(dat, d, type, lc_class) {
                          raster::focalWeight(dat, d, type)))
   }
   else {
-    return(raster::values(dat) <- 0)
+    raster::values(dat) <- 0
+    return(dat)
   }
 }
 

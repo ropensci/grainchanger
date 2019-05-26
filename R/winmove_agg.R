@@ -47,7 +47,7 @@
 #' d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", mean)
 #'
 #' # aggregate using Shannon evenness
-#' d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", shei, lc_class = 0:3)
+#' d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", shei, lc_class = 1:4)
 #' @export
 
 winmove_agg <- function(coarse_dat, 
