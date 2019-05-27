@@ -1,11 +1,12 @@
 #' Pad a raster by a specified radius
 #'
-#' This function pads a raster by a specified number of cells, creating the effect of a
-#' torus. Allows for moving window analysis that avoids edge effects (e.g. on simulated
-#' landscapes).
+#' This function pads a raster by a specified number of cells, creating the
+#' effect of a torus. Allows for moving window analysis that avoids edge effects
+#' (e.g. on simulated landscapes).
 #'
 #' @param dat The raster dataset to pad
-#' @param dpad The amount by which to pad the raster (in the same units as the raster)
+#' @param dpad The amount by which to pad the raster (in the same units as the
+#'   raster)
 #'
 #' @return raster. Original raster padded by r cells with torus effect
 #'
@@ -31,35 +32,46 @@ create_torus <- function(dat, dpad) {
   ncols <- ncol(dat_m)
 
   #   2. Create new matrix of dim + radius*2
-  dat_pad_m <- matrix(NA, nrow = nrows + 2 * dpad, ncol = ncols + 2 * dpad)
+  dat_pad_m <- matrix(NA, 
+                      nrow = nrows + 2 * dpad, 
+                      ncol = ncols + 2 * dpad)
 
   #   3. Infill with values from the matrix
   # top
-  dat_pad_m[1:dpad, (dpad + 1):(ncols + dpad)] <- 
+  dat_pad_m[1:dpad, 
+            (dpad + 1):(ncols + dpad)] <- 
     dat_m[(nrows - dpad + 1):nrows, ]
   # left
-  dat_pad_m[(dpad + 1):(nrows + dpad), 1:dpad] <- 
+  dat_pad_m[(dpad + 1):(nrows + dpad),
+            1:dpad] <- 
     dat_m[, (ncols - dpad + 1):ncols]
   # bottom
-  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), (dpad + 1):(ncols + dpad)] <- 
+  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), 
+            (dpad + 1):(ncols + dpad)] <- 
     dat_m[1:dpad, ]
   # right
-  dat_pad_m[(dpad + 1):(nrows + dpad), (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
+  dat_pad_m[(dpad + 1):(nrows + dpad), 
+            (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
     dat_m[, 1:dpad]
   # top left corner
   dat_pad_m[1:dpad, 1:dpad] <- 
-    dat_m[(nrows - dpad + 1):nrows, (ncols - dpad + 1):ncols]
+    dat_m[(nrows - dpad + 1):nrows, 
+          (ncols - dpad + 1):ncols]
   # top right corner
-  dat_pad_m[1:dpad, (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
+  dat_pad_m[1:dpad, 
+            (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
     dat_m[(nrows - dpad + 1):nrows, 1:dpad]
   # bottom left corner
-  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), 1:dpad] <- 
+  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), 
+            1:dpad] <- 
     dat_m[1:dpad, (ncols - dpad + 1):ncols]
   # bottom right corner
-  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
+  dat_pad_m[(nrows + dpad + 1):(nrows + 2 * dpad), 
+            (ncols + dpad + 1):(ncols + 2 * dpad)] <- 
     dat_m[1:dpad, 1:dpad]
   # centre
-  dat_pad_m[(dpad + 1):(nrows + dpad), (dpad + 1):(ncols + dpad)] <- 
+  dat_pad_m[(dpad + 1):(nrows + dpad), 
+            (dpad + 1):(ncols + dpad)] <- 
     dat_m
 
   #   4. convert to raster

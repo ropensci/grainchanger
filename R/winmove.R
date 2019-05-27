@@ -15,9 +15,9 @@
 #'   fail, but function(x, ...){na.omit(length(x))} works. See Details
 #' @param ... further arguments passed to or from other methods
 #'
-#' @return A smoothed raster with the moving window values calculated
+#' @return RasterLayer. A smoothed raster with the moving window values calculated
 #'
-#' @keywords focal, spatial
+#' @keywords focal spatial
 #'
 #' @details \code{grainchanger} has several built-in functions. Functions currently
 #'   included are: \itemize{ \item \code{wm_shei} - Shannon evenness, requires the
@@ -46,7 +46,7 @@ winmove <- function(fine_dat, d, type, win_fun, ...) {
   # for grainchanger in-built functions
   if("grainchanger" %in% environment(win_fun)$.packageName) {
     # set fine_dat to the winmove class so it picks up the inbuilt functions
-    fine_dat = new("winmove", fine_dat)
+    fine_dat <- methods::new("RasterWinmove", fine_dat)
     out <- win_fun(fine_dat, d, type, ...)
   } else {
     # this catches all others (i.e. base R in-built or user-defined functions)
@@ -59,6 +59,22 @@ winmove <- function(fine_dat, d, type, win_fun, ...) {
   return(out)
 }
 
+#' An S4 class for use with winmove functions (extends RasterLayer)
+#' @description An S4 class for use with winmove functions (extends RasterLayer). Objects
+#'   will need to be set to this class in order to be used with the inbuilt \code{winmove}
+#'   functions (e.g. \code{mean}, \code{prop}, \code{var_range}, \code{shdi}, \code{shei})
+#'   
+#' @inheritSection raster::`RasterLayer-class` Slots
+#' 
 #' @importClassesFrom raster RasterLayer
+#' 
 #' @export
-wclass <- setClass("winmove", contains = "RasterLayer")
+#' 
+#' @examples 
+#' # load required data
+#' data(cat_ls)
+#' 
+#' # set \code{cat_ls} to object of class \code{RasterWinmove}
+#' new("RasterWinmove", cat_ls)
+#' 
+setClass("RasterWinmove", contains = "RasterLayer")

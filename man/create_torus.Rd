@@ -9,15 +9,16 @@ create_torus(dat, dpad)
 \arguments{
 \item{dat}{The raster dataset to pad}
 
-\item{dpad}{The amount by which to pad the raster (in the same units as the raster)}
+\item{dpad}{The amount by which to pad the raster (in the same units as the
+raster)}
 }
 \value{
 raster. Original raster padded by r cells with torus effect
 }
 \description{
-This function pads a raster by a specified number of cells, creating the effect of a
-torus. Allows for moving window analysis that avoids edge effects (e.g. on simulated
-landscapes).
+This function pads a raster by a specified number of cells, creating the
+effect of a torus. Allows for moving window analysis that avoids edge effects
+(e.g. on simulated landscapes).
 }
 \examples{
 data(cat_ls)

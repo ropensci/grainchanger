@@ -1,34 +1,36 @@
 #' Direct data aggregation
 #'
-#' Calculate the value for a given function for each cell in a larger resolution grid.
+#' Calculate the value for a given function for each cell in a larger resolution
+#' grid.
 #'
-#' @param coarse_dat  sf, Raster* or Spatial* object. The coarse grain data (response
-#'   data) across which to calculate the aggregated function
-#' @param fine_dat Raster* object. Raster* object. The fine grain data (predictor /
-#'   covariate data) to aggregate
-#' @param agg_fun function The function to apply. The function fun should take multiple numbers, and
-#'   return a single number. For example mean, modal, min or max. It should also accept a
-#'   na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example,
-#'   length will fail, but function(x, ...){na.omit(length(x))} works. See Details
-#'  @param is_grid logical. Use \code{TRUE} (default) if \code{g} contains only rectangular
-#'   cells (i.e. a grid). If \code{g} is any other polygon file, this should be set to
-#'   false
-#' @param quiet logical. If \code{FALSE} (default) and \code{is_grid == TRUE} the user
-#'   gets a warning that the aggregation assumes all cells are rectangular
+#' @param coarse_dat  sf, Raster* or Spatial* object. The coarse grain data
+#'   (response data) across which to calculate the aggregated function
+#' @param fine_dat Raster* object. Raster* object. The fine grain data
+#'   (predictor / covariate data) to aggregate
+#' @param agg_fun function The function to apply. The function fun should take
+#'   multiple numbers, and return a single number. For example mean, modal, min
+#'   or max. It should also accept a na.rm argument (or ignore it, e.g. as one
+#'   of the 'dots' arguments. For example, length will fail, but function(x,
+#'   ...){na.omit(length(x))} works. See Details
+#' @param is_grid logical. Use \code{TRUE} (default) if \code{g} contains only
+#'   rectangular cells (i.e. a grid). If \code{g} is any other polygon file,
+#'   this should be set to false
+#' @param quiet logical. If \code{FALSE} (default) and \code{is_grid == TRUE}
+#'   the user gets a warning that the aggregation assumes all cells are
+#'   rectangular
 #' @param ... further arguments passed to or from other methods
 #'
-#' @return Raster (if input is Raster) or numeric vector (if input is sp or sf object)
-#'   containing values calculated for each coarser cell
+#' @return Raster (if input is Raster) or numeric vector (if input is sp or sf
+#'   object) containing values calculated for each coarser cell
 #'
 #' @keywords spatial, aggregate
 #'
-#' @details \code{grainchanger} has several built-in functions. Functions currently
-#'   included are: \itemize{ 
-#'      \item \code{shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
-#'      \item \code{prop} - Proportion, requires the additional argument \code{lc_class} (scalar) 
-#'      \item \code{classes} - Unique number of classes in a categorical landscape 
-#'      \item \code{var_range} - Range (max - min) 
-#'   }
+#' @details \code{grainchanger} has several built-in functions. Functions
+#'   currently included are: \itemize{ \item \code{shei} - Shannon evenness,
+#'   requires the additional argument \code{lc_class} (vector or scalar) \item
+#'   \code{prop} - Proportion, requires the additional argument \code{lc_class}
+#'   (scalar) \item \code{classes} - Unique number of classes in a categorical
+#'   landscape \item \code{var_range} - Range (max - min) }
 #'
 #' @examples
 #' # load required data
@@ -74,34 +76,41 @@ nomove_agg <- function(coarse_dat,
   }
 
   # sp object gets converted to sf first
-  if ("SpatialPolygonsDataFrame" %in% class(coarse_dat)) coarse_dat <- sf::st_as_sf(coarse_dat)
+  if ("SpatialPolygonsDataFrame" %in% class(coarse_dat)) {
+    coarse_dat <- sf::st_as_sf(coarse_dat)
+  }
   
   # aggregation to a polygon does some cropping and calculating
   
-  out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), function(grid_cell, fine_dat, agg_fun, ...) {
-    grid_cell <- sf::st_geometry(grid_cell)
-    grid_cell_sf <- sf::st_sf(grid_cell)
-    dat_cell <- raster::crop(fine_dat, grid_cell_sf)  
-    if(!is_grid) {
-      # some concerns here that when the input data contains NA, it will be removed from the
-      # calculation of total area. Needs thought.
-      dat_cell <- raster::mask(dat_cell, grid_cell_sf)   # mask is slower, but needs to be used if polygons are not rectangular
-    }
-    dat_cell <- raster::values(dat_cell)
-    dat_cell <- stats::na.omit(dat_cell)
-    
-    # append the nomove class so it picks up the in-built function
-    class(dat_cell) <- append(class(dat_cell), "nomove")
-    value <- agg_fun(dat_cell, ...)
-  }, fine_dat, agg_fun, ...)
+  out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), 
+                               function(grid_cell, fine_dat, agg_fun, ...) {
+                                 # buffer and crop
+                                 grid_cell <- sf::st_geometry(grid_cell)
+                                 grid_cell_sf <- sf::st_sf(grid_cell)
+                                 dat_cell <- raster::crop(fine_dat, 
+                                                          grid_cell_sf)  
+                                 
+                                 # mask if not rectangular grid
+                                 if(!is_grid) {
+                                   dat_cell <- raster::mask(dat_cell, 
+                                                            grid_cell_sf)   
+                                 }
+                                 
+                                 # calculate value
+                                 dat_cell <- raster::values(dat_cell)
+                                 dat_cell <- stats::na.omit(dat_cell)
+                                 
+                                 value <- agg_fun(dat_cell, ...)
+                               }, 
+                               fine_dat, agg_fun, ...)
 
   if(raster_output) {
-    raster::values(ras) <- matrix(out, nrow = dim(ras)[1], ncol = dim(ras)[2], byrow = TRUE)
+    raster::values(ras) <- matrix(out, 
+                                  nrow = dim(ras)[1], 
+                                  ncol = dim(ras)[2], 
+                                  byrow = TRUE)
     out <- ras
   }
   
   return(out)
 }
-
-#' @export
-nclass <- setClass("nomove", contains = "numeric")

@@ -25,7 +25,7 @@ fail, but function(x, ...){na.omit(length(x))} works. See Details}
 \item{...}{further arguments passed to or from other methods}
 }
 \value{
-A smoothed raster with the moving window values calculated
+RasterLayer. A smoothed raster with the moving window values calculated
 }
 \description{
 Smooth a raster surface using a moving window with a given function, radius and shape.
@@ -47,7 +47,7 @@ data(cont_ls)
 d <- winmove(cont_ls, 5, "rectangle", mean)
 
 # calculate the moving window Shannon evenness
-d <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 0:3)
+d <- winmove(cat_ls, 5, "rectangle", shei, lc_class = 1:4)
 }
-\keyword{focal,}
+\keyword{focal}
 \keyword{spatial}
