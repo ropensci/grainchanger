@@ -10,16 +10,16 @@
 \alias{shei.numeric}
 \title{Diversity metrics}
 \usage{
-\method{shdi}{winmove}(x, lc_class, d, type)
+\method{shdi}{winmove}(x, lc_class, d, type, ...)
 
-\method{shdi}{numeric}(x, lc_class)
+\method{shdi}{numeric}(x, lc_class, ...)
 
-\method{shei}{winmove}(x, lc_class, d, type)
+\method{shei}{winmove}(x, lc_class, d, type, ...)
 
-\method{shei}{numeric}(x, lc_class)
+\method{shei}{numeric}(x, lc_class, ...)
 }
 \arguments{
-\item{x}{numeric, RasterWinmove. The data over which to calculate the diversity metrics}
+\item{x}{numeric, winmove. The data over which to calculate the diversity metrics}
 
 \item{lc_class}{numeric. The class values to include in the diversity metric
 calculation}
@@ -30,9 +30,11 @@ If \code{type=Gauss} the size of sigma, and optionally another number to determi
 the size of the matrix returned (default is 3 times sigma)}
 
 \item{type}{character. The shape of the moving window}
+
+\item{...}{further arguments passed to or from other methods}
 }
 \value{
-If \code{class(x) == "RasterWinmove"}, a smoothed raster with the diversity
+If \code{class(x) == "winmove"}, a smoothed raster with the diversity
   metric calculated within the specified moving window
 
   If \code{class(x) == "numeric"}, a single value representing the diversity metric in
@@ -50,8 +52,8 @@ Currently provided diversity metrics are Shannon diversity and Shannon
 # load required data
 data(cat_ls)
 
-# convert data to object of class RasterWinmove
-cont_ls <- new("RasterWinmove", cont_ls)
+# convert data to object of class winmove
+cat_ls <- new("winmove", cat_ls)
 
 # calculate Shannon diversity in a rectangular window of dimension 5
 d <- shdi(cat_ls, d = 5, type = "rectangle", lc_class = 1:4)

@@ -28,7 +28,8 @@ Imports:
     furrr,
     checkmate,
     methods,
-    usethis
+    usethis,
+    purrr
 Suggests: 
     dplyr (>= 0.8-0),
     testthat,

@@ -7,11 +7,13 @@
 \usage{
 mean(x, ...)
 
-\method{mean}{winmove}(x, d, type, na.rm = FALSE)
+\method{mean}{winmove}(x, d, type, na.rm = FALSE, ...)
 }
 \arguments{
 \item{x}{RasterLayer. The data over which to calculate the mean value within a moving
 window}
+
+\item{...}{further arguments passed to or from other methods}
 
 \item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the
 CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
@@ -30,15 +32,15 @@ RasterLayer. A smoothed raster with the mean calculated within the specified
   moving window
 }
 \description{
-An extension to \code{mean} for objects of class \code{RasterWinmove}
+An extension to \code{mean} for objects of class \code{winmove}
 }
 \examples{
 
 # load required data
 data(cont_ls)
 
-# convert data to object of class RasterWinmove
-cont_ls <- new("RasterWinmove", cont_ls)
+# convert data to object of class winmove
+cont_ls <- new("winmove", cont_ls)
 
 # aggregate using a circular window with radius 3
 d <- mean(cont_ls, d = 3, type = "circle")

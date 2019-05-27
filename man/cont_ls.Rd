@@ -3,7 +3,7 @@
 \docType{data}
 \name{cont_ls}
 \alias{cont_ls}
-\title{Example continuous raster}
+\title{Example continuous raster (fine_dat)}
 \format{A raster layer object.}
 \source{
 Sciaini M, Fritsch M, Scherer C, Simpkins CE. NLMR and landscapetools: An integrated environment

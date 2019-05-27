@@ -8,12 +8,14 @@
 \usage{
 var_range(x, ...)
 
-\method{var_range}{winmove}(x, d, type, na.rm = TRUE)
+\method{var_range}{winmove}(x, d, type, na.rm = TRUE, ...)
 
-\method{var_range}{numeric}(x, na.rm = TRUE)
+\method{var_range}{numeric}(x, na.rm = TRUE, ...)
 }
 \arguments{
 \item{x}{RasterLayer. The data over which to calculate the range size}
+
+\item{...}{further arguments passed to or from other methods}
 
 \item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the
 CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
@@ -26,7 +28,7 @@ the size of the matrix returned (default is 3 times sigma)}
 computation proceeds. \code{na.rm = TRUE} is the default}
 }
 \value{
-If \code{class(x) == "RasterWinmove"}, a smoothed raster with the size of the range of values calculated within the specified
+If \code{class(x) == "winmove"}, a smoothed raster with the size of the range of values calculated within the specified
   moving window
   
   If \code{class(x) == "numeric"}, a single value representing the size of the range of values in \code{x}
@@ -40,8 +42,8 @@ Calculates the difference between the maximum and minimum value
 data(cat_ls)
 data(cont_ls)
 
-# convert data to object of class RasterWinmove
-cat_ls <- new("RasterWinmove", cat_ls)
+# convert data to object of class winmove
+cat_ls <- new("winmove", cat_ls)
 
 # aggregate using a rectangular window with dimensions c(2,3)
 d <- range(cont_ls, d = c(2,3), type = "rectangle")

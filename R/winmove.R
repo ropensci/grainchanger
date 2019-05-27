@@ -46,7 +46,7 @@ winmove <- function(fine_dat, d, type, win_fun, ...) {
   # for grainchanger in-built functions
   if("grainchanger" %in% environment(win_fun)$.packageName) {
     # set fine_dat to the winmove class so it picks up the inbuilt functions
-    fine_dat <- methods::new("RasterWinmove", fine_dat)
+    fine_dat <- methods::new("winmove", fine_dat)
     out <- win_fun(fine_dat, d, type, ...)
   } else {
     # this catches all others (i.e. base R in-built or user-defined functions)
@@ -74,7 +74,7 @@ winmove <- function(fine_dat, d, type, win_fun, ...) {
 #' # load required data
 #' data(cat_ls)
 #' 
-#' # set \code{cat_ls} to object of class \code{RasterWinmove}
-#' new("RasterWinmove", cat_ls)
+#' # set \code{cat_ls} to object of class winmove
+#' new("winmove", cat_ls)
 #' 
-setClass("RasterWinmove", contains = "RasterLayer")
+setClass("winmove", contains = "RasterLayer")

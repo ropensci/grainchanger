@@ -3,7 +3,7 @@
 \docType{data}
 \name{g_sf}
 \alias{g_sf}
-\title{Example grid}
+\title{Example grid (coarse_dat)}
 \format{An sf object.}
 \source{
 Sciaini M, Fritsch M, Scherer C, Simpkins CE. NLMR and landscapetools: An integrated environment

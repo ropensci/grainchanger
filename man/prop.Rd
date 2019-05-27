@@ -8,14 +8,16 @@
 \usage{
 prop(x, lc_class, ...)
 
-\method{prop}{winmove}(dat, d, type, lc_class)
+\method{prop}{winmove}(x, lc_class, d, type, ...)
 
-\method{prop}{numeric}(dat, lc_class)
+\method{prop}{numeric}(x, lc_class, ...)
 }
 \arguments{
-\item{x}{numeric, RasterWinmove. The data over which to calculate the proportion}
+\item{x}{numeric, winmove. The data over which to calculate the proportion}
 
 \item{lc_class}{numeric. The class value to calculate the proportion of}
+
+\item{...}{further arguments passed to or from other methods}
 
 \item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the
 CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
@@ -25,7 +27,7 @@ the size of the matrix returned (default is 3 times sigma)}
 \item{type}{character. The shape of the moving window}
 }
 \value{
-If \code{class(x) == "RasterWinmove"}, a smoothed raster with the proportion of
+If \code{class(x) == "winmove"}, a smoothed raster with the proportion of
   cells of the given class calculated within the specified moving window
 
   If \code{class(x) == "numeric"}, a single value representing the proportion of values
@@ -41,8 +43,8 @@ raster
 # load required data
 data(cat_ls)
 
-# convert data to object of class RasterWinmove
-cont_ls <- new("RasterWinmove", cont_ls)
+# convert data to object of class winmove
+cat_ls <- new("winmove", cat_ls)
 
 # aggregate using a rectangular window with dimension 5 for class 3
 d <- prop(cat_ls, d = 5, type = "rectangle", lc_class = 3)

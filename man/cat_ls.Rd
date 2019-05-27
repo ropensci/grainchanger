@@ -3,7 +3,7 @@
 \docType{data}
 \name{cat_ls}
 \alias{cat_ls}
-\title{Example categorical raster}
+\title{Example categorical raster (fine_dat)}
 \format{A raster layer object.}
 \source{
 Sciaini M, Fritsch M, Scherer C, Simpkins CE. NLMR and landscapetools: An integrated environment
