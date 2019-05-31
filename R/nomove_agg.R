@@ -23,9 +23,9 @@
 #' @return Raster (if input is Raster) or numeric vector (if input is sp or sf
 #'   object) containing values calculated for each coarser cell
 #'
-#' @keywords spatial, aggregate
+#' @keywords spatial aggregate
 #'
-#'#' @details \code{grainchanger} has several built-in functions. Functions
+#' @details \code{grainchanger} has several built-in functions. Functions
 #'   currently included are: 
 #'   \itemize{ 
 #'      \item \code{shdi} - Shannon diversity, requires the additional argument \code{lc_class} (vector or scalar) 

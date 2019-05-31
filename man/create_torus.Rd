@@ -36,4 +36,4 @@ data(cat_ls)
 d <- create_torus(dat = cat_ls, dpad = 5)
 }
 \keyword{raster}
-\keyword{torus,}
+\keyword{torus}

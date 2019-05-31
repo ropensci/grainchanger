@@ -9,10 +9,6 @@
 #'   If \code{type=Gauss} the size of sigma, and optionally another number to determine
 #'   the size of the matrix returned (default is 3 times sigma)
 #' @param type character. The shape of the moving window
-#' @param na.rm logical. indicates whether \code{NA} values should be stripped before the
-#'   computation proceeds. \code{na.rm = FALSE} (default) is optimised to be much faster
-#'   than \code{na.rm = TRUE}. The latter should only be used if \code{NA} values are
-#'   present
 #' @param ... further arguments passed to or from other methods
 #' 
 #' @return RasterLayer. A smoothed raster with the mean calculated within the specified

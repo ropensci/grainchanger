@@ -11,7 +11,7 @@
 #' @return raster. Original raster padded by r cells with torus effect (see
 #'   Details)
 #'
-#' @keywords torus, raster
+#' @keywords torus raster
 #'
 #' @details A torus is an infinite surface where the top joins the bottom, and
 #'   the left side meets the right side. See https://en.wikipedia.org/wiki/Torus

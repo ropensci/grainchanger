@@ -39,6 +39,16 @@ test_that("range calculation is correct", {
   expect_equal(d, nm_agg_range)
 })
 
+test_that("range calculation with na works", {
+  cont_ls_na <- cont_ls
+  raster::values(cont_ls_na)[1:845] <- NA
+  d <- nomove_agg(coarse_dat = g_sf, 
+                  fine_dat = cont_ls_na, 
+                  agg_fun = var_range,
+                  is_grid = FALSE)
+  expect_is(d, "numeric")
+})
+
 test_that("can accept user defined function", {
   user_fn <- function(x, na.rm = TRUE) {
     sum(2*x)

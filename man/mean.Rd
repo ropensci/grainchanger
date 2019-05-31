@@ -21,11 +21,6 @@ If \code{type=Gauss} the size of sigma, and optionally another number to determi
 the size of the matrix returned (default is 3 times sigma)}
 
 \item{type}{character. The shape of the moving window}
-
-\item{na.rm}{logical. indicates whether \code{NA} values should be stripped before the
-computation proceeds. \code{na.rm = FALSE} (default) is optimised to be much faster
-than \code{na.rm = TRUE}. The latter should only be used if \code{NA} values are
-present}
 }
 \value{
 RasterLayer. A smoothed raster with the mean calculated within the specified

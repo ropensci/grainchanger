@@ -30,7 +30,7 @@
 #' @return Numeric vector containing moving window values calculated for each
 #'   grid cell
 #'
-#' @keywords focal, spatial, aggregate
+#' @keywords focal spatial aggregate
 #'
 #' @details \code{grainchanger} has several built-in functions. Functions
 #'   currently included are: 

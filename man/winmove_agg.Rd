@@ -73,5 +73,5 @@ d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", mean)
 d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", shei, lc_class = 1:4)
 }
 \keyword{aggregate}
-\keyword{focal,}
-\keyword{spatial,}
+\keyword{focal}
+\keyword{spatial}
