@@ -14,7 +14,7 @@ test_that("shdi calculation is correct", {
   d <- winmove_agg(coarse_dat = g_sf, 
                    fine_dat = cat_ls, 
                    d = 3, 
-                   type = "Gauss", 
+                   type = "circle", 
                    win_fun = shdi,
                    lc_class = 1:4)
   expect_equal(d, wm_agg_shdi)
@@ -49,19 +49,6 @@ test_that("mean calculation with non-rectangle coarse data is correct", {
                    is_grid = FALSE)
   expect_equal(d, wm_agg_mean)
 })
-
-
-test_that("mean calculation is correct with na.rm = TRUE", {
-  d <- winmove_agg(coarse_dat = g_raster, 
-                   fine_dat = cont_ls, 
-                   d = 10, 
-                   type = "circle", 
-                   win_fun = mean,
-                   agg_fun = sd,
-                   na.rm = TRUE)
-  expect_equal(d, wm_agg_mean_na)
-})
-
 
 test_that("output is vector of length of input", {
   d <- winmove_agg(coarse_dat = g_sf, 

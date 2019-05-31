@@ -4,23 +4,21 @@
 \alias{winmove}
 \title{Create moving window surface}
 \usage{
-winmove(fine_dat, d, type, win_fun, ...)
+winmove(fine_dat, d, type = c("circle", "rectangle"), win_fun, ...)
 }
 \arguments{
 \item{fine_dat}{The raster dataset on which to calculate the moving window function}
 
 \item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the
-CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
-If \code{type=Gauss} the size of sigma, and optionally another number to determine
-the size of the matrix returned (default is 3 times sigma)}
+CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).}
 
 \item{type}{The shape of the moving window}
 
 \item{win_fun}{function. The function to apply. If not choosing one of the inbuilt
 grainchanger functions, the function should take multiple numbers, and return a
-single number. For example mean, modal, min or max. It should also accept a na.rm
+single number. For example \code{mean}, \code{modal}, \code{min} or \code{max}. It should also accept a \code{na.rm}
 argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length will
-fail, but function(x, ...){na.omit(length(x))} works. See Details}
+fail, but \code{function(x, ...){na.omit(length(x))}} works. See Details}
 
 \item{...}{further arguments passed to or from other methods}
 }

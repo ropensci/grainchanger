@@ -35,14 +35,9 @@ mean <- function(x, ...) UseMethod("mean")
 
 #' @name mean
 #' @export
-mean.winmove <- function(x, d, type, na.rm = FALSE, ...) {
-  if(na.rm) {
-    w <- ifelse(raster::focalWeight(x, d, type) == 0, 0, 1)
-    return(raster::focal(x = x, w = w, fun = mean, na.rm = TRUE))
-  } else {
-    w <- raster::focalWeight(x, d, type)
-    return(raster::focal(x, w))
-  }
+mean.winmove <- function(x, d, type, ...) {
+  w <- raster::focalWeight(x, d, type)
+  return(raster::focal(x, w))
 }
 
 #' Size of range of values
@@ -89,15 +84,24 @@ var_range <- function(x, ...) UseMethod("var_range")
 #' @export
 var_range.winmove <- function(x, d, type, na.rm = TRUE, ...) {
   w <- ifelse(raster::focalWeight(x, d, type) == 0, 0, 1)
-  return(raster::focal(x = x, w = w, fun = function(dat) {
-    max(dat, na.rm = na.rm) - min(dat, na.rm = na.rm)
+  return(raster::focal(x = x, w = w, fun = function(y) {
+    if(all(is.na(y))) {
+      NA
+    } else {
+      max(y, na.rm = na.rm) - min(y, na.rm = na.rm)  
+    }
+    
   }))
 }
 
 #' @name var_range
 #' @export
 var_range.numeric <- function(x, na.rm = TRUE, ...) {
-  return(max(x, na.rm = na.rm) - min(x, na.rm = na.rm))
+  if(all(is.na(x))) {
+    return(NA)
+  } else {
+    return(max(x, na.rm = na.rm) - min(x, na.rm = na.rm))
+  }
 }
 
 #' Calculate proportion of a given value
@@ -228,7 +232,7 @@ shdi.winmove <- function(x, lc_class, d, type, ...) {
 shdi.numeric <- function(x, lc_class, ...) {
   dat <- stats::na.omit(x)
   H <- lapply(lc_class, function(i) {
-    p <- sum(x == i) / raster::ncell(x)
+    p <- sum(x %in% i) / length(x)
     -1 * p * log(p)
   })
   return(sum(unlist(H), na.rm = TRUE))

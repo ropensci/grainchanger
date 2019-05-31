@@ -4,9 +4,8 @@
 \alias{winmove_agg}
 \title{Moving-window data aggregation}
 \usage{
-winmove_agg(coarse_dat, fine_dat, d, type = c("circle", "Gauss",
-  "rectangle"), win_fun, agg_fun = mean, is_grid = TRUE,
-  quiet = FALSE, ...)
+winmove_agg(coarse_dat, fine_dat, d, type = c("circle", "rectangle"),
+  win_fun, agg_fun = mean, is_grid = TRUE, quiet = FALSE, ...)
 }
 \arguments{
 \item{coarse_dat}{sf, Raster* or Spatial* object. The coarse grain data
@@ -18,17 +17,15 @@ data) to aggregate}
 
 \item{d}{numeric. If \code{type=circle}, the radius of the circle (in units
 of the CRS). If \code{type=rectangle} the dimension of the rectangle (one
-or two numbers). If \code{type=Gauss} the size of sigma, and optionally
-another number to determine the size of the matrix returned (default is 3
-times sigma)}
+or two numbers).}
 
 \item{type}{character. The shape of the moving window}
 
 \item{win_fun}{character. The function to apply to the moving window. The
-function fun should take multiple numbers, and return a single number. For
-example mean, modal, min or max. It should also accept a na.rm argument (or
-ignore it, e.g. as one of the 'dots' arguments. For example, length will
-fail, but function(x, ...){na.omit(length(x))} works. See Details}
+function \code{win_fun} should take multiple numbers, and return a single number. For
+example \code{mean}, \code{modal}, \code{min} or \code{max}. It should also accept a \code{na.rm} argument (or
+ignore it, e.g. as one of the 'dots' arguments. For example, \code{length} will
+fail, but \code{function(x, ...){na.omit(length(x))}} works. See Details}
 
 \item{agg_fun}{character. The function by which to aggregate. By default this
 is set to \code{mean}}
@@ -53,11 +50,15 @@ for each cell in a larger resolution grid.
 }
 \details{
 \code{grainchanger} has several built-in functions. Functions
-  currently included are: \itemize{ \item \code{shei} - Shannon evenness,
-  requires the additional argument \code{lc_class} (vector or scalar) \item
-  \code{prop} - Proportion, requires the additional argument \code{lc_class}
-  (scalar) \item \code{classes} - Unique number of classes in a categorical
-  landscape \item \code{var_range} - Range (max - min) }
+  currently included are: 
+  \itemize{ 
+     \item \code{shdi} - Shannon diversity, requires the additional argument \code{lc_class} (vector or scalar) 
+     \item \code{shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
+     \item \code{prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+     \item \code{var_range} - Range (max - min) 
+     }
+     
+ Note that \code{winmove_agg} can be run in parallel using \code{plan(multiprocess)} from the \code{future} package.
 }
 \examples{
 # load required data

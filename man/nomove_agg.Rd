@@ -38,14 +38,6 @@ Raster (if input is Raster) or numeric vector (if input is sp or sf
 Calculate the value for a given function for each cell in a larger resolution
 grid.
 }
-\details{
-\code{grainchanger} has several built-in functions. Functions
-  currently included are: \itemize{ \item \code{shei} - Shannon evenness,
-  requires the additional argument \code{lc_class} (vector or scalar) \item
-  \code{prop} - Proportion, requires the additional argument \code{lc_class}
-  (scalar) \item \code{classes} - Unique number of classes in a categorical
-  landscape \item \code{var_range} - Range (max - min) }
-}
 \examples{
 # load required data
 data(g_sf)
@@ -58,5 +50,53 @@ d <- nomove_agg(g_sf, cont_ls, mean)
 # aggregate using Shannon evenness
 d <- nomove_agg(g_sf, cont_ls, shei, lc_class = 1:4)
 }
+\keyword{#'}
+\keyword{(max}
+\keyword{(scalar)}
+\keyword{(vector}
+\keyword{-}
+\keyword{@details}
+\keyword{Functions}
+\keyword{Note}
+\keyword{Proportion,}
+\keyword{Range}
+\keyword{Shannon}
+\keyword{\code{future}}
+\keyword{\code{grainchanger}}
+\keyword{\code{lc_class}}
+\keyword{\code{nomove_agg}}
+\keyword{\code{plan(multiprocess)}}
+\keyword{\code{prop}}
+\keyword{\code{shdi}}
+\keyword{\code{shei}}
+\keyword{\code{var_range}}
+\keyword{\item}
+\keyword{\itemize{}
+\keyword{additional}
 \keyword{aggregate}
+\keyword{are:}
+\keyword{argument}
+\keyword{be}
+\keyword{built-in}
+\keyword{can}
+\keyword{currently}
+\keyword{diversity,}
+\keyword{evenness,}
+\keyword{from}
+\keyword{functions.}
+\keyword{has}
+\keyword{in}
+\keyword{included}
+\keyword{min)}
+\keyword{or}
+\keyword{package.}
+\keyword{parallel}
+\keyword{requires}
+\keyword{run}
+\keyword{scalar)}
+\keyword{several}
 \keyword{spatial,}
+\keyword{that}
+\keyword{the}
+\keyword{using}
+\keyword{}}

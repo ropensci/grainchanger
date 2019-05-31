@@ -7,7 +7,7 @@
 \usage{
 mean(x, ...)
 
-\method{mean}{winmove}(x, d, type, na.rm = FALSE, ...)
+\method{mean}{winmove}(x, d, type, ...)
 }
 \arguments{
 \item{x}{RasterLayer. The data over which to calculate the mean value within a moving

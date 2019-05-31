@@ -1,0 +1,308 @@
+---
+title: "Review response"
+author: "Laura J. Graham"
+date: "31/05/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Firstly, thanks to @mbjoseph and @johnbaums for really thorough and helpful reviews. The package now passes goodpractice checks and spelling mistakes have been corrected. 
+
+As a general note, I've added additional functionality to the package - the coarse resolution data (to which the fine resolution data is being aggregated) no longer needs to be gridded. 
+
+First responses to @mbjoseph review: 
+
+# README
+
+> A description in the README that outlines the similarities and differences to raster::focal(), and how the moving window functionality relates to spatial convolution would be helpful. It took me a while to wrap my head around what the package did based on the README, but a more explicit connection to other operations that users may know already could reduce the spin-up time for new users.
+
+I've added text to the readme which provides a package overview. In particular: 
+
+---
+The `winmove` function acts as a convenient wrapper to `raster::focalWeight` and `raster::focal` which takes advantage of optimised functions built into the `grainchanger` package. 
+
+---
+
+>It could be good to point out the target audience more directly in the README - i.e., some explicit statement that a user could identify with - landscape ecologists, or generally folks working with spatial data at different resolutions, etc.
+
+Statement added to readme: 
+
+---
+As landscape ecologists and macroecologists, we often need to aggregate data in order to harmonise datasets. In doing so, we often lose a lot of information about the spatial structure and environmental heterogeneity of data measured at finer resolution. An example of this is when the response data (e.g. species' atlas data) are available at a coarser resolution to the predictor data (e.g. land-use data). We developed this method and R package in order to overcome some of these issues. 
+
+---
+
+>The three panel figure in the README (mwda_schematic.png) I thought would be helpful to wrap my head around what's happening, but there were a few things that I found confusing:
+
+>The terms "response" and "predictor" along with f(x) in the first panel might suggest some kind of model, but these aren't explained elsewhere.
+
+>It would be nice to have an explanation for why the number of grid cells increases in the second figure. Was a torus created?
+
+>An explanation of what the thick black squares represent would be useful.
+
+Apologies, I just stuck this figure in from a paper without any explanation! I've moved it into a separate vignette Background & Motivation and given it a caption, which hopefully answers all the above points: 
+
+---
+The above is a graphical representation of the MWDA method. In calculating the MWDA measure, three aspects of scale are considered. Predictor grain is the characteristic spatial scale of a predictor variable, that is, the resolution of the environmental data; scale‐of‐effect determines the appropriate scale of the relationship between predictor and response, for example, an ecological neighbourhood; response grain is the grain of the unit into which you are predicting, that is, the resolution of the response variable (represented by the black lines). Note that the colour scale is unitless. Yellow cells represent ‘high’ values and dark blue cells ‘low’ values. Panel 1 shows a close up of one of the response grain cells in panel 2, whereas panel 2 shows all response grain cells for the study region. Panel 3 shows the study region after aggregation. From [*Graham et al. 2019*](https://doi.org/10.1111/2041-210X.13177).
+
+---
+
+> The show_landscape function applied to a categorical raster might be improved by using a discrete colormap (via discrete = TRUE). I was confused briefly by the current example, where the colorbar implies continuity.
+
+Done
+
+> In the README there seem to be some places where "surface" and "landscape" are used interchangeably. Would using one or the other, (or "raster") generalize the language a bit?
+
+Done - changed all to raster
+
+# Implementation and interface
+
+> Some of the function arguments are very concise, possibly at the expense of clarity. For example, the parameter g represents a grid, and the parameter dat represents a raster. Some more expressive argument names might be useful here (e.g., maybe grd and ras). This is definitely tricky because you might not want to use grid and raster, but something to think about.
+
+I've changed the parameter names to `fine_dat`, `coarse_dat`, `win_fun`, and `agg_fun` which I think better explains what they represent. 
+
+> The na.rm argument to nm_prop appears to be unused - is that intentional?
+
+Unintentional, the new structure of the calc_functions sorts this. 
+
+# Documentation
+
+> An example of how to use a custom function for moving window and direct aggregation might be useful for users who want to extend or modify the current functionality.
+
+Good point. I've now provided this in the vignette Built-in functions
+
+> In the help file for winmove_agg, it might be useful to elaborate on the description of the type argument to list the valid values (I can tell that these are at least "circle", "Gauss", and "rectangle", but maybe there are more?).
+
+Done
+
+> Great to have the code of conduct, but it would be even better to also have contributing guidelines (either in the README or in a separate file) to outline your preferred way of having others contribute to the package.
+
+Contributions section added to the readme
+
+---
+We welcome contributions to this package. To contribute, submit a [pull request](https://help.github.com/en/articles/about-pull-requests) making sure `develop` is the destination branch on the [`grainchanger` repository](https://github.com/laurajanegraham/grainchanger).
+
+---
+
+> You could add a CodeMeta file for the package as described in the rOpenSci dev guide: https://ropensci.github.io/dev_guide/building.html#creating-metadata-for-your-package
+
+Done
+
+> Missing a closing parenthesis on the Description field for var_range in the table of functions in the getting started vignette: https://laurajanegraham.github.io/grainchanger/articles/getting-started.html#functions
+
+Fixed
+
+# Testing
+
+> Building out some unit tests for winmove(...fun = 'prop'), winmove() with user defined functions, and the uncovered functions in R/calc_functions.R would be a nice addition.
+
+Included user-defined functions in the testing, and testing now 100% coverage
+
+> For the winmove tests, it might be a good idea to use some different values of d - currently all of the tests use d = 5, which is great for that case, but as a consequence the tests might not reveal whether future changes break the functionality that enable different values of d to alter the function's behavior.
+
+Sorted. Have also varied the inputs and moving window shape
+
+> If possible, it would be nice to have testing on Windows via AppVeyor.
+
+Done
+
+Responses to @johnbaums review: 
+
+# Installation
+
+>I initially had some trouble getting the key functions to run. This was first due to an outdated version of dplyr (0.7.8; error: object 'group_map' not found ... dplyr 0.8.0.1 rectified this), and then due to an outdated version of R (3.4.2; invalid class "Extent" object: TRUE ... all tests ran succeeded after updating to R 3.5.3). It might be worth stipulating minimum versions for these in DESCRIPTION. (Note that the old R issue is was also reported here.)
+
+I've updated the minimum versions in DESCRIPTION
+
+# README
+
+> Nice but a little brief. It might be worth stating that winmove can be used on its own, without subsequently aggregating. 
+
+I've updated the readme a bit with information about who may want to use it: 
+
+---
+As landscape ecologists and macroecologists, we often need to aggregate data in order to harmonise datasets. In doing so, we often lose a lot of information about the spatial structure and environmental heterogeneity of data measured at finer resolution. An example of this is when the response data (e.g. species’ atlas data) are available at a coarser resolution to the predictor data (e.g. land-use data). We developed this method and R package in order to overcome some of these issues.
+
+---
+
+An overview of the package - which includes that `winmove` can be used on its own: 
+
+---
+The primary functions of the grainchanger package are those which facilitate moving-window (winmove_agg) and direct (nomove_agg) data aggregation. These functions aggregate fine-grain data (fine_dat) to a coarse-grain (coarse_dat) using a function specified by the user (agg_fun). The moving-window method takes in an additional function (win_fun) which smooths the fine-grain data prior to aggregation.
+
+The moving-window smoothing function is also available in the package (winmove), as well as several built-in functions, and an additional utility function for use with simulated landsacpes (create_torus).
+
+The winmove function acts as a convenient wrapper to raster::focalWeight and raster::focal which takes advantage of optimised functions built into the grainchanger package.
+
+---
+
+>I'd also like to see more examples, e.g. using rasters as the target grids. It would also benefit from a clearer description of the process involved in moving window aggregation. In particular, it's not clear that what is returned is the average of smoothed pixel values within the larger extents.
+
+I've included a raster as a target grid in one of the examples. I've also better explained the output: 
+
+---
+The below example shows the moving-window data aggregation in action. It aggregates a categorical raster (`fine_dat`) to a grid using Shannon evenness (specified by `win_fun`) as the function calculated within a square moving window of 5 units. The value returned is the mean (specified by `agg_fun`) of the smoothed value for each cell of `coarse_dat`. This value is included as a column on the grid `sf` object.
+
+---
+
+>I was a bit confused by the schematic, until I realised that the leftmost grid represents one of the 16 grid cells shown in the middle grid.. I'm not sure how that could be more effectively portrayed.
+
+Apologies, I just stuck this figure in from a paper without any explanation! I've moved it into a separate vignette Background & Motivation and given it a caption, which hopefully answers all the above points: 
+
+---
+The above is a graphical representation of the MWDA method. In calculating the MWDA measure, three aspects of scale are considered. Predictor grain is the characteristic spatial scale of a predictor variable, that is, the resolution of the environmental data; scale‐of‐effect determines the appropriate scale of the relationship between predictor and response, for example, an ecological neighbourhood; response grain is the grain of the unit into which you are predicting, that is, the resolution of the response variable (represented by the black lines). Note that the colour scale is unitless. Yellow cells represent ‘high’ values and dark blue cells ‘low’ values. Panel 1 shows a close up of one of the response grain cells in panel 2, whereas panel 2 shows all response grain cells for the study region. Panel 3 shows the study region after aggregation. From [*Graham et al. 2019*](https://doi.org/10.1111/2041-210X.13177).
+
+---
+
+> For people unfamiliar with construction of sf polygon grids, it'd be useful to include an example in the readme (and in the function docs) that creates g_sf.
+
+I've now included this in the getting started vignette. There is one example which loads an `sf` object using `sf::st_read`, and another which creates one using the `st_make_grid` function from the `sf` package. #
+
+# General comments
+
+> typos: Ecololgy, useage
+
+Fixed
+
+>I'd like to see more details about the available functions (i.e. things in calc_functions.R). The names given in the Details section (e.g., 'wm_shei') throw errors, and it's not immediately clear that the wm_ prefix should be dropped by the user.
+
+I've changed the structure of the built in functions to take an object oriented approach. They are now fully documented, don't have the prefix, and there is a vignette (Built-in functions) which explains their usage. 
+
+> It's unclear how you intend for wm_classes to be used with winmove.
+
+I've removed this one for now - it may be built into a future update, but if it is, it will be fully documented in the same way as (e.g) `shei` and `shdi`. 
+
+> Might be an idea to provide a reference or formula for Shannon's evenness.
+
+This has been provided in the Built-in functions vignette and the help file for diversity-metrics. 
+
+
+# `create_torus()`
+>I think that the output extent should be bsaed on the input raster. Currently, the extent is reset to c(0, ncol(data_pad) * resolution, 0, nrow(dat_pad) * resolution). It would make more sense to use extent(dat) + 2*r so that this propagates nicely to other functions in the smoothing/aggregation pipeline (and also because create_torus will be useful independent of the pipeline).
+
+Agreed - I've updated the function to work in this way. 
+
+I toyed with removing this function from the package because it's not been used anywhere in the pipeline. The reason for its creation was for me to use with simulated landscapes for testing the properties of `winmove` and `winmove_agg` - which may be useful to other users. Would appreciate thoughts on this! 
+
+Documentation:
+
+r: "The radius by which to pad the raster" - this should stipulate the units (i.e., number of cells). Actually I don't think "radius" is the best word choice here.
+
+Agreed. Updated
+
+---
+The amount by which to pad the raster (in the same units as the raster)
+
+---
+
+>Define torus e.g. with "wrapping"/"tiling" - it's unclear without digging into the source, and the torus approach to padding may not always be appropriate so it should be made explicit. I had initially expected that "Pad a raster by a specified radius" meant it would be padded with NA, as per raster::extend). Though maybe the approach you're using is also what raster::focal does (where it's also not clearly described)?
+
+Added a description to the details: 
+
+---
+A torus is an infinite surface where the top joins the bottom, and the left side meets the right side. See https://en.wikipedia.org/wiki/Torus for a full mathematical description.
+
+In this function, the torus effect is achieved by adding the specified number of rows of the top of the raster to the bottom (and vice versa) and the specified number of rows of the right of the raster to the left (and vice versa)
+
+---
+
+# `winmove_agg()`
+
+> is grid_buffer <- sf::st_geometry(grid_buffer) necessary?
+
+Yes, and I've not a clue why. If I run the code outside of the future_map it runs fine without, but within it, it needs this to work... Sorry, not the best answer!! 
+
+>I'm not sure whether this potentially a problem or not.. the distance, d, is used to define the moving window, but also to buffer the extent that is being considered (i.e. to buffer grid_cell). The latter is necessary to prevent edge effects of blocked moving window analysis, but I think the resulting raster (winmove_cellr) should then be cropped back to the extent of grid_cell prior to calculating the mean over the cells. Otherwise, raster cells 2d away from the grid cell might(?) contribute to the aggregate mean of that grid cell. I think this may in fact not happen, since the cells at the margins are NA after winmove, at least in one test I ran.
+
+Yes, all the margins will be NA, so it doesn't need cropping back to the extent. 
+
+>It's probably worth letting users define the function used for aggregation of smoothed cell values, and not just the moving window summary. Currently the function enforces calculation of the cells' mean. In contrast, the nomove_agg function uses the user-specified function for aggregation. This inconsistency might be confusing, and since it's trivial to allow users to specify the aggregation function as well, I think it's worth doing.
+
+Agreed - I've updated this to be an additional argument (`agg_fun`) with the default set to mean. 
+
+> g cannot be a SpatialPolygons object - if there's no harm in allowing that, I would do so (checkmate::check_class(g, "SpatialPolygons")).
+
+Updated to allow this. 
+
+> winmove_agg fails if g is a RasterLayer filled with NA
+
+Fixed. 
+
+> Should winmove_agg return a raster object by default if the target grid is a raster object? It currently returns a numeric vector. This is inconsistent with nomove_agg, which returns a raster if input is a raster.
+
+Good point, I've updated the code to output a raster if the input is a raster. 
+
+> If the destination grid is a regular grid aligned with the initial raster (though alignment may be unecessary since raster::crop snaps to nearest cell by default), then it's much faster in some cases to use a raster::focal and raster::aggregate workflow. It might be worth testing for this and using that workflow where appropriate.
+
+Agreed, but these methods take advantage of parallel processing (which I've now included in the documentation for `winmove_agg` and `nomove_agg` as well as in the getting started vignette). For now I have left the code as is, but this is something worth considering for a future update. 
+
+> It would be nice if these functions worked on raster stacks as well.
+
+Agreed. I think that perhaps this is something for the next update as it requires a bit of thinking as to how to approach it (e.g. the `focal` function on which this is built only takes in RasterLayer as input). 
+
+Documentation:
+
+>docs list only a subset of the functions that exist in calc_functions.R ("grainchanger has several built-in functions. Functions currently included are: wm_shei, wm_prop, wm_classes, var_range"). This is missing wm_mean. I would also suggest not referring to the nm_ and wm_ prefixes in the docs. Users should be able to (and can) just use, e.g. "shei". I don't think they need to know the underlying function name, unless you intend for it to be used directly (which I doubt since it's not exported).
+
+I've updated the way that the functions work and all are properly documented now. 
+
+> Function names could be more intuitive, e.g. "shannon" as opposed to "shei".
+
+I've gone with this because it is how it is referred to in the fragstats manual. As I build in more of the functions from there I will keep the consistency of using these codes. 
+
+> d: "the size of the matrix returned" - I know that this relates to raster::focalWeights, but users might be confused about which matrix you refer to.
+
+Gauss has been removed as an option - see below. 
+
+>fun: use \code{} to mark up code.
+
+Fixed
+
+# `winmove()`
+
+> is grid_buffer <- sf::st_geometry(grid_buffer) necessary?
+
+See above
+
+> w <- ifelse(w > 0, 1, NA) in winmove can break expected behaviour when type='Gauss', for example if fun=max. E.g., compare winmove(cont_ls, 5, 'Gauss', 'max') to raster::focal(cont_ls, raster::focalWeight(cont_ls, 5, 'Gauss'), max).
+
+Ah! Good spot, I completely missed this (as I don't use the Gaussian filter). I've removed Gauss for now, because I can't think of a straightforward way to include it in the workflow. Additionally, the primary focus of this package is on the aggregation, and some simulations I did a while ago showed that when aggregating smoothed measures, there is little difference between using circle and Gauss (the problems pointed out above weren't present as this was using focal). 
+
+> I think it would be nice to accomodate anonymous functions in winmove. E.g.: winmove(cont_ls, 5, 'rectangle', function(x, ...) diff(range(x))). This applies to nomove_agg as well.
+
+This is now possible (functions are no longer input as strings).
+
+Documentation:
+
+>"The shape of the moving window" is unclear. What options can this take? Specify in Details or in the argument description. See ?raster::focalWeight, for example.
+
+Done
+
+> nomove_agg uses as.vector() while winmove_agg uses raster::values(). The latter is perhaps slightly more performant, though the difference is trivial. But you could change for consistency.
+
+Both now use `raster::values`
+
+> when g is a raster layer, it's only used to determine the aggregation factor. However, users might expect that if the layers are offset, the aggregation will be done within the offset, target cells. This isn't the case.
+
+This is now possible
+
+>In nm_shei, I believe p <- sum(dat == i) / raster::ncell(dat) needs a na.rm=TRUE, and since dat is not a raster object in that scope, you could replace the ncell call with length. If you want to ignore NA cells from the number of cells (I'm not sure which is more appropriate), then you can replace the whole line with p <- mean(dat==i, na.rm=TRUE).
+
+I've changed this to be `sum(x %in% i) / length(x)` to be in line with the winmove version, and to take into account the comment about the input not being a raster. 
+
+> In var_range, can replace if (sum(is.na(dat)) == length(dat)) with if (all(is.na(dat)))
+
+Done
+
+Documentation:
+
+> Use \code{} in docs (fun arg description)
+
+Done
+
+> I think the final example in nomove_agg (d <- nomove_agg(g_sf, cont_ls, "nm_shei", lc_class = 0:3)) should use cat_ls not cont_ls.
+
+Examples have changed. 

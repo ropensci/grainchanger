@@ -13,12 +13,23 @@ create_torus(dat, dpad)
 raster)}
 }
 \value{
-raster. Original raster padded by r cells with torus effect
+raster. Original raster padded by r cells with torus effect (see
+  Details)
 }
 \description{
 This function pads a raster by a specified number of cells, creating the
 effect of a torus. Allows for moving window analysis that avoids edge effects
 (e.g. on simulated landscapes).
+}
+\details{
+A torus is an infinite surface where the top joins the bottom, and
+  the left side meets the right side. See https://en.wikipedia.org/wiki/Torus
+  for a full mathematical description.
+
+  In this function, the torus effect is achieved by adding the specified
+  number of rows of the top of the raster to the bottom (and vice versa) and
+  the specified number of rows of the right of the raster to the left (and
+  vice versa)
 }
 \examples{
 data(cat_ls)

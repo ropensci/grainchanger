@@ -25,13 +25,17 @@
 #'
 #' @keywords spatial, aggregate
 #'
-#' @details \code{grainchanger} has several built-in functions. Functions
-#'   currently included are: \itemize{ \item \code{shei} - Shannon evenness,
-#'   requires the additional argument \code{lc_class} (vector or scalar) \item
-#'   \code{prop} - Proportion, requires the additional argument \code{lc_class}
-#'   (scalar) \item \code{classes} - Unique number of classes in a categorical
-#'   landscape \item \code{var_range} - Range (max - min) }
-#'
+#'#' @details \code{grainchanger} has several built-in functions. Functions
+#'   currently included are: 
+#'   \itemize{ 
+#'      \item \code{shdi} - Shannon diversity, requires the additional argument \code{lc_class} (vector or scalar) 
+#'      \item \code{shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
+#'      \item \code{prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+#'      \item \code{var_range} - Range (max - min) 
+#'      }
+#'      
+#'  Note that \code{nomove_agg} can be run in parallel using \code{plan(multiprocess)} from the \code{future} package. 
+#'  
 #' @examples
 #' # load required data
 #' data(g_sf)

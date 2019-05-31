@@ -26,62 +26,45 @@ to a coarser resolution via moving-window or direct methods.
 As landscape ecologists and macroecologists, we often need to aggregate
 data in order to harmonise datasets. In doing so, we often lose a lot of
 information about the spatial structure and environmental heterogeneity
-of data measured at finer resolution. A specific case we are considering
-is where the response data (e.g. species’ atlas data) are available at a
-coarser resolution to the predictor data (e.g. land-use data). We
-developed this method and R package in order to overcome some of these
-issues.
+of data measured at finer resolution. An example of this is when the
+response data (e.g. species’ atlas data) are available at a coarser
+resolution to the predictor data (e.g. land-use data). We developed this
+method and R package in order to overcome some of these issues.
 
-For more information on the background to and motivation for the
-development of this method, see [Graham *et al.* 2019 in *Methods in
-Ecology and Evolution*](https://doi.org/10.1111/2041-210X.13177).
+For more information on the [background to and motivation
+for](background.html) the development of this method, see [Graham *et
+al.* 2019 in *Methods in Ecology and
+Evolution*](https://doi.org/10.1111/2041-210X.13177).
 
-### Moving-window data aggregation
+# Package overview
 
-The moving-window data aggregation (MWDA) method smooths an input raster
-using a specified function within a moving window of a specified size
-and shape prior to aggregation. This acts as a convenient wrapper for
-the `focalWeight()` and `focal()` functions in the `raster` package.
-Additionally, we have aimed to write efficient functions for some
-oft-used metrics within landscape ecology for use within the moving
-window.
+The primary functions of the `grainchanger` package are those which
+facilitate moving-window (`winmove_agg`) and direct (`nomove_agg`) data
+aggregation. These functions aggregate fine-grain data (`fine_dat`) to a
+coarse-grain (`coarse_dat`) using a function specified by the user
+(`agg_fun`). The moving-window method takes in an additional function
+(`win_fun`) which smooths the fine-grain data prior to aggregation.
 
-![Schematic of the moving-window data aggregation
-approach](man/figures/mwda_schematic.png)
+The moving-window smoothing function is also available in the package
+(`winmove`), as well as several [built-in functions](functions.html),
+and an additional utility function for use with simulated landsacpes
+(`create_torus`).
 
-The above is a graphical representation of the MWDA method. In
-calculating the MWDA measure, three aspects of scale are considered.
-Predictor grain is the characteristic spatial scale of a predictor
-variable, that is, the resolution of the environmental data;
-scale‐of‐effect determines the appropriate scale of the relationship
-between predictor and response, for example, an ecological
-neighbourhood; response grain is the grain of the unit into which you
-are predicting, that is, the resolution of the response variable
-(represented by the black lines). Note that the colour scale is
-unitless. Yellow cells represent ‘high’ values and dark blue cells ‘low’
-values. Panel 1 shows a close up of one of the response grain cells in
-panel 2, whereas panel 2 shows all response grain cells for the study
-region. Panel 3 shows the study region after aggregation.
+The `winmove` function acts as a convenient wrapper to
+`raster::focalWeight` and `raster::focal` which takes advantage of
+optimised functions built into the `grainchanger` package.
 
-### Direct data aggregation
+# Installation
 
-The direct method simply aggregates to the grid using the specified
-function, essentially acting as a wrapper for the `raster` aggregate
-function.
+    # Install release version from CRAN
+    install.packages("grainchanger")
+    
+    # Install development version from GitHub
+    devtools::install_github("laurajanegraham/grainchanger")
 
-## Installation
+# Examples
 
-You can install the development version from
-[GitHub](https://github.com/) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("laurajanegraham/grainchanger")
-```
-
-## Example
-
-### Moving-window data aggregation
+## Moving-window data aggregation
 
 The below example shows the moving-window data aggregation in action. It
 aggregates a categorical raster to a grid using Shannon evenness as the
@@ -91,20 +74,11 @@ is included as a column on the grid `sf` object.
 ``` r
 library(grainchanger)
 library(ggplot2)
-#> Registered S3 methods overwritten by 'ggplot2':
-#>   method         from 
-#>   [.quosures     rlang
-#>   c.quosures     rlang
-#>   print.quosures rlang
 library(landscapetools)
+library(patchwork)
 
 # categorical landscape
-show_landscape(cat_ls, discrete = TRUE)
-```
-
-<img src="man/figures/README-mwda_example-1.png" width="100%" />
-
-``` r
+fine_dat_plot <- show_landscape(cat_ls, discrete = TRUE)
 
 # moving-window aggregation using Shannon evenness
 g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
@@ -113,44 +87,50 @@ g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
                          type = "rectangle",
                          win_fun = shei,
                          agg_fun = mean,
-                         lc_class = 0:3,
+                         lc_class = 1:4,
                          quiet = TRUE)
 
-ggplot(g_sf) + geom_sf(aes(fill = mwda))
+coarse_dat_plot <- ggplot(g_sf) + 
+  geom_sf(aes(fill = mwda)) + 
+  theme_bw()
+
+fine_dat_plot + coarse_dat_plot
 ```
 
-<img src="man/figures/README-mwda_example-2.png" width="100%" />
+<img src="man/figures/README-mwda_example-1.png" width="100%" />
 
-### Direct data aggregation
+## Direct data aggregation
 
 The below example shows the direct data aggregation in action. It
-aggregates a continuous raster to a grid using the range as the function
-calculated for each cell of the larger grid. This value is included as a
-column on the grid `sf` object. `var_range` is an inbuilt function in
-the `grainchanger` package.
+aggregates a continuous raster to a raster with a coarser resolution
+using the range as the function calculated for each cell of the larger
+grid. The resulting output is a raster of the coarser resolution.
+`var_range` is an inbuilt function in the `grainchanger` package.
 
 ``` r
+library(raster)
+
 # continuous landscape
-show_landscape(cont_ls)
-```
+fine_dat_plot <- show_landscape(cont_ls)
 
-<img src="man/figures/README-dda_example-1.png" width="100%" />
-
-``` r
+# load the coarse resolution raster
+g_raster <- raster(system.file("raster/g_raster.tif", package = "grainchanger"))
 
 # direct aggregation using range
-g_sf$dda <- nomove_agg(coarse_dat = g_sf,
+dda <- nomove_agg(coarse_dat = g_raster,
                        fine_dat = cont_ls, 
                        agg_fun = var_range)
 #> aggregation assumes all cells are rectangular
 #> <U+25CF> set `is_grid = FALSE` if coarse_dat is not a grid
 
-ggplot(g_sf) + geom_sf(aes(fill = dda))
+coarse_dat_plot <- show_landscape(dda)
+
+fine_dat_plot + coarse_dat_plot
 ```
 
-<img src="man/figures/README-dda_example-2.png" width="100%" />
+<img src="man/figures/README-dda_example-1.png" width="100%" />
 
-## Functions
+# Functions
 
 There are a number of inbuilt functions in the grainchanger package,
 with their usage outlined below. While it is possible to use
@@ -163,13 +143,13 @@ function.
 | Function.Name | Description                               | Additional.arguments |
 | :------------ | :---------------------------------------- | :------------------- |
 | prop          | Calculate the proportion of a given class | lc\_class (numeric)  |
-| shdi          | Calculate the Shannon diversity           |                      |
+| shdi          | Calculate the Shannon diversity           | lc\_class (numeric)  |
 | shei          | Calculate the Shannon evenness            | lc\_class (numeric)  |
 | range         | Calculate the range of values             |                      |
 
-## Additional utilities
+# Additional utilities
 
-### Create torus
+## Create torus
 
 The `create_torus` function takes as input a raster and pads it by a
 specified radius, creating the effect of a torus. We developed this
@@ -185,7 +165,14 @@ show_landscape(torus, discrete = TRUE)
 
 <img src="man/figures/README-torus-1.png" width="100%" />
 
-## Meta
+# Contributing
+
+We welcome contributions to this package. To contribute, submit a [pull
+request](https://help.github.com/en/articles/about-pull-requests) making
+sure `develop` is the destination branch on the [`grainchanger`
+repository](https://github.com/laurajanegraham/grainchanger).
+
+# Meta
 
   - Please [report any issues or
     bugs](https://github.com/laurajanegraham/grainchanger/issues/new/).

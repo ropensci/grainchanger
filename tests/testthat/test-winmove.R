@@ -6,13 +6,8 @@ test_that("shei calculation is correct", {
 })
 
 test_that("mean calculation is correct", {
-  d <- winmove(cont_ls, 2, "Gauss", mean)
+  d <- winmove(cont_ls, 2, "rectangle", mean)
   expect_equal(d, wm_mean_dat)
-})
-
-test_that("mean na.rm = TRUE calculation is correct", {
-  d <- winmove(cont_ls, 15, "circle", mean, na.rm = TRUE)
-  expect_equal(d, wm_mean_na_dat)
 })
 
 test_that("user defined function works", {

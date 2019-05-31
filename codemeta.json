@@ -228,11 +228,23 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=usethis"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "purrr",
+      "name": "purrr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=purrr"
     }
   ],
   "releaseNotes": "https://github.com/laurajanegraham/grainchanger/blob/master/NEWS.md",
   "readme": "https://github.com/laurajanegraham/grainchanger/blob/master/README.md",
-  "fileSize": "316.865KB",
+  "fileSize": "427.755KB",
   "contIntegration": [
     "https://travis-ci.org/laurajanegraham/grainchanger",
     "https://codecov.io/gh/laurajanegraham/grainchanger?branch=master"

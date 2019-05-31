@@ -10,15 +10,13 @@
 #'   data) to aggregate
 #' @param d numeric. If \code{type=circle}, the radius of the circle (in units
 #'   of the CRS). If \code{type=rectangle} the dimension of the rectangle (one
-#'   or two numbers). If \code{type=Gauss} the size of sigma, and optionally
-#'   another number to determine the size of the matrix returned (default is 3
-#'   times sigma)
+#'   or two numbers).
 #' @param type character. The shape of the moving window
 #' @param win_fun character. The function to apply to the moving window. The
-#'   function fun should take multiple numbers, and return a single number. For
-#'   example mean, modal, min or max. It should also accept a na.rm argument (or
-#'   ignore it, e.g. as one of the 'dots' arguments. For example, length will
-#'   fail, but function(x, ...){na.omit(length(x))} works. See Details
+#'   function \code{win_fun} should take multiple numbers, and return a single number. For
+#'   example \code{mean}, \code{modal}, \code{min} or \code{max}. It should also accept a \code{na.rm} argument (or
+#'   ignore it, e.g. as one of the 'dots' arguments. For example, \code{length} will
+#'   fail, but \code{function(x, ...){na.omit(length(x))}} works. See Details
 #' @param agg_fun character. The function by which to aggregate. By default this
 #'   is set to \code{mean}
 #' @param is_grid logical. Use \code{TRUE} (default) if \code{g} contains only
@@ -35,11 +33,15 @@
 #' @keywords focal, spatial, aggregate
 #'
 #' @details \code{grainchanger} has several built-in functions. Functions
-#'   currently included are: \itemize{ \item \code{shei} - Shannon evenness,
-#'   requires the additional argument \code{lc_class} (vector or scalar) \item
-#'   \code{prop} - Proportion, requires the additional argument \code{lc_class}
-#'   (scalar) \item \code{classes} - Unique number of classes in a categorical
-#'   landscape \item \code{var_range} - Range (max - min) }
+#'   currently included are: 
+#'   \itemize{ 
+#'      \item \code{shdi} - Shannon diversity, requires the additional argument \code{lc_class} (vector or scalar) 
+#'      \item \code{shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
+#'      \item \code{prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+#'      \item \code{var_range} - Range (max - min) 
+#'      }
+#'      
+#'  Note that \code{winmove_agg} can be run in parallel using \code{plan(multiprocess)} from the \code{future} package. 
 #' @examples
 #' # load required data
 #' data(g_sf)
@@ -56,7 +58,7 @@
 winmove_agg <- function(coarse_dat, 
                         fine_dat, 
                         d, 
-                        type=c('circle', 'Gauss', 'rectangle'), 
+                        type=c('circle', 'rectangle'), 
                         win_fun, 
                         agg_fun = mean, 
                         is_grid = TRUE, 
@@ -66,12 +68,14 @@ winmove_agg <- function(coarse_dat,
   checkmate::assert(
     checkmate::check_class(coarse_dat, "RasterLayer"),
     checkmate::check_class(coarse_dat, "SpatialPolygonsDataFrame"),
+    checkmate::check_class(coarse_dat, "SpatialPolygons"),
     checkmate::check_class(coarse_dat, "sf"),
     checkmate::check_class(coarse_dat, "sfc")
   )
 
   checkmate::assert_class(fine_dat, "RasterLayer")
   checkmate::assert_numeric(d)
+  
 
   if(is_grid & !quiet) {
     usethis::ui_line("aggregation assumes all cells are rectangular")
@@ -83,20 +87,37 @@ winmove_agg <- function(coarse_dat,
   if ("RasterLayer" %in% class(coarse_dat)) {
     output_raster <- TRUE
     ras <- coarse_dat
-    coarse_dat <- methods::as(coarse_dat, "SpatialPolygonsDataFrame")
+    raster::values(ras) <- 1
+    coarse_dat <- methods::as(ras, "SpatialPolygonsDataFrame")
   } 
 
-  if ("SpatialPolygonsDataFrame" %in% class(coarse_dat)) {
+  if ("sp" %in% attr(class(coarse_dat), which = "package")) {
     coarse_dat <- sf::st_as_sf(coarse_dat)
   }
 
+  if(!quiet) {
+    buff <- sf::st_buffer(coarse_dat, d)
+    dat_bbox <- sf::st_bbox(fine_dat)
+    contained <- unlist(sf::st_contains(sf::st_as_sfc(dat_bbox), buff))
+    affected <- paste0(rownames(buff[-contained,]), collapse = ",")
+    if(length(affected) > 0) {
+      usethis::ui_warn(
+        paste0(
+          "Moving window extends beyond extent of `fine_dat`
+          You will get edge effects for the following cells of `coarse_dat`:
+          ",affected
+          )
+        )
+    }
+  }
   out <- furrr::future_map(sf::st_geometry(coarse_dat), 
                            purrr::quietly(function(grid_cell, 
                                                    fine_dat, 
                                                    d, 
                                                    type, 
                                                    win_fun, 
-                                                   agg_fun, ...) {
+                                                   agg_fun,
+                                                   ...) {
                              
                              # buffer and crop
                              grid_buffer <- sf::st_sf(
@@ -124,15 +145,10 @@ winmove_agg <- function(coarse_dat,
                                                  type, 
                                                  win_fun, 
                                                  ...)
-                             agg_fun(raster::values(win_cell), 
-                                     na.rm = TRUE)
+                             agg_fun(raster::values(win_cell),
+                                                    na.rm = TRUE)
                            }), fine_dat, d, type, win_fun, agg_fun, ...)
-  
-  # more useful warning than "no non-missing arguments..."
-  warn <- length(unlist(furrr::future_map(out, function(x) x$warnings))) > 0
-  if(warn) usethis::ui_warn("There may be edge effects because the moving 
-                            window extends beyond the extent of `fine_dat`")
-  
+
   out <- furrr::future_map_dbl(out, function(x) x$result)
   
   
