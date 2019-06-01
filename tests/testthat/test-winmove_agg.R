@@ -3,7 +3,7 @@ context("winmove_agg")
 test_that("shei calculation is correct", {
   d <- winmove_agg(coarse_dat = g_sf, 
                    fine_dat = cat_ls, 
-                   d = 20, 
+                   d = 12, 
                    type = "rectangle", 
                    win_fun = shei,
                    lc_class = 1:4)
@@ -54,11 +54,32 @@ test_that("output is vector of length of input", {
   d <- winmove_agg(coarse_dat = g_sf, 
                    fine_dat = cont_ls, 
                    d = 5, 
-                   type = "Gauss", 
+                   type = "circle", 
                    win_fun = mean)
   expect_is(d, "numeric")
   expect_true(length(d) == nrow(g_sf))
 })
+
+test_that("throws warning about edge effects", {
+  expect_warning(winmove_agg(coarse_dat = g_sf, 
+                   fine_dat = cat_ls, 
+                   d = 12, 
+                   type = "rectangle", 
+                   win_fun = shei,
+                   lc_class = 1:4),
+                 "Moving window extends beyond extent of `fine_dat`")
+})
+
+test_that("throws warning about edge effects", {
+  expect_output(winmove_agg(coarse_dat = g_sf, 
+                             fine_dat = cat_ls, 
+                             d = 3, 
+                             type = "rectangle", 
+                             win_fun = prop,
+                             lc_class = 1),
+                 "aggregation assumes all cells are rectangular")
+})
+
 
 test_that("winmove_agg can take different grid inputs", {
   # sf object

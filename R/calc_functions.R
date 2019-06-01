@@ -5,9 +5,7 @@
 #' @param x RasterLayer. The data over which to calculate the mean value within a moving
 #'   window
 #' @param d numeric. If \code{type=circle}, the radius of the circle (in units of the
-#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
-#'   If \code{type=Gauss} the size of sigma, and optionally another number to determine
-#'   the size of the matrix returned (default is 3 times sigma)
+#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers)
 #' @param type character. The shape of the moving window
 #' @param ... further arguments passed to or from other methods
 #' 
@@ -42,9 +40,7 @@ mean.winmove <- function(x, d, type, ...) {
 #' 
 #' @param x RasterLayer. The data over which to calculate the range size
 #' @param d numeric. If \code{type=circle}, the radius of the circle (in units of the
-#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
-#'   If \code{type=Gauss} the size of sigma, and optionally another number to determine
-#'   the size of the matrix returned (default is 3 times sigma)
+#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers)
 #' @param type character. The shape of the moving window
 #' @param na.rm logical. indicates whether \code{NA} values should be stripped before the
 #'   computation proceeds. \code{na.rm = TRUE} is the default
@@ -109,9 +105,7 @@ var_range.numeric <- function(x, na.rm = TRUE, ...) {
 #' @param x numeric, winmove. The data over which to calculate the proportion
 #' @param lc_class numeric. The class value to calculate the proportion of
 #' @param d numeric. If \code{type=circle}, the radius of the circle (in units of the
-#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
-#'   If \code{type=Gauss} the size of sigma, and optionally another number to determine
-#'   the size of the matrix returned (default is 3 times sigma)
+#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers)
 #' @param type character. The shape of the moving window
 #' @param ... further arguments passed to or from other methods
 #'
@@ -169,9 +163,7 @@ prop.numeric <- function(x, lc_class, ...) {
 #' @param lc_class numeric. The class values to include in the diversity metric
 #'   calculation
 #' @param d numeric. If \code{type=circle}, the radius of the circle (in units of the
-#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
-#'   If \code{type=Gauss} the size of sigma, and optionally another number to determine
-#'   the size of the matrix returned (default is 3 times sigma)
+#'   CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers)
 #' @param type character. The shape of the moving window
 #' @param ... further arguments passed to or from other methods
 #' 

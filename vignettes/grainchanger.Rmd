@@ -80,7 +80,7 @@ g_sf$shei_4 <- winmove_agg(coarse_dat = g_sf,
                                  win_fun = shei, 
                                  agg_fun = mean,
                                  is_grid = FALSE,
-                                 lc_class = 1)
+                                 lc_class = 1:4)
 ```
 
 

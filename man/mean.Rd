@@ -16,9 +16,7 @@ window}
 \item{...}{further arguments passed to or from other methods}
 
 \item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the
-CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers).
-If \code{type=Gauss} the size of sigma, and optionally another number to determine
-the size of the matrix returned (default is 3 times sigma)}
+CRS). If \code{type=rectangle} the dimension of the rectangle (one or two numbers)}
 
 \item{type}{character. The shape of the moving window}
 }

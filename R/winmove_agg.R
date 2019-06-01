@@ -72,11 +72,11 @@ winmove_agg <- function(coarse_dat,
     checkmate::check_class(coarse_dat, "sf"),
     checkmate::check_class(coarse_dat, "sfc")
   )
-
+  
   checkmate::assert_class(fine_dat, "RasterLayer")
   checkmate::assert_numeric(d)
   
-
+  
   if(is_grid & !quiet) {
     usethis::ui_line("aggregation assumes all cells are rectangular")
     usethis::ui_todo("set `is_grid = FALSE` if coarse_dat is not a grid")
@@ -90,34 +90,35 @@ winmove_agg <- function(coarse_dat,
     raster::values(ras) <- 1
     coarse_dat <- methods::as(ras, "SpatialPolygonsDataFrame")
   } 
-
+  
   if ("sp" %in% attr(class(coarse_dat), which = "package")) {
     coarse_dat <- sf::st_as_sf(coarse_dat)
   }
-
-  if(!quiet) {
-    buff <- sf::st_buffer(coarse_dat, d)
-    dat_bbox <- sf::st_bbox(fine_dat)
-    contained <- unlist(sf::st_contains(sf::st_as_sfc(dat_bbox), buff))
-    affected <- paste0(rownames(buff[-contained,]), collapse = ",")
-    if(length(affected) > 0) {
-      usethis::ui_warn(
-        paste0(
-          "Moving window extends beyond extent of `fine_dat`
+  
+  # check fine data is within the extent of the coarse cell + window size
+  buff <- sf::st_buffer(coarse_dat, d)
+  dat_bbox <- sf::st_bbox(fine_dat)
+  contained <- unlist(sf::st_contains(sf::st_as_sfc(dat_bbox), buff))
+  prob <- nrow(buff[-contained,]) > 0
+  
+  if(prob) {
+    usethis::ui_warn(
+      paste0(
+        "Moving window extends beyond extent of `fine_dat`
           You will get edge effects for the following cells of `coarse_dat`:
-          ",affected
-          )
-        )
-    }
+          ",paste0(rownames(buff[-contained,]), collapse = ",")
+      )
+    )
   }
-  out <- furrr::future_map(sf::st_geometry(coarse_dat), 
-                           purrr::quietly(function(grid_cell, 
-                                                   fine_dat, 
-                                                   d, 
-                                                   type, 
-                                                   win_fun, 
-                                                   agg_fun,
-                                                   ...) {
+  
+  out <- furrr::future_map_dbl(sf::st_geometry(coarse_dat), 
+                           function(grid_cell, 
+                                    fine_dat, 
+                                    d, 
+                                    type, 
+                                    win_fun, 
+                                    agg_fun,
+                                    ...) {
                              
                              # buffer and crop
                              grid_buffer <- sf::st_sf(
@@ -134,7 +135,7 @@ winmove_agg <- function(coarse_dat,
                                                       grid_buffer)
                              dat_cell <- raster::extend(dat_cell, 
                                                         grid_buffer)
-                               
+                             
                              # mask if coarse_dat not rectangular
                              if(!is_grid) {
                                dat_cell <- raster::mask(dat_cell, 
@@ -146,10 +147,8 @@ winmove_agg <- function(coarse_dat,
                                                  win_fun, 
                                                  ...)
                              agg_fun(raster::values(win_cell),
-                                                    na.rm = TRUE)
-                           }), fine_dat, d, type, win_fun, agg_fun, ...)
-
-  out <- furrr::future_map_dbl(out, function(x) x$result)
+                                     na.rm = TRUE)
+                           }, fine_dat, d, type, win_fun, agg_fun, ...)
   
   
   if(output_raster) {
