@@ -12,3 +12,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^grainchanger\.Rproj$
+^codemeta\.json$
+^appveyor\.yml$
+^vignettes/background\.Rmd$
+^vignettes/functions\.Rmd$

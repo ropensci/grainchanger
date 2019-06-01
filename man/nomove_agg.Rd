@@ -4,37 +4,51 @@
 \alias{nomove_agg}
 \title{Direct data aggregation}
 \usage{
-nomove_agg(g, dat, fun, is_grid = TRUE, ...)
+nomove_agg(coarse_dat, fine_dat, agg_fun, is_grid = TRUE,
+  quiet = FALSE, ...)
 }
 \arguments{
-\item{g}{the grid across which to calculate the aggregated moving window function
-(raster, SpatialPolygonsDataFrame, or sf object)}
+\item{coarse_dat}{sf, Raster* or Spatial* object. The coarse grain data
+(response data) across which to calculate the aggregated function}
 
-\item{dat}{The raster dataset to aggregate}
+\item{fine_dat}{Raster* object. Raster* object. The fine grain data
+(predictor / covariate data) to aggregate}
 
-\item{fun}{The function to apply. The function fun should take multiple numbers, and
-return a single number. For example mean, modal, min or max. It should also accept a
-na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example,
-length will fail, but function(x, ...){na.omit(length(x))} works. See Details}
+\item{agg_fun}{function The function to apply. The function fun should take
+multiple numbers, and return a single number. For example mean, modal, min
+or max. It should also accept a na.rm argument (or ignore it, e.g. as one
+of the 'dots' arguments. For example, length will fail, but function(x,
+...){na.omit(length(x))} works. See Details}
 
-\item{is_grid}{Use \code{TRUE} if \code{g} contains only rectangular cells (i.e. a
-grid). If \code{g} is any other polygon file, this should be set to false}
+\item{is_grid}{logical. Use \code{TRUE} (default) if \code{g} contains only
+rectangular cells (i.e. a grid). If \code{g} is any other polygon file,
+this should be set to false}
+
+\item{quiet}{logical. If \code{FALSE} (default) and \code{is_grid == TRUE}
+the user gets a warning that the aggregation assumes all cells are
+rectangular}
 
 \item{...}{further arguments passed to or from other methods}
 }
 \value{
-Raster (if input is Raster) or numeric vector (if input is sp or sf object)
-  containing values calculated for each coarser cell
+Raster (if input is Raster) or numeric vector (if input is sp or sf
+  object) containing values calculated for each coarser cell
 }
 \description{
-Calculate the value for a given function for each cell in a larger resolution grid.
+Calculate the value for a given function for each cell in a larger resolution
+grid.
 }
 \details{
-\code{grainchanger} has several built-in functions. Functions currently
-  included are: \itemize{ \item \code{nm_shei} - Shannon evenness, requires the
-  additional argument \code{lc_class} (vector or scalar) \item \code{nm_prop} -
-  Proportion, requires the additional argument \code{lc_class} (scalar) \item
-  \code{var_range} - Range (max - min) }
+\code{grainchanger} has several built-in functions. Functions
+  currently included are: 
+  \itemize{ 
+     \item \code{shdi} - Shannon diversity, requires the additional argument \code{lc_class} (vector or scalar) 
+     \item \code{shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
+     \item \code{prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+     \item \code{var_range} - Range (max - min) 
+     }
+     
+ Note that \code{nomove_agg} can be run in parallel using \code{plan(multiprocess)} from the \code{future} package.
 }
 \examples{
 # load required data
@@ -43,10 +57,10 @@ data(cont_ls)
 data(cat_ls)
 
 # aggregate using mean
-d <- nomove_agg(g_sf, cont_ls, "mean")
+d <- nomove_agg(g_sf, cont_ls, mean)
 
 # aggregate using Shannon evenness
-d <- nomove_agg(g_sf, cont_ls, "nm_shei", lc_class = 0:3)
+d <- nomove_agg(g_sf, cont_ls, shei, lc_class = 1:4)
 }
 \keyword{aggregate}
-\keyword{spatial,}
+\keyword{spatial}

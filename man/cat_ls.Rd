@@ -3,11 +3,11 @@
 \docType{data}
 \name{cat_ls}
 \alias{cat_ls}
-\title{Example categorical raster}
+\title{Example categorical raster (fine_dat)}
 \format{A raster layer object.}
 \source{
 Sciaini M, Fritsch M, Scherer C, Simpkins CE. NLMR and landscapetools: An integrated environment
-    for simulating and modifying neutral landscape models in R. Methods in Ecololgy and Evolution. 2018;
+    for simulating and modifying neutral landscape models in R. Methods in Ecology and Evolution. 2018;
     00:1-9. https://doi.org/10.1111/2041-210X.13076
 
 Marco Sciaini and Matthias Fritsch (2018). landscapetools: Landscape Utility Toolbox. R package version 0.4.0.

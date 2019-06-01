@@ -3,11 +3,11 @@
 \docType{data}
 \name{g_sf}
 \alias{g_sf}
-\title{Example grid}
+\title{Example grid (coarse_dat)}
 \format{An sf object.}
 \source{
 Sciaini M, Fritsch M, Scherer C, Simpkins CE. NLMR and landscapetools: An integrated environment
-    for simulating and modifying neutral landscape models in R. Methods in Ecololgy and Evolution. 2018;
+    for simulating and modifying neutral landscape models in R. Methods in Ecology and Evolution. 2018;
     00:1-9. https://doi.org/10.1111/2041-210X.13076
 }
 \usage{

@@ -27,8 +27,10 @@ Imports:
     sf,
     furrr,
     checkmate,
-    methods
+    methods,
+    usethis
 Suggests: 
+    dplyr (>= 0.8-0),
     testthat,
     spelling,
     knitr,
@@ -36,7 +38,7 @@ Suggests:
     covr,
     ggplot2,
     landscapetools
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Language: en-GB
 VignetteBuilder: knitr
 URL: https://github.com/laurajanegraham/grainchanger

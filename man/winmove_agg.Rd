@@ -4,46 +4,61 @@
 \alias{winmove_agg}
 \title{Moving-window data aggregation}
 \usage{
-winmove_agg(g, dat, d, type, fun, is_grid = TRUE, ...)
+winmove_agg(coarse_dat, fine_dat, d, type = c("circle", "rectangle"),
+  win_fun, agg_fun = mean, is_grid = TRUE, quiet = FALSE, ...)
 }
 \arguments{
-\item{g}{the grid across which to calculate the aggregated moving window function
-(raster, SpatialPolygonsDataFrame, or sf object)}
+\item{coarse_dat}{sf, Raster* or Spatial* object. The coarse grain data
+(response data) across which to calculate the aggregated moving window
+function}
 
-\item{dat}{The raster dataset to aggregate}
+\item{fine_dat}{Raster* object. The fine grain data (predictor / covariate
+data) to aggregate}
 
-\item{d}{numeric. If \code{type=circle}, the radius of the circle (in units of the CRS). If
-\code{type=rectangle} the dimension of the rectangle (one or two numbers). If \code{type=Gauss}
-the size of sigma, and optionally another number to determine the size of the matrix
-returned (default is 3 times sigma)}
+\item{d}{numeric. If \code{type=circle}, the radius of the circle (in units
+of the CRS). If \code{type=rectangle} the dimension of the rectangle (one
+or two numbers).}
 
-\item{type}{The shape of the moving window}
+\item{type}{character. The shape of the moving window}
 
-\item{fun}{The function to apply. The function fun should take multiple numbers, and
-return a single number. For example mean, modal, min or max. It should also accept a
-na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
-will fail, but function(x, ...){na.omit(length(x))} works. See Details}
+\item{win_fun}{character. The function to apply to the moving window. The
+function \code{win_fun} should take multiple numbers, and return a single number. For
+example \code{mean}, \code{modal}, \code{min} or \code{max}. It should also accept a \code{na.rm} argument (or
+ignore it, e.g. as one of the 'dots' arguments. For example, \code{length} will
+fail, but \code{function(x, ...){na.omit(length(x))}} works. See Details}
 
-\item{is_grid}{Use \code{TRUE} if \code{g} contains only rectangular cells (i.e. a
-grid). If \code{g} is any other polygon file, this should be set to false}
+\item{agg_fun}{character. The function by which to aggregate. By default this
+is set to \code{mean}}
+
+\item{is_grid}{logical. Use \code{TRUE} (default) if \code{g} contains only
+rectangular cells (i.e. a grid). If \code{g} is any other polygon file,
+this should be set to false}
+
+\item{quiet}{logical. If \code{FALSE} (default) and \code{is_grid == TRUE}
+the user gets a warning that the aggregation assumes all cells are
+rectangular}
 
 \item{...}{further arguments passed to or from other methods}
 }
 \value{
-Numeric vector containing moving window values calculated for each grid cell
+Numeric vector containing moving window values calculated for each
+  grid cell
 }
 \description{
-Calculate the mean moving window value for a given radius, shape and function for each cell
-in a larger resolution grid.
+Calculate the mean moving window value for a given radius, shape and function
+for each cell in a larger resolution grid.
 }
 \details{
-\code{grainchanger} has several built-in functions. Functions currently included are:
-\itemize{
-\item \code{wm_shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar)
-\item \code{wm_prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
-\item \code{wm_classes} - Unique number of classes in a categorical landscape
-\item \code{var_range} - Range (max - min)
-}
+\code{grainchanger} has several built-in functions. Functions
+  currently included are: 
+  \itemize{ 
+     \item \code{shdi} - Shannon diversity, requires the additional argument \code{lc_class} (vector or scalar) 
+     \item \code{shei} - Shannon evenness, requires the additional argument \code{lc_class} (vector or scalar) 
+     \item \code{prop} - Proportion, requires the additional argument \code{lc_class} (scalar)
+     \item \code{var_range} - Range (max - min) 
+     }
+     
+ Note that \code{winmove_agg} can be run in parallel using \code{plan(multiprocess)} from the \code{future} package.
 }
 \examples{
 # load required data
@@ -51,12 +66,12 @@ data(g_sf)
 data(cont_ls)
 data(cat_ls)
 
-#' # aggregate using mean
-d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", "mean")
+# aggregate using mean
+d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", mean)
 
 # aggregate using Shannon evenness
-d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", "shei", lc_class = 0:3)
+d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", shei, lc_class = 1:4)
 }
 \keyword{aggregate}
-\keyword{focal,}
-\keyword{spatial,}
+\keyword{focal}
+\keyword{spatial}
