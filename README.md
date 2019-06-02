@@ -94,6 +94,7 @@ g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
 
 ggplot(g_sf) + 
   geom_sf(aes(fill = mwda)) + 
+  scale_fill_viridis_c() +
   theme_bw()
 ```
 
