@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate proportion of a given value — prop • grainchanger</title>
+<title>An S4 class for use with winmove functions (extends RasterLayer) — winmove-class • grainchanger</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,11 +37,11 @@
 
 
 
-<meta property="og:title" content="Calculate proportion of a given value — prop" />
+<meta property="og:title" content="An S4 class for use with winmove functions (extends RasterLayer) — winmove-class" />
 
-<meta property="og:description" content="Calculate the proportion of a given value present within a raster. Useful for
-calculating land-cover or soil type proportions. Shoudl be used with a categorical
-raster" />
+<meta property="og:description" content="An S4 class for use with winmove functions (extends RasterLayer). Objects
+  will need to be set to this class in order to be used with the inbuilt winmove
+  functions (e.g. mean, prop, var_range, shdi, shei)" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -134,82 +134,57 @@ raster" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate proportion of a given value</h1>
-    <small class="dont-index">Source: <a href='https://github.com/laurajanegraham/grainchanger/blob/master/R/calc_functions.R'><code>R/calc_functions.R</code></a></small>
-    <div class="hidden name"><code>prop.Rd</code></div>
+    <h1>An S4 class for use with winmove functions (extends RasterLayer)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/laurajanegraham/grainchanger/blob/master/R/winmove.R'><code>R/winmove.R</code></a></small>
+    <div class="hidden name"><code>winmove-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Calculate the proportion of a given value present within a raster. Useful for
-calculating land-cover or soil type proportions. Shoudl be used with a categorical
-raster</p>
+    <p>An S4 class for use with winmove functions (extends RasterLayer). Objects
+  will need to be set to this class in order to be used with the inbuilt <code>winmove</code>
+  functions (e.g. <code>mean</code>, <code>prop</code>, <code>var_range</code>, <code>shdi</code>, <code>shei</code>)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>prop</span>(<span class='no'>x</span>, <span class='no'>lc_class</span>, <span class='no'>...</span>)
+        
+    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-<span class='co'># S3 method for winmove</span>
-<span class='fu'>prop</span>(<span class='no'>x</span>, <span class='no'>lc_class</span>, <span class='no'>d</span>, <span class='no'>type</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>prop</span>(<span class='no'>x</span>, <span class='no'>lc_class</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>numeric, winmove. The data over which to calculate the proportion</p></td>
-    </tr>
-    <tr>
-      <th>lc_class</th>
-      <td><p>numeric. The class value to calculate the proportion of</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>further arguments passed to or from other methods</p></td>
-    </tr>
-    <tr>
-      <th>d</th>
-      <td><p>numeric. If <code>type=circle</code>, the radius of the circle (in units of the
-CRS). If <code>type=rectangle</code> the dimension of the rectangle (one or two numbers)</p></td>
-    </tr>
-    <tr>
-      <th>type</th>
-      <td><p>character. The shape of the moving window</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>If <code>class(x) == "winmove"</code>, a smoothed raster with the proportion of
-  cells of the given class calculated within the specified moving window</p>
-<p>If <code>class(x) == "numeric"</code>, a single value representing the proportion of values
-  of a given class in <code>x</code></p>
+    <p>Slots for RasterLayer and RasterBrick objects</p><dl class='dl-horizontal'>
+    <dt><code>title</code>:</dt><dd><p>Character</p></dd> 
+    <dt><code>file</code>:</dt><dd><p>Object of class <code>".RasterFile"</code></p></dd>
+    <dt><code>data</code>:</dt><dd><p>Object of class <code>".SingleLayerData"</code> or <code>".MultipleLayerData"</code></p></dd>
+    <dt><code>history</code>:</dt><dd><p>To record processing history, not yet in use</p></dd>
+    <dt><code>legend</code>:</dt><dd><p>Object of class <code>.RasterLegend</code>, Default legend. Should store preferences for plotting. Not yet implemented except that it stores the color table of images, if available</p></dd>
+    <dt><code>extent</code>:</dt><dd><p>Object of <code>Extent-class</code></p></dd>
+    <dt><code>ncols</code>:</dt><dd><p>Integer</p></dd> 
+    <dt><code>nrows</code>:</dt><dd><p>Integer</p></dd> 
+    <dt><code>crs</code>:</dt><dd><p>Object of class <code>"CRS"</code>, i.e. the coordinate reference system. In Spatial* objects this slot is called 'proj4string'</p></dd>
+  </dl>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># load required data</span>
+    <pre class="examples"><div class='input'><span class='co'># load required data</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cat_ls</span>)
 
-<span class='co'># convert data to object of class winmove</span>
-<span class='no'>cat_ls</span> <span class='kw'>&lt;-</span> <span class='fu'>new</span>(<span class='st'>"winmove"</span>, <span class='no'>cat_ls</span>)
-
-<span class='co'># aggregate using a rectangular window with dimension 5 for class 3</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>prop</span>(<span class='no'>cat_ls</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rectangle"</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-
-<span class='co'># convert data to object of class numeric</span>
-<span class='no'>cat_ls</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/raster/topics/getValues'>values</a></span>(<span class='no'>cat_ls</span>)
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>prop</span>(<span class='no'>cat_ls</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div></pre>
+<span class='co'># set \code{cat_ls} to object of class winmove</span>
+<span class='fu'>new</span>(<span class='st'>"winmove"</span>, <span class='no'>cat_ls</span>)</div><div class='output co'>#&gt; class      : winmove 
+#&gt; dimensions : 65, 65, 4225  (nrow, ncol, ncell)
+#&gt; resolution : 1, 1  (x, y)
+#&gt; extent     : 0, 65, 0, 65  (xmin, xmax, ymin, ymax)
+#&gt; crs        : NA 
+#&gt; source     : memory
+#&gt; names      : layer 
+#&gt; values     : 1, 4  (min, max)
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#slots">Slots</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

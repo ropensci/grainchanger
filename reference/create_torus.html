@@ -39,9 +39,9 @@
 
 <meta property="og:title" content="Pad a raster by a specified radius — create_torus" />
 
-<meta property="og:description" content="This function pads a raster by a specified number of cells, creating the effect of a
-torus. Allows for moving window analysis that avoids edge effects (e.g. on simulated
-landscapes)." />
+<meta property="og:description" content="This function pads a raster by a specified number of cells, creating the
+effect of a torus. Allows for moving window analysis that avoids edge effects
+(e.g. on simulated landscapes)." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -87,6 +87,9 @@ landscapes)." />
   </a>
 </li>
 <li>
+  <a href="../articles/grainchanger.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -97,7 +100,13 @@ landscapes)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Using Grainchanger</a>
+      <a href="../articles/background.html">Background &amp; Motivation</a>
+    </li>
+    <li>
+      <a href="../articles/functions.html">Built-in functions</a>
+    </li>
+    <li>
+      <a href="../articles/user-defined.html">User-defined functions</a>
     </li>
   </ul>
 </li>
@@ -132,13 +141,13 @@ landscapes)." />
 
     <div class="ref-description">
     
-    <p>This function pads a raster by a specified number of cells, creating the effect of a
-torus. Allows for moving window analysis that avoids edge effects (e.g. on simulated
-landscapes).</p>
+    <p>This function pads a raster by a specified number of cells, creating the
+effect of a torus. Allows for moving window analysis that avoids edge effects
+(e.g. on simulated landscapes).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>create_torus</span>(<span class='no'>dat</span>, <span class='no'>r</span>)</pre>
+    <pre class="usage"><span class='fu'>create_torus</span>(<span class='no'>dat</span>, <span class='no'>dpad</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,19 +157,31 @@ landscapes).</p>
       <td><p>The raster dataset to pad</p></td>
     </tr>
     <tr>
-      <th>r</th>
-      <td><p>The radius by which to pad the raster</p></td>
+      <th>dpad</th>
+      <td><p>The amount by which to pad the raster (in the same units as the
+raster)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>raster. Original raster padded by radius r with torus effect</p>
+    <p>raster. Original raster padded by r cells with torus effect (see
+  Details)</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>A torus is an infinite surface where the top joins the bottom, and
+  the left side meets the right side. See https://en.wikipedia.org/wiki/Torus
+  for a full mathematical description.</p>
+<p>In this function, the torus effect is achieved by adding the specified
+  number of rows of the top of the raster to the bottom (and vice versa) and
+  the specified number of rows of the right of the raster to the left (and
+  vice versa)</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cat_ls</span>)
-<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>create_torus</span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='no'>cat_ls</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div></pre>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>create_torus</span>(<span class='kw'>dat</span> <span class='kw'>=</span> <span class='no'>cat_ls</span>, <span class='kw'>dpad</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -168,6 +189,8 @@ landscapes).</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

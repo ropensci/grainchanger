@@ -39,7 +39,8 @@
 
 <meta property="og:title" content="Direct data aggregation — nomove_agg" />
 
-<meta property="og:description" content="Calculate the value for a given function for each cell in a larger resolution grid." />
+<meta property="og:description" content="Calculate the value for a given function for each cell in a larger resolution
+grid." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -85,6 +86,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/grainchanger.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -95,7 +99,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Using Grainchanger</a>
+      <a href="../articles/background.html">Background &amp; Motivation</a>
+    </li>
+    <li>
+      <a href="../articles/functions.html">Built-in functions</a>
+    </li>
+    <li>
+      <a href="../articles/user-defined.html">User-defined functions</a>
     </li>
   </ul>
 </li>
@@ -130,30 +140,46 @@
 
     <div class="ref-description">
     
-    <p>Calculate the value for a given function for each cell in a larger resolution grid.</p>
+    <p>Calculate the value for a given function for each cell in a larger resolution
+grid.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>nomove_agg</span>(<span class='no'>g</span>, <span class='no'>dat</span>, <span class='no'>fun</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>nomove_agg</span>(<span class='no'>coarse_dat</span>, <span class='no'>fine_dat</span>, <span class='no'>agg_fun</span>, <span class='kw'>is_grid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>g</th>
-      <td><p>the grid across which to calculate the aggregated moving window function
-(raster, SpatialPolygonsDataFrame, or sf object)</p></td>
+      <th>coarse_dat</th>
+      <td><p>sf, Raster* or Spatial* object. The coarse grain data
+(response data) across which to calculate the aggregated function</p></td>
     </tr>
     <tr>
-      <th>dat</th>
-      <td><p>The raster dataset to aggregate</p></td>
+      <th>fine_dat</th>
+      <td><p>Raster* object. Raster* object. The fine grain data
+(predictor / covariate data) to aggregate</p></td>
     </tr>
     <tr>
-      <th>fun</th>
-      <td><p>The function to apply. The function fun should take multiple numbers, and
-return a single number. For example mean, modal, min or max. It should also accept a
-na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
-will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
+      <th>agg_fun</th>
+      <td><p>function The function to apply. The function fun should take
+multiple numbers, and return a single number. For example mean, modal, min
+or max. It should also accept a na.rm argument (or ignore it, e.g. as one
+of the 'dots' arguments. For example, length will fail, but function(x,
+...)na.omit(length(x)) works. See Details</p></td>
+    </tr>
+    <tr>
+      <th>is_grid</th>
+      <td><p>logical. Use <code>TRUE</code> (default) if <code>g</code> contains only
+rectangular cells (i.e. a grid). If <code>g</code> is any other polygon file,
+this should be set to false</p></td>
+    </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>logical. If <code>FALSE</code> (default) and <code>is_grid == TRUE</code>
+the user gets a warning that the aggregation assumes all cells are
+rectangular</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -163,16 +189,19 @@ will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Raster (if input is Raster) or numeric vector (if input is sp or sf object)
- containing values calculated for each coarser cell</p>
+    <p>Raster (if input is Raster) or numeric vector (if input is sp or sf
+  object) containing values calculated for each coarser cell</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>grainchanger</code> has several built-in functions. Functions currently included are:</p><ul>
-<li><p><code>nm_shei</code> - Shannon evenness, requires the additional argument <code>lc_class</code> (vector or scalar)</p></li>
-<li><p><code>nm_prop</code> - Proportion, requires the additional argument <code>lc_class</code> (scalar)</p></li>
+    <p><code>grainchanger</code> has several built-in functions. Functions
+  currently included are:</p><ul>
+<li><p><code>shdi</code> - Shannon diversity, requires the additional argument <code>lc_class</code> (vector or scalar)</p></li>
+<li><p><code>shei</code> - Shannon evenness, requires the additional argument <code>lc_class</code> (vector or scalar)</p></li>
+<li><p><code>prop</code> - Proportion, requires the additional argument <code>lc_class</code> (scalar)</p></li>
 <li><p><code>var_range</code> - Range (max - min)</p></li>
 </ul>
+    <p>Note that <code>nomove_agg</code> can be run in parallel using <code>plan(multiprocess)</code> from the <code>future</code> package.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -182,12 +211,14 @@ will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cat_ls</span>)
 
 <span class='co'># aggregate using mean</span>
-<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>nomove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cont_ls</span>, <span class='st'>"mean"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>nomove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cont_ls</span>, <span class='no'>mean</span>)</div><div class='output co'>#&gt; aggregation assumes all cells are rectangular
+#&gt; ● set `is_grid = FALSE` if coarse_dat is not a grid</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘purrr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    is_null</span></div><div class='input'>
 <span class='co'># aggregate using Shannon evenness</span>
-<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>nomove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cont_ls</span>, <span class='st'>"nm_shei"</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>3</span>)</div></pre>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>nomove_agg</span>(<span class='no'>g_sf</span>, <span class='no'>cont_ls</span>, <span class='no'>shei</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt; aggregation assumes all cells are rectangular
+#&gt; ● set `is_grid = FALSE` if coarse_dat is not a grid</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

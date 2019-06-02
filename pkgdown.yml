@@ -2,5 +2,8 @@ pandoc: '2.2'
 pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
-  getting-started: getting-started.html
+  background: background.html
+  functions: functions.html
+  grainchanger: grainchanger.html
+  user-defined: user-defined.html
 

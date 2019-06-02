@@ -85,6 +85,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/grainchanger.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -95,7 +98,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/getting-started.html">Using Grainchanger</a>
+      <a href="../articles/background.html">Background &amp; Motivation</a>
+    </li>
+    <li>
+      <a href="../articles/functions.html">Built-in functions</a>
+    </li>
+    <li>
+      <a href="../articles/user-defined.html">User-defined functions</a>
     </li>
   </ul>
 </li>
@@ -134,32 +143,31 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>winmove</span>(<span class='no'>dat</span>, <span class='no'>d</span>, <span class='no'>type</span>, <span class='no'>fun</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>winmove</span>(<span class='no'>fine_dat</span>, <span class='no'>d</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"circle"</span>, <span class='st'>"rectangle"</span>), <span class='no'>win_fun</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dat</th>
+      <th>fine_dat</th>
       <td><p>The raster dataset on which to calculate the moving window function</p></td>
     </tr>
     <tr>
       <th>d</th>
-      <td><p>numeric. If <code>type=circle</code>, the radius of the circle (in units of the CRS). If
-<code>type=rectangle</code> the dimension of the rectangle (one or two numbers). If <code>type=Gauss</code>
-the size of sigma, and optionally another number to determine the size of the matrix
-returned (default is 3 times sigma)</p></td>
+      <td><p>numeric. If <code>type=circle</code>, the radius of the circle (in units of the
+CRS). If <code>type=rectangle</code> the dimension of the rectangle (one or two numbers).</p></td>
     </tr>
     <tr>
       <th>type</th>
       <td><p>The shape of the moving window</p></td>
     </tr>
     <tr>
-      <th>fun</th>
-      <td><p>The function to apply. The function fun should take multiple numbers, and
-return a single number. For example mean, modal, min or max. It should also accept a
-na.rm argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length
-will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
+      <th>win_fun</th>
+      <td><p>function. The function to apply. If not choosing one of the inbuilt
+grainchanger functions, the function should take multiple numbers, and return a
+single number. For example <code>mean</code>, <code>modal</code>, <code>min</code> or <code>max</code>. It should also accept a <code>na.rm</code>
+argument (or ignore it, e.g. as one of the 'dots' arguments. For example, length will
+fail, but <code>function(x, ...){na.omit(length(x))}</code> works. See Details</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -169,14 +177,16 @@ will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A smoothed raster with the moving window values calculated</p>
+    <p>RasterLayer. A smoothed raster with the moving window values calculated</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>grainchanger</code> has several built-in functions. Functions currently
- included are:</p><ul>
-<li><p><code>wm_shei</code> - Shannon evenness, requires the additional argument <code>lc_class</code> (vector or scalar)</p></li>
-<li><p><code>wm_prop</code> - Proportion, requires the additional argument <code>lc_class</code> (scalar)</p></li>
+  included are:</p><ul>
+<li><p><code>wm_shei</code> - Shannon evenness, requires the
+  additional argument <code>lc_class</code> (vector or scalar)</p></li>
+<li><p><code>wm_prop</code> -
+  Proportion, requires the additional argument <code>lc_class</code> (scalar)</p></li>
 <li><p><code>wm_classes</code> - Unique number of classes in a categorical landscape</p></li>
 <li><p><code>var_range</code> - Range (max - min)</p></li>
 </ul>
@@ -188,10 +198,10 @@ will fail, but function(x, ...)na.omit(length(x)) works. See Details</p></td>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cont_ls</span>)
 
 <span class='co'># calculate the moving window mean</span>
-<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>winmove</span>(<span class='no'>cont_ls</span>, <span class='fl'>5</span>, <span class='st'>"rectangle"</span>, <span class='st'>"mean"</span>)
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>winmove</span>(<span class='no'>cont_ls</span>, <span class='fl'>5</span>, <span class='st'>"rectangle"</span>, <span class='no'>mean</span>)
 
 <span class='co'># calculate the moving window Shannon evenness</span>
-<span class='no'>d</span> <span class='kw'>=</span> <span class='fu'>winmove</span>(<span class='no'>cat_ls</span>, <span class='fl'>5</span>, <span class='st'>"rectangle"</span>, <span class='st'>"shei"</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>3</span>)</div></pre>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'>winmove</span>(<span class='no'>cat_ls</span>, <span class='fl'>5</span>, <span class='st'>"rectangle"</span>, <span class='no'>shei</span>, <span class='kw'>lc_class</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>4</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

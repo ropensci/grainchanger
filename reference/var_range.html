@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Variable range — var_range • grainchanger</title>
+<title>Size of range of values — var_range • grainchanger</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -30,9 +37,11 @@
 
 
 
-<meta property="og:title" content="Variable range — var_range" />
+<meta property="og:title" content="Size of range of values — var_range" />
 
-<meta property="og:description" content="This function calculates the range of a continuous variable" />
+<meta property="og:description" content="Calculates the difference between the maximum and minimum value" />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grainchanger</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
       </span>
     </div>
 
@@ -76,6 +85,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/grainchanger.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -86,7 +98,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples</a>
+      <a href="../articles/background.html">Background &amp; Motivation</a>
+    </li>
+    <li>
+      <a href="../articles/functions.html">Built-in functions</a>
+    </li>
+    <li>
+      <a href="../articles/user-defined.html">User-defined functions</a>
     </li>
   </ul>
 </li>
@@ -96,7 +114,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/laurajanegraham/grainchanger">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -109,33 +132,73 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Variable range</h1>
-    
+    <h1>Size of range of values</h1>
+    <small class="dont-index">Source: <a href='https://github.com/laurajanegraham/grainchanger/blob/master/R/calc_functions.R'><code>R/calc_functions.R</code></a></small>
     <div class="hidden name"><code>var_range.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function calculates the range of a continuous variable</p>
+    <p>Calculates the difference between the maximum and minimum value</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>var_range</span>(<span class='no'>dat</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>var_range</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for winmove</span>
+<span class='fu'>var_range</span>(<span class='no'>x</span>, <span class='no'>d</span>, <span class='no'>type</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for numeric</span>
+<span class='fu'>var_range</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dat</th>
-      <td><p>A raster or vector</p></td>
+      <th>x</th>
+      <td><p>RasterLayer. The data over which to calculate the range size</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments passed to or from other methods</p></td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td><p>numeric. If <code>type=circle</code>, the radius of the circle (in units of the
+CRS). If <code>type=rectangle</code> the dimension of the rectangle (one or two numbers)</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>character. The shape of the moving window</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>logical. indicates whether <code>NA</code> values should be stripped before the
+computation proceeds. <code>na.rm = TRUE</code> is the default</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric. Range of the variable</p>
+    <p>If <code>class(x) == "winmove"</code>, a smoothed raster with the size of the range of values calculated within the specified
+  moving window</p>  
+<p>If <code>class(x) == "numeric"</code>, a single value representing the size of the range of values in <code>x</code></p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># load required data</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cat_ls</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>cont_ls</span>)
+
+<span class='co'># convert data to object of class winmove</span>
+<span class='no'>cat_ls</span> <span class='kw'>&lt;-</span> <span class='fu'>new</span>(<span class='st'>"winmove"</span>, <span class='no'>cat_ls</span>)
+
+<span class='co'># aggregate using a rectangular window with dimensions c(2,3)</span>
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/range'>range</a></span>(<span class='no'>cont_ls</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"rectangle"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Nothing to summarize if you provide a single RasterLayer; see cellStats</span></div><div class='input'>
+<span class='co'># convert data to object of class numeric</span>
+<span class='no'>cont_ls</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/raster/topics/getValues'>values</a></span>(<span class='no'>cont_ls</span>)
+<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/range'>range</a></span>(<span class='no'>cont_ls</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -143,7 +206,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
