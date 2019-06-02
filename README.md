@@ -67,18 +67,20 @@ optimised functions built into the `grainchanger` package.
 ## Moving-window data aggregation
 
 The below example shows the moving-window data aggregation in action. It
-aggregates a categorical raster to a grid using Shannon evenness as the
-function calculated within a square moving window of 5 units. This value
-is included as a column on the grid `sf` object.
+aggregates a categorical raster (`fine_dat`) to a grid using Shannon
+evenness (specified by `win_fun`) as the function calculated within a
+square moving window of 5 units. The value returned is the mean
+(specified by `agg_fun`) of the smoothed value for each cell of
+`coarse_dat`. This value is included as a column on the grid `sf`
+object.
 
 ``` r
 library(grainchanger)
 library(ggplot2)
 library(landscapetools)
-library(patchwork)
 
 # categorical landscape
-fine_dat_plot <- show_landscape(cat_ls, discrete = TRUE)
+show_landscape(cat_ls, discrete = TRUE)
 
 # moving-window aggregation using Shannon evenness
 g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
@@ -90,14 +92,12 @@ g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
                          lc_class = 1:4,
                          quiet = TRUE)
 
-coarse_dat_plot <- ggplot(g_sf) + 
+ggplot(g_sf) + 
   geom_sf(aes(fill = mwda)) + 
   theme_bw()
-
-fine_dat_plot + coarse_dat_plot
 ```
 
-<img src="man/figures/README-mwda_example-1.png" width="100%" />
+<img src="man/figures/README-mwda_example-1.png" width="100%" /><img src="man/figures/README-mwda_example-2.png" width="100%" />
 
 ## Direct data aggregation
 
@@ -111,7 +111,7 @@ grid. The resulting output is a raster of the coarser resolution.
 library(raster)
 
 # continuous landscape
-fine_dat_plot <- show_landscape(cont_ls)
+show_landscape(cont_ls)
 
 # load the coarse resolution raster
 g_raster <- raster(system.file("raster/g_raster.tif", package = "grainchanger"))
@@ -123,12 +123,10 @@ dda <- nomove_agg(coarse_dat = g_raster,
 #> aggregation assumes all cells are rectangular
 #> <U+25CF> set `is_grid = FALSE` if coarse_dat is not a grid
 
-coarse_dat_plot <- show_landscape(dda)
-
-fine_dat_plot + coarse_dat_plot
+show_landscape(dda)
 ```
 
-<img src="man/figures/README-dda_example-1.png" width="100%" />
+<img src="man/figures/README-dda_example-1.png" width="100%" /><img src="man/figures/README-dda_example-2.png" width="100%" />
 
 # Functions
 

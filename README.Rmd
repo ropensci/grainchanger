@@ -56,14 +56,13 @@ devtools::install_github("laurajanegraham/grainchanger")
 
 The below example shows the moving-window data aggregation in action. It aggregates a categorical raster (`fine_dat`) to a grid using Shannon evenness (specified by `win_fun`) as the function calculated within a square moving window of 5 units. The value returned is the mean (specified by `agg_fun`) of the smoothed value for each cell of `coarse_dat`. This value is included as a column on the grid `sf` object. 
 
-```{r mwda_example}
+```{r mwda_example, fig.show = "hold"}
 library(grainchanger)
 library(ggplot2)
 library(landscapetools)
-library(patchwork)
 
 # categorical landscape
-fine_dat_plot <- show_landscape(cat_ls, discrete = TRUE)
+show_landscape(cat_ls, discrete = TRUE)
 
 # moving-window aggregation using Shannon evenness
 g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
@@ -75,22 +74,20 @@ g_sf$mwda <- winmove_agg(coarse_dat = g_sf,
                          lc_class = 1:4,
                          quiet = TRUE)
 
-coarse_dat_plot <- ggplot(g_sf) + 
+ggplot(g_sf) + 
   geom_sf(aes(fill = mwda)) + 
   theme_bw()
-
-fine_dat_plot + coarse_dat_plot
 ```
 
 ## Direct data aggregation
 
 The below example shows the direct data aggregation in action. It aggregates a continuous raster to a raster with a coarser resolution using the range as the function calculated for each cell of the larger grid. The resulting output is a raster of the coarser resolution. `var_range` is an inbuilt function in the `grainchanger` package.
 
-```{r dda_example, show = 'hold'}
+```{r dda_example, fig.show = "hold"}
 library(raster)
 
 # continuous landscape
-fine_dat_plot <- show_landscape(cont_ls)
+show_landscape(cont_ls)
 
 # load the coarse resolution raster
 g_raster <- raster(system.file("raster/g_raster.tif", package = "grainchanger"))
@@ -100,9 +97,7 @@ dda <- nomove_agg(coarse_dat = g_raster,
                        fine_dat = cont_ls, 
                        agg_fun = var_range)
 
-coarse_dat_plot <- show_landscape(dda)
-
-fine_dat_plot + coarse_dat_plot
+show_landscape(dda)
 ```
 
 # Functions

@@ -155,11 +155,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=landscapetools"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "patchwork",
-      "name": "patchwork"
     }
   ],
   "softwareRequirements": [
@@ -237,7 +232,7 @@
   ],
   "releaseNotes": "https://github.com/laurajanegraham/grainchanger/blob/master/NEWS.md",
   "readme": "https://github.com/laurajanegraham/grainchanger/blob/master/README.md",
-  "fileSize": "432.873KB",
+  "fileSize": "432.93KB",
   "contIntegration": [
     "https://travis-ci.org/laurajanegraham/grainchanger",
     "https://codecov.io/gh/laurajanegraham/grainchanger?branch=master"
