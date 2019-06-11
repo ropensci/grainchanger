@@ -18,8 +18,8 @@ raster. Original raster padded by r cells with torus effect (see
 }
 \description{
 This function pads a raster by a specified number of cells, creating the
-effect of a torus. Allows for moving window analysis that avoids edge effects
-(e.g. on simulated landscapes).
+effect of a torus. This function is intended for use on simulated landscapes,
+in order to avoid edge effects
 }
 \details{
 A torus is an infinite surface where the top joins the bottom, and

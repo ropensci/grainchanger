@@ -1,8 +1,8 @@
 #' Pad a raster by a specified radius
 #'
 #' This function pads a raster by a specified number of cells, creating the
-#' effect of a torus. Allows for moving window analysis that avoids edge effects
-#' (e.g. on simulated landscapes).
+#' effect of a torus. This function is intended for use on simulated landscapes,
+#' in order to avoid edge effects
 #'
 #' @param dat The raster dataset to pad
 #' @param dpad The amount by which to pad the raster (in the same units as the
@@ -21,6 +21,7 @@
 #'   number of rows of the top of the raster to the bottom (and vice versa) and
 #'   the specified number of rows of the right of the raster to the left (and
 #'   vice versa)
+#'   
 #' @examples
 #' data(cat_ls)
 #' d <- create_torus(dat = cat_ls, dpad = 5)
