@@ -119,7 +119,7 @@
 <h1 class="hasAnchor">
 <a href="#package-overview" class="anchor"></a>Package overview</h1>
 <p>The primary functions of the <code>grainchanger</code> package are those which facilitate moving-window (<code>winmove_agg</code>) and direct (<code>nomove_agg</code>) data aggregation. These functions aggregate fine-grain data (<code>fine_dat</code>) to a coarse-grain (<code>coarse_dat</code>) using a function specified by the user (<code>agg_fun</code>). The moving-window method takes in an additional function (<code>win_fun</code>) which smooths the fine-grain data prior to aggregation.</p>
-<p>The moving-window smoothing function is also available in the package (<code>winmove</code>), as well as several <a href="functions.html">built-in functions</a>, and an additional utility function for use with simulated landsacpes (<code>create_torus</code>).</p>
+<p>The moving-window smoothing function is also available in the package (<code>winmove</code>), as well as several <a href="functions.html">built-in functions</a>, and an additional utility function for use with simulated landscapes (<code>create_torus</code>).</p>
 <p>The <code>winmove</code> function acts as a convenient wrapper to <code><a href="https://www.rdocumentation.org/packages/raster/topics/focalWeight">raster::focalWeight</a></code> and <code><a href="https://www.rdocumentation.org/packages/raster/topics/focal">raster::focal</a></code> which takes advantage of optimised functions built into the <code>grainchanger</code> package.</p>
 </div>
 <div id="installation" class="section level1">
