@@ -6,11 +6,9 @@
 <!-- badges: start -->
 
 [![Travis build
-status](https://travis-ci.org/laurajanegraham/grainchanger.svg?branch=master)](https://travis-ci.org/laurajanegraham/grainchanger)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/laurajanegraham/grainchanger?branch=master&svg=true)](https://ci.appveyor.com/project/laurajanegraham/grainchanger)
+status](https://travis-ci.org/ropensci/grainchanger.svg?branch=master)](https://travis-ci.org/ropensci/grainchanger)
 [![Codecov test
-coverage](https://codecov.io/gh/laurajanegraham/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/laurajanegraham/grainchanger?branch=master)
+coverage](https://codecov.io/gh/ropensci/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/grainchanger?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/grainchanger)](https://cran.r-project.org/package=grainchanger)
 [![](https://cranlogs.r-pkg.org/badges/grainchanger)](https://cran.r-project.org/package=grainchanger)
@@ -47,7 +45,7 @@ coarse-grain (`coarse_dat`) using a function specified by the user
 
 The moving-window smoothing function is also available in the package
 (`winmove`), as well as several [built-in functions](functions.html),
-and an additional utility function for use with simulated landsacpes
+and an additional utility function for use with simulated landscapes
 (`create_torus`).
 
 The `winmove` function acts as a convenient wrapper to
@@ -60,7 +58,7 @@ optimised functions built into the `grainchanger` package.
     install.packages("grainchanger")
     
     # Install development version from GitHub
-    devtools::install_github("laurajanegraham/grainchanger")
+    devtools::install_github("ropensci/grainchanger")
 
 # Examples
 
@@ -135,8 +133,8 @@ There are a number of inbuilt functions in the grainchanger package,
 with their usage outlined below. While it is possible to use
 user-defined functions within both `winmove_agg` and `nomove_agg`, we
 welcome suggestions for additional functions. Please [add as an
-issue](https://github.com/laurajanegraham/grainchanger/issues) - doing
-it this way means we can maximise the speed of the
+issue](https://github.com/ropensci/grainchanger/issues) - doing it this
+way means we can maximise the speed of the
 function.
 
 | Function.Name | Description                               | Additional.arguments |
@@ -169,15 +167,18 @@ show_landscape(torus, discrete = TRUE)
 We welcome contributions to this package. To contribute, submit a [pull
 request](https://help.github.com/en/articles/about-pull-requests) making
 sure `develop` is the destination branch on the [`grainchanger`
-repository](https://github.com/laurajanegraham/grainchanger).
+repository](https://github.com/ropensci/grainchanger).
 
 # Meta
 
   - Please [report any issues or
-    bugs](https://github.com/laurajanegraham/grainchanger/issues/new/).
+    bugs](https://github.com/ropensci/grainchanger/issues/new/).
   - License: GPL3
   - Get citation information for `grainchanger` in R doing
     `citation(package = 'grainchanger')`
   - Please note that the `grainchanger` project is released with a
     [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing
-    to this project, you agree to abide by its terms.
+    to this project, you agree to abide by its
+terms.
+
+[![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

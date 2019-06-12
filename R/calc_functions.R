@@ -99,7 +99,7 @@ var_range.numeric <- function(x, na.rm = TRUE, ...) {
 #' Calculate proportion of a given value
 #'
 #' Calculate the proportion of a given value present within a raster. Useful for
-#' calculating land-cover or soil type proportions. Shoudl be used with a categorical
+#' calculating land-cover or soil type proportions. Should be used with a categorical
 #' raster
 #'
 #' @param x numeric, winmove. The data over which to calculate the proportion

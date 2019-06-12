@@ -17,9 +17,8 @@ knitr::opts_chunk$set(
 # grainchanger <img src="man/figures/logo.png" align="right" width="150" />
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/laurajanegraham/grainchanger.svg?branch=master)](https://travis-ci.org/laurajanegraham/grainchanger)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/laurajanegraham/grainchanger?branch=master&svg=true)](https://ci.appveyor.com/project/laurajanegraham/grainchanger)
-[![Codecov test coverage](https://codecov.io/gh/laurajanegraham/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/laurajanegraham/grainchanger?branch=master)
+[![Travis build status](https://travis-ci.org/ropensci/grainchanger.svg?branch=master)](https://travis-ci.org/ropensci/grainchanger)
+[![Codecov test coverage](https://codecov.io/gh/ropensci/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/grainchanger?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/grainchanger)](https://cran.r-project.org/package=grainchanger)
 [![](https://cranlogs.r-pkg.org/badges/grainchanger)](https://cran.r-project.org/package=grainchanger)
 [![Project Status: Active â€“ The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -36,7 +35,7 @@ For more information on the [background to and motivation for](background.html) 
 
 The primary functions of the `grainchanger` package are those which facilitate moving-window (`winmove_agg`) and direct (`nomove_agg`) data aggregation. These functions aggregate fine-grain data (`fine_dat`) to a coarse-grain (`coarse_dat`) using a function specified by the user (`agg_fun`). The moving-window method takes in an additional function (`win_fun`) which smooths the fine-grain data prior to aggregation. 
 
-The moving-window smoothing function is also available in the package (`winmove`), as well as several [built-in functions](functions.html), and an additional utility function for use with simulated landsacpes (`create_torus`).
+The moving-window smoothing function is also available in the package (`winmove`), as well as several [built-in functions](functions.html), and an additional utility function for use with simulated landscapes (`create_torus`).
 
 The `winmove` function acts as a convenient wrapper to `raster::focalWeight` and `raster::focal` which takes advantage of optimised functions built into the `grainchanger` package. 
 
@@ -47,7 +46,7 @@ The `winmove` function acts as a convenient wrapper to `raster::focalWeight` and
 install.packages("grainchanger")
 
 # Install development version from GitHub
-devtools::install_github("laurajanegraham/grainchanger")
+devtools::install_github("ropensci/grainchanger")
 ```
 
 # Examples
@@ -103,7 +102,7 @@ show_landscape(dda)
 
 # Functions
 
-There are a number of inbuilt functions in the grainchanger package, with their usage outlined below. While it is possible to use user-defined functions within both `winmove_agg` and `nomove_agg`, we welcome suggestions for additional functions. Please [add as an issue](https://github.com/laurajanegraham/grainchanger/issues) - doing it this way means we can maximise the speed of the function. 
+There are a number of inbuilt functions in the grainchanger package, with their usage outlined below. While it is possible to use user-defined functions within both `winmove_agg` and `nomove_agg`, we welcome suggestions for additional functions. Please [add as an issue](https://github.com/ropensci/grainchanger/issues) - doing it this way means we can maximise the speed of the function. 
 
 ```{r functions, echo = FALSE}
 function_overview <- data.frame(
@@ -135,11 +134,13 @@ show_landscape(torus, discrete = TRUE)
 
 # Contributing
 
-We welcome contributions to this package. To contribute, submit a [pull request](https://help.github.com/en/articles/about-pull-requests) making sure `develop` is the destination branch on the [`grainchanger` repository](https://github.com/laurajanegraham/grainchanger).
+We welcome contributions to this package. To contribute, submit a [pull request](https://help.github.com/en/articles/about-pull-requests) making sure `develop` is the destination branch on the [`grainchanger` repository](https://github.com/ropensci/grainchanger).
 
 # Meta
 
-* Please [report any issues or bugs](https://github.com/laurajanegraham/grainchanger/issues/new/).
+* Please [report any issues or bugs](https://github.com/ropensci/grainchanger/issues/new/).
 * License: GPL3
 * Get citation information for `grainchanger` in R doing `citation(package = 'grainchanger')`
 * Please note that the `grainchanger` project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+
+[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
