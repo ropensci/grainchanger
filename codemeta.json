@@ -7,10 +7,10 @@
   "identifier": "grainchanger",
   "description": "Data aggregation via moving window or direct methods. Aggregate a \n    fine-resolution raster to a grid. The moving window method smooths the surface \n    using a specified function within a moving window of a specified size and shape \n    prior to aggregation. The direct method simply aggregates to the grid using the \n    specified function.",
   "name": "grainchanger: Moving-Window and Direct Data Aggregation",
-  "codeRepository": "https://github.com/laurajanegraham/grainchanger",
-  "issueTracker": "https://github.com/laurajanegraham/grainchanger/issues",
+  "codeRepository": "https://github.com/ropensci/grainchanger",
+  "issueTracker": "https://github.com/ropensci/grainchanger/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.0.9000",
+  "version": "0.2.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -243,8 +243,8 @@
     }
   ],
   "releaseNotes": "https://github.com/laurajanegraham/grainchanger/blob/master/NEWS.md",
-  "readme": "https://github.com/laurajanegraham/grainchanger/blob/master/README.md",
-  "fileSize": "432.514KB",
+  "readme": "https://github.com/ropensci/grainchanger/blob/master/README.md",
+  "fileSize": "469.337KB",
   "contIntegration": [
     "https://travis-ci.org/laurajanegraham/grainchanger",
     "https://codecov.io/gh/laurajanegraham/grainchanger?branch=master"
