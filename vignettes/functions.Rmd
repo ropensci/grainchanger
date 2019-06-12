@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-There are a number of built-in functions in the `grainchanger` package, with their useage outlined below. While it is possible to use user-defined functions within `winmove_agg`, `nomove_agg`, and `winmove`, we welcome suggestions for additional functions. Please [add as an issue](https://github.com/laurajanegraham/grainchanger/issues) - doing it this way means we can maximise the speed of the function. 
+There are a number of built-in functions in the `grainchanger` package, with their usage outlined below. While it is possible to use user-defined functions within `winmove_agg`, `nomove_agg`, and `winmove`, we welcome suggestions for additional functions. Please [add as an issue](https://github.com/laurajanegraham/grainchanger/issues) - doing it this way means we can maximise the speed of the function. 
 
 All functions can also be used on their own, either on an object of class `winmove` or `numeric`. 
 

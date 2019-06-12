@@ -33,7 +33,7 @@ If \code{class(x) == "winmove"}, a smoothed raster with the proportion of
 }
 \description{
 Calculate the proportion of a given value present within a raster. Useful for
-calculating land-cover or soil type proportions. Shoudl be used with a categorical
+calculating land-cover or soil type proportions. Should be used with a categorical
 raster
 }
 \examples{

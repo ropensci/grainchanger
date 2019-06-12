@@ -47,7 +47,7 @@ coarse-grain (`coarse_dat`) using a function specified by the user
 
 The moving-window smoothing function is also available in the package
 (`winmove`), as well as several [built-in functions](functions.html),
-and an additional utility function for use with simulated landsacpes
+and an additional utility function for use with simulated landscapes
 (`create_torus`).
 
 The `winmove` function acts as a convenient wrapper to
