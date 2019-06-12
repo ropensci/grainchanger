@@ -6,11 +6,9 @@
 <!-- badges: start -->
 
 [![Travis build
-status](https://travis-ci.org/laurajanegraham/grainchanger.svg?branch=master)](https://travis-ci.org/laurajanegraham/grainchanger)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/laurajanegraham/grainchanger?branch=master&svg=true)](https://ci.appveyor.com/project/laurajanegraham/grainchanger)
+status](https://travis-ci.org/ropensci/grainchanger.svg?branch=master)](https://travis-ci.org/ropensci/grainchanger)
 [![Codecov test
-coverage](https://codecov.io/gh/laurajanegraham/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/laurajanegraham/grainchanger?branch=master)
+coverage](https://codecov.io/gh/ropensci/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/grainchanger?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/grainchanger)](https://cran.r-project.org/package=grainchanger)
 [![](https://cranlogs.r-pkg.org/badges/grainchanger)](https://cran.r-project.org/package=grainchanger)
