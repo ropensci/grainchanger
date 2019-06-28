@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grainchanger</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/laurajanegraham/grainchanger">
+  <a href="https://github.com/ropensci/grainchanger">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -99,9 +99,9 @@
       <h1>Using Grainchanger</h1>
                         <h4 class="author">Laura J. Graham</h4>
             
-            <h4 class="date">2019-06-12</h4>
+            <h4 class="date">2019-06-28</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/laurajanegraham/grainchanger/blob/master/vignettes/grainchanger.Rmd"><code>vignettes/grainchanger.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ropensci/grainchanger/blob/master/vignettes/grainchanger.Rmd"><code>vignettes/grainchanger.Rmd</code></a></small>
       <div class="hidden name"><code>grainchanger.Rmd</code></div>
 
     </div>
@@ -142,7 +142,7 @@
 <a class="sourceLine" id="cb1-16" data-line-number="16"></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># we can plot this grid on top of the fine data</span></a>
 <a class="sourceLine" id="cb1-18" data-line-number="18">landscapetools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(cat_ls) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggsf">geom_sf</a></span>(<span class="dt">data =</span> coarse_dat, <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span>(<span class="dt">data =</span> coarse_dat, <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="grainchanger_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
@@ -155,9 +155,9 @@
 <a class="sourceLine" id="cb2-9" data-line-number="9">                                 <span class="dt">is_grid =</span> <span class="ot">FALSE</span>,</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">                                 <span class="dt">lc_class =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(coarse_dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">fill =</span> shdi_<span class="dv">3</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggsf">geom_sf</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_bw</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(coarse_dat, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">fill =</span> shdi_<span class="dv">3</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>()</a></code></pre></div>
 <p><img src="grainchanger_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
 <p>Note that when creating the grid, we made it 4 units smaller (the size of the moving window) than the fine-resolution data. The reason for this is that we avoid edge effects created when the moving window goes beyond the extent of the data. A warning is thrown if <code>fine_dat</code> is the same size as (or smaller than) <code>coarse_dat</code>. The below is an example of this, using <code>g_sf</code> from the package.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">g_sf<span class="op">$</span>shei_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/winmove_agg.html">winmove_agg</a></span>(<span class="dt">coarse_dat =</span> g_sf, </a>
@@ -191,9 +191,9 @@
 <a class="sourceLine" id="cb4-16" data-line-number="16">                                   <span class="dt">agg_fun =</span> var_range,</a>
 <a class="sourceLine" id="cb4-17" data-line-number="17">                                   <span class="dt">is_grid =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb4-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(coarse_dat, <span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">fill =</span> var_range)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggsf">geom_sf</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_bw</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(coarse_dat, <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">fill =</span> var_range)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>()</a></code></pre></div>
 <p><img src="grainchanger_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 </div>

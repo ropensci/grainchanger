@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grainchanger</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/laurajanegraham/grainchanger">
+  <a href="https://github.com/ropensci/grainchanger">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -131,9 +131,35 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/laurajanegraham/grainchanger/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/ropensci/grainchanger/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="grainchanger-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#grainchanger-0-2-0" class="anchor"></a>grainchanger 0.2.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>successful review through rOpenSci</li>
+<li>added in functionality to aggregate data to polygon (use parameter <code>is_grid = FALSE</code>)</li>
+<li>added in ability for user to specify aggregation function (<code>agg_fun</code>) in <code>winmove_agg</code>
+</li>
+<li>note that many parameter names have changed - check docs for more info:
+<ul>
+<li>
+<code>fn</code> is now <code>win_fun</code>
+</li>
+<li>
+<code>g</code> is now <code>coarse_dat</code>
+</li>
+<li>
+<code>dat</code> is now <code>fine_dat</code>
+</li>
+</ul>
+</li>
+<li>
+<code>agg_fun</code> and <code>win_fun</code> should be entered as unquoted function names (previously character input)</li>
+</ul>
+</div>
     <div id="grainchanger-0-1-0" class="section level1">
 <h1 class="page-header">
 <a href="#grainchanger-0-1-0" class="anchor"></a>grainchanger 0.1.0<small> 2019-03-08 </small>
@@ -156,6 +182,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#grainchanger-0-2-0">0.2.0</a></li>
         <li><a href="#grainchanger-0-1-0">0.1.0</a></li>
         <li><a href="#grainchanger-0-0-0-9000">0.0.0.9000</a></li>
       </ul>
