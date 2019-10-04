@@ -91,9 +91,13 @@ nomove_agg <- function(coarse_dat,
                                  # buffer and crop
                                  grid_cell <- sf::st_geometry(grid_cell)
                                  grid_cell_sf <- sf::st_sf(grid_cell)
-                                 dat_cell <- raster::crop(fine_dat, 
-                                                          grid_cell_sf)  
+                                 # in some cases, extents don't overlap - return
+                                 # NaN
+                                 dat_cell <- try(raster::crop(fine_dat, 
+                                                          grid_cell_sf), 
+                                                 silent = TRUE)
                                  
+                                 if(class(dat_cell) == "try-error") return(NaN)
                                  # mask if not rectangular grid
                                  if(!is_grid) {
                                    dat_cell <- raster::mask(dat_cell, 
@@ -105,6 +109,7 @@ nomove_agg <- function(coarse_dat,
                                  dat_cell <- stats::na.omit(dat_cell)
                                  
                                  value <- agg_fun(dat_cell, ...)
+                                 return(value)
                                }, 
                                fine_dat, agg_fun, ...)
 
