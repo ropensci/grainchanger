@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Moving-Window and Direct Data Aggregation">
 <meta property="og:description" content="Data aggregation via moving window or direct methods. Aggregate a 
     fine-resolution raster to a grid. The moving window method smooths the surface 
@@ -29,7 +30,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -49,7 +50,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -84,7 +85,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/grainchanger">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -97,13 +98,10 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+      </header><div class="row">
+  <div class="contents col-md-9">
+
 <div id="grainchanger" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#grainchanger" class="anchor"></a>grainchanger <img src="reference/figures/logo.png" align="right" width="150">
@@ -120,16 +118,16 @@
 <a href="#package-overview" class="anchor"></a>Package overview</h1>
 <p>The primary functions of the <code>grainchanger</code> package are those which facilitate moving-window (<code>winmove_agg</code>) and direct (<code>nomove_agg</code>) data aggregation. These functions aggregate fine-grain data (<code>fine_dat</code>) to a coarse-grain (<code>coarse_dat</code>) using a function specified by the user (<code>agg_fun</code>). The moving-window method takes in an additional function (<code>win_fun</code>) which smooths the fine-grain data prior to aggregation.</p>
 <p>The moving-window smoothing function is also available in the package (<code>winmove</code>), as well as several <a href="functions.html">built-in functions</a>, and an additional utility function for use with simulated landscapes (<code>create_torus</code>).</p>
-<p>The <code>winmove</code> function acts as a convenient wrapper to <code><a href="https://www.rdocumentation.org/packages/raster/topics/focalWeight">raster::focalWeight</a></code> and <code><a href="https://www.rdocumentation.org/packages/raster/topics/focal">raster::focal</a></code> which takes advantage of optimised functions built into the <code>grainchanger</code> package.</p>
+<p>The <code>winmove</code> function acts as a convenient wrapper to <code><a href="https://rdrr.io/pkg/raster/man/focalWeight.html">raster::focalWeight</a></code> and <code><a href="https://rdrr.io/pkg/raster/man/focal.html">raster::focal</a></code> which takes advantage of optimised functions built into the <code>grainchanger</code> package.</p>
 </div>
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
-<pre><code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages"># Install release version from CRAN
-install.packages("grainchanger")
-
-# Install development version from GitHub
-devtools::install_github("ropensci/grainchanger")</a></code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Install release version from CRAN</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"grainchanger"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Install development version from GitHub</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"ropensci/grainchanger"</span>)</a></code></pre></div>
 </div>
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
@@ -138,12 +136,12 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 <h2 class="hasAnchor">
 <a href="#moving-window-data-aggregation" class="anchor"></a>Moving-window data aggregation</h2>
 <p>The below example shows the moving-window data aggregation in action. It aggregates a categorical raster (<code>fine_dat</code>) to a grid using Shannon evenness (specified by <code>win_fun</code>) as the function calculated within a square moving window of 5 units. The value returned is the mean (specified by <code>agg_fun</code>) of the smoothed value for each cell of <code>coarse_dat</code>. This value is included as a column on the grid <code>sf</code> object.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(grainchanger)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(landscapetools)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(grainchanger)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(landscapetools)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># categorical landscape</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(cat_ls, <span class="dt">discrete =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/pkg/landscapetools/man/show_landscape.html">show_landscape</a></span>(cat_ls, <span class="dt">discrete =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co"># moving-window aggregation using Shannon evenness</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">g_sf<span class="op">$</span>mwda &lt;-<span class="st"> </span><span class="kw"><a href="reference/winmove_agg.html">winmove_agg</a></span>(<span class="dt">coarse_dat =</span> g_sf,</a>
@@ -165,22 +163,22 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 <h2 class="hasAnchor">
 <a href="#direct-data-aggregation" class="anchor"></a>Direct data aggregation</h2>
 <p>The below example shows the direct data aggregation in action. It aggregates a continuous raster to a raster with a coarser resolution using the range as the function calculated for each cell of the larger grid. The resulting output is a raster of the coarser resolution. <code>var_range</code> is an inbuilt function in the <code>grainchanger</code> package.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(raster)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(raster)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co"># continuous landscape</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(cont_ls)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/landscapetools/man/show_landscape.html">show_landscape</a></span>(cont_ls)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># load the coarse resolution raster</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">g_raster &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/raster/topics/raster">raster</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"raster/g_raster.tif"</span>, <span class="dt">package =</span> <span class="st">"grainchanger"</span>))</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">g_raster &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/raster/man/raster.html">raster</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"raster/g_raster.tif"</span>, <span class="dt">package =</span> <span class="st">"grainchanger"</span>))</a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co"># direct aggregation using range</span></a>
 <a class="sourceLine" id="cb3-10" data-line-number="10">dda &lt;-<span class="st"> </span><span class="kw"><a href="reference/nomove_agg.html">nomove_agg</a></span>(<span class="dt">coarse_dat =</span> g_raster,</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11">                       <span class="dt">fine_dat =</span> cont_ls, </a>
 <a class="sourceLine" id="cb3-12" data-line-number="12">                       <span class="dt">agg_fun =</span> var_range)</a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; aggregation assumes all cells are rectangular</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; ● set `is_grid = FALSE` if coarse_dat is not a grid</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; &lt;U+25CF&gt; set `is_grid = FALSE` if coarse_dat is not a grid</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(dda)</a></code></pre></div>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="kw"><a href="https://rdrr.io/pkg/landscapetools/man/show_landscape.html">show_landscape</a></span>(dda)</a></code></pre></div>
 <p><img src="reference/figures/README-dda_example-1.png" width="100%"><img src="reference/figures/README-dda_example-2.png" width="100%"></p>
 </div>
 </div>
@@ -188,7 +186,7 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 <h1 class="hasAnchor">
 <a href="#functions" class="anchor"></a>Functions</h1>
 <p>There are a number of inbuilt functions in the grainchanger package, with their usage outlined below. While it is possible to use user-defined functions within both <code>winmove_agg</code> and <code>nomove_agg</code>, we welcome suggestions for additional functions. Please <a href="https://github.com/ropensci/grainchanger/issues">add as an issue</a> - doing it this way means we can maximise the speed of the function.</p>
-<table class="table table">
+<table class="table">
 <thead><tr class="header">
 <th align="left">Function.Name</th>
 <th align="left">Description</th>
@@ -227,7 +225,7 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 <p>The <code>create_torus</code> function takes as input a raster and pads it by a specified radius, creating the effect of a torus. We developed this function in order to avoid edge effects when testing methods on simulated rasters (such as those from <a href="https://ropensci.github.io/NLMR/">NLMR</a>).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">torus &lt;-<span class="st"> </span><span class="kw"><a href="reference/create_torus.html">create_torus</a></span>(cat_ls, <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(torus, <span class="dt">discrete =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/pkg/landscapetools/man/show_landscape.html">show_landscape</a></span>(torus, <span class="dt">discrete =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-torus-1.png" width="100%"></p>
 </div>
 </div>
@@ -242,12 +240,13 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 <ul>
 <li>Please <a href="https://github.com/ropensci/grainchanger/issues/new/">report any issues or bugs</a>.</li>
 <li>License: GPL3</li>
-<li>Get citation information for <code>grainchanger</code> in R doing <code><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation(package = 'grainchanger')</a></code>
+<li>Get citation information for <code>grainchanger</code> in R doing <code><a href="https://rdrr.io/r/utils/citation.html">citation(package = 'grainchanger')</a></code>
 </li>
 <li>Please note that the <code>grainchanger</code> project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</li>
 </ul>
 <p><a href="https://ropensci.org"><img src="https://ropensci.org/public_images/ropensci_footer.png" alt="ropensci_footer"></a></p>
 </div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -269,15 +268,21 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 <li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></small></li>
 </ul>
 </div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Laura Graham <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3611-7281" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Laura Graham <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3611-7281" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/ropensci/grainchanger"><img src="https://travis-ci.org/ropensci/grainchanger.svg?branch=master" alt="Travis build status"></a></li>
@@ -288,7 +293,6 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -297,12 +301,14 @@ devtools::install_github("ropensci/grainchanger")</a></code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

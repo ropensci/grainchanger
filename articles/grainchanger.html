@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Using Grainchanger">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
@@ -45,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -80,7 +81,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/grainchanger">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -93,13 +94,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Using Grainchanger</h1>
                         <h4 class="author">Laura J. Graham</h4>
             
-            <h4 class="date">2019-06-28</h4>
+            <h4 class="date">2019-10-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/grainchanger/blob/master/vignettes/grainchanger.Rmd"><code>vignettes/grainchanger.Rmd</code></a></small>
       <div class="hidden name"><code>grainchanger.Rmd</code></div>
@@ -113,7 +115,7 @@
 <a href="#package-overview" class="anchor"></a>Package overview</h1>
 <p>The primary functions of the <code>grainchanger</code> package are those which facilitate moving-window (<code>winmove_agg</code>) and direct (<code>nomove_agg</code>) data aggregation. These functions aggregate fine-grain data (<code>fine_dat</code>) to a coarse-grain (<code>coarse_dat</code>) using a function specified by the user (<code>agg_fun</code>). The moving-window method takes in an additional function (<code>win_fun</code>) which smooths the fine-grain data prior to aggregation.</p>
 <p>The moving-window smoothing function is also available in the package (<code>winmove</code>), as well as several <a href="functions.html">built-in functions</a>, and an additional utility function for use with simulated landscapes (<code>create_torus</code>).</p>
-<p>The <code>winmove</code> function acts as a convenient wrapper to <code><a href="https://www.rdocumentation.org/packages/raster/topics/focalWeight">raster::focalWeight</a></code> and <code><a href="https://www.rdocumentation.org/packages/raster/topics/focal">raster::focal</a></code> which takes advantage of optimised functions built into the <code>grainchanger</code> package.</p>
+<p>The <code>winmove</code> function acts as a convenient wrapper to <code><a href="https://rdrr.io/pkg/raster/man/focalWeight.html">raster::focalWeight</a></code> and <code><a href="https://rdrr.io/pkg/raster/man/focal.html">raster::focal</a></code> which takes advantage of optimised functions built into the <code>grainchanger</code> package.</p>
 </div>
 <div id="data-aggregation-sf" class="section level1">
 <h1 class="hasAnchor">
@@ -124,24 +126,24 @@
 <h2 class="hasAnchor">
 <a href="#moving-window-data-aggregation" class="anchor"></a>Moving-window data aggregation</h2>
 <p>In this example, we show how to create a coarse grain grid over the fine-grain data using <code>st_make_grid</code> from the <code>sf</code> package. We then aggregate the package data <code>cat_ls</code> to this grid using moving-window data aggregation and plot using <code>ggplot2</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(grainchanger)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(grainchanger)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sf)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">coarse_dat &lt;-<span class="st"> </span>cat_ls <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="co"># get the bounding box</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_bbox">st_bbox</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_bbox.html">st_bbox</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="co"># turn into an sfc object</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_as_sfc">st_as_sfc</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_as_sfc.html">st_as_sfc</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">  </span><span class="co"># negative buffer </span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/geos_unary">st_buffer</a></span>(<span class="op">-</span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/geos_unary.html">st_buffer</a></span>(<span class="op">-</span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">  </span><span class="co"># make a square grid</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_make_grid">st_make_grid</a></span>(<span class="dt">cellsize =</span> <span class="dv">19</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_make_grid.html">st_make_grid</a></span>(<span class="dt">cellsize =</span> <span class="dv">19</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="co"># turn into sf object</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/sf">st_sf</a></span>()</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/sf.html">st_sf</a></span>()</a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># we can plot this grid on top of the fine data</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18">landscapetools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(cat_ls) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">landscapetools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/landscapetools/man/show_landscape.html">show_landscape</a></span>(cat_ls) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span>(<span class="dt">data =</span> coarse_dat, <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p><img src="grainchanger_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"></a>
@@ -173,11 +175,11 @@
 <h2 class="hasAnchor">
 <a href="#direct-data-aggregation" class="anchor"></a>Direct data aggregation</h2>
 <p>In this example we show how to read in a shapefile as an <code>sf</code> object, apply direct data aggregation, and plot using <code>ggplot2</code>. <code>cont_ls</code> is a fine-resolution RasterLayer provided with the package.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sf)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># coarse_dat &lt;- st_read("your_file.shp")</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">coarse_dat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_read">st_read</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"shape/poly_sf.shp"</span>, <span class="dt">package=</span><span class="st">"grainchanger"</span>))</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">coarse_dat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_read.html">st_read</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"shape/poly_sf.shp"</span>, <span class="dt">package=</span><span class="st">"grainchanger"</span>))</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; Reading layer `poly_sf' from data source `/home/travis/R/Library/grainchanger/shape/poly_sf.shp' using driver `ESRI Shapefile'</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; Simple feature collection with 39 features and 1 field</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; geometry type:  POLYGON</span></a>
@@ -240,14 +242,14 @@
 <p>The <code>create_torus</code> function takes as input a square or rectangular landscape and pads it by a specified radius, creating the effect of a torus. We developed this function in order to avoid edge effects when testing methods on simulated landscapes (such as those from <a href="https://ropensci.github.io/NLMR/">NLMR</a>).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">torus &lt;-<span class="st"> </span><span class="kw"><a href="../reference/create_torus.html">create_torus</a></span>(cat_ls, <span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">landscapetools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/landscapetools/topics/show_landscape">show_landscape</a></span>(torus)</a></code></pre></div>
+<a class="sourceLine" id="cb5-3" data-line-number="3">landscapetools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/landscapetools/man/show_landscape.html">show_landscape</a></span>(torus)</a></code></pre></div>
 <p><img src="grainchanger_files/figure-html/torus-1.png" width="700"></p>
 </div>
 <div id="running-aggregation-in-parallel" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-aggregation-in-parallel" class="anchor"></a>Running aggregation in parallel</h2>
 <p>The <code>winmove_agg</code> and <code>nomove_agg</code> functions have been designed to work with the <a href="https://github.com/HenrikBengtsson/future"><code>future</code></a> package. This means that with just one additional line of code, the functions can be run in parallel while taking advantage of the resources available to the user.</p>
-<pre><code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(future)
+<pre><code><a href="https://rdrr.io/r/base/library.html">library(future)
 plan(multisession)</a></code></pre>
 <p>See the <a href="https://github.com/HenrikBengtsson/future"><code>future</code></a> documentation for more information.</p>
 </div>
@@ -255,6 +257,7 @@ plan(multisession)</a></code></pre>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -280,17 +283,20 @@ plan(multisession)</a></code></pre>
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Laura Graham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
