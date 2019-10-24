@@ -20,7 +20,7 @@ raster::values(g_raster) <- 1
 
 poly_sf <- sf::st_bbox(cont_ls) %>% 
   sf::st_as_sfc() %>% 
-  sf::st_buffer(-5) %>% 
+  sf::st_buffer(-10) %>% 
   sf::st_make_grid(cellsize = 5, square = FALSE) %>% 
   sf::st_sf()
 
@@ -64,7 +64,8 @@ wm_agg_range <- winmove_agg(coarse_dat = poly_sf,
                             fine_dat = cont_ls, 
                             d = 3, 
                             type = "rectangle", 
-                            win_fun = var_range)
+                            win_fun = var_range,
+                            is_grid = FALSE)
 
 wm_agg_mean <- winmove_agg(poly_sf, 
                            cont_ls, 

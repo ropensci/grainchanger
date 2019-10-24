@@ -25,7 +25,8 @@ test_that("var_range calculation is correct", {
                    fine_dat = cont_ls, 
                    d = 3, 
                    type = "rectangle", 
-                   win_fun = var_range)
+                   win_fun = var_range,
+                   is_grid = FALSE)
   expect_equal(d, wm_agg_range)
 })
 
