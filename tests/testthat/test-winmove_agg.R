@@ -22,6 +22,17 @@ test_that("shdi calculation is correct", {
   expect_equal(d, wm_agg_shdi)
 })
 
+# test_that("var_range calculation is correct", {
+#   d <- winmove_agg(coarse_dat = poly_sf, 
+#                    fine_dat = cont_ls, 
+#                    d = 3, 
+#                    type = "rectangle", 
+#                    win_fun = var_range,
+#                    is_grid = FALSE, 
+#                    quiet = TRUE)
+#   expect_equal(d, wm_agg_range)
+# })
+
 test_that("prop calculation is correct when lc given does not exist", {
   d <- winmove_agg(coarse_dat = g_sf, 
                    fine_dat = cat_ls, 
@@ -66,14 +77,13 @@ test_that("throws warning about edge effects", {
                  "Moving window extends beyond extent of `fine_dat`")
 })
 
-test_that("throws warning about edge effects", {
+test_that("prints message about grids being rectangular", {
   expect_output(winmove_agg(coarse_dat = g_sf, 
                              fine_dat = cat_ls, 
                              d = 3, 
                              type = "rectangle", 
                              win_fun = prop,
-                             lc_class = 1, 
-                            quiet = TRUE),
+                             lc_class = 1),
                  "aggregation assumes all cells are rectangular")
 })
 
