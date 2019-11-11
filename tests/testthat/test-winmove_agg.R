@@ -62,8 +62,7 @@ test_that("throws warning about edge effects", {
                    d = 12, 
                    type = "rectangle", 
                    win_fun = shei,
-                   lc_class = 1:4, 
-                   quiet = TRUE),
+                   lc_class = 1:4),
                  "Moving window extends beyond extent of `fine_dat`")
 })
 
