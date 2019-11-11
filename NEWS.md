@@ -1,3 +1,5 @@
+# grainchanger 0.3.0
+
 # grainchanger 0.2.0
 
 * successful review through rOpenSci
