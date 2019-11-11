@@ -22,17 +22,6 @@ test_that("shdi calculation is correct", {
   expect_equal(d, wm_agg_shdi)
 })
 
-# test_that("var_range calculation is correct", {
-#   d <- winmove_agg(coarse_dat = poly_sf, 
-#                    fine_dat = cont_ls, 
-#                    d = 3, 
-#                    type = "rectangle", 
-#                    win_fun = var_range,
-#                    is_grid = FALSE, 
-#                    quiet = TRUE)
-#   expect_equal(d, wm_agg_range)
-# })
-
 test_that("prop calculation is correct when lc given does not exist", {
   d <- winmove_agg(coarse_dat = g_sf, 
                    fine_dat = cat_ls, 

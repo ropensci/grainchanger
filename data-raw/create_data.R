@@ -123,3 +123,4 @@ usethis::use_data(g_raster,
                   internal = TRUE, 
                   overwrite = TRUE, 
                   compress = "bzip2")
+
