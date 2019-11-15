@@ -1,4 +1,5 @@
 # grainchanger 0.3.0
+* Fix failing test on linux
 
 # grainchanger 0.2.0
 
