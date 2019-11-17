@@ -115,9 +115,8 @@
 <h2 class="hasAnchor">
 <a href="#moving-window-data-aggregation" class="anchor"></a>Moving-window data aggregation</h2>
 <p>The moving-window data aggregation (MWDA) method smooths an input raster using a specified function within a moving window of a specified size and shape prior to aggregation. This acts as a convenient wrapper for the <code>focalWeight()</code> and <code>focal()</code> functions in the <code>raster</code> package. Additionally, we have aimed to write efficient functions for some oft-used metrics within landscape ecology for use within the moving window.</p>
-<div class="figure">
-<img src="man/figures/mwda_schematic.png" alt="Schematic of the moving-window data aggregation approach"><p class="caption">Schematic of the moving-window data aggregation approach</p>
-</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"../man/figures/mwda_schematic.png"</span>)</a></code></pre></div>
+<p><img src="../man/figures/mwda_schematic.png"><!-- --></p>
 <p>The above is a graphical representation of the MWDA method. In calculating the MWDA measure, three aspects of scale are considered. Predictor grain is the characteristic spatial scale of a predictor variable, that is, the resolution of the environmental data; scale‐of‐effect determines the appropriate scale of the relationship between predictor and response, for example, an ecological neighbourhood; response grain is the grain of the unit into which you are predicting, that is, the resolution of the response variable (represented by the black lines). Note that the colour scale is unitless. Yellow cells represent ‘high’ values and dark blue cells ‘low’ values. Panel 1 shows a close up of one of the response grain cells in panel 2, whereas panel 2 shows all response grain cells for the study region. Panel 3 shows the study region after aggregation. From <a href="https://doi.org/10.1111/2041-210X.13177"><em>Graham et al. 2019</em></a>.</p>
 </div>
 <div id="direct-data-aggregation" class="section level2">
