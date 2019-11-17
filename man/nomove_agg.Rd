@@ -4,8 +4,7 @@
 \alias{nomove_agg}
 \title{Direct data aggregation}
 \usage{
-nomove_agg(coarse_dat, fine_dat, agg_fun, is_grid = TRUE,
-  quiet = FALSE, ...)
+nomove_agg(coarse_dat, fine_dat, agg_fun, is_grid = TRUE, quiet = FALSE, ...)
 }
 \arguments{
 \item{coarse_dat}{sf, Raster* or Spatial* object. The coarse grain data

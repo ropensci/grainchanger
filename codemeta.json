@@ -10,14 +10,14 @@
   "codeRepository": "https://github.com/ropensci/grainchanger",
   "issueTracker": "https://github.com/ropensci/grainchanger/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.0",
+    "version": "3.6.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.0 (2019-04-26)",
+  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -242,9 +242,9 @@
       "sameAs": "https://CRAN.R-project.org/package=usethis"
     }
   ],
-  "releaseNotes": "https://github.com/laurajanegraham/grainchanger/blob/master/NEWS.md",
+  "releaseNotes": "https://github.com/ropensci/grainchanger/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/grainchanger/blob/master/README.md",
-  "fileSize": "469.337KB",
+  "fileSize": "468.608KB",
   "contIntegration": [
     "https://travis-ci.org/laurajanegraham/grainchanger",
     "https://codecov.io/gh/laurajanegraham/grainchanger?branch=master"

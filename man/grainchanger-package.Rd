@@ -6,7 +6,7 @@
 \alias{grainchanger-package}
 \title{grainchanger: Moving-Window and Direct Data Aggregation}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 Data aggregation via moving window or direct methods. Aggregate a 
     fine-resolution raster to a grid. The moving window method smooths the surface 
@@ -23,7 +23,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Laura Graham \email{LauraJaneEGraham@gmail.com} (0000-0002-3611-7281)
+\strong{Maintainer}: Laura Graham \email{LauraJaneEGraham@gmail.com} (\href{https://orcid.org/0000-0002-3611-7281}{ORCID})
 
 Other contributors:
 \itemize{

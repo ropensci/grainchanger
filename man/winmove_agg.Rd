@@ -4,8 +4,17 @@
 \alias{winmove_agg}
 \title{Moving-window data aggregation}
 \usage{
-winmove_agg(coarse_dat, fine_dat, d, type = c("circle", "rectangle"),
-  win_fun, agg_fun = mean, is_grid = TRUE, quiet = FALSE, ...)
+winmove_agg(
+  coarse_dat,
+  fine_dat,
+  d,
+  type = c("circle", "rectangle"),
+  win_fun,
+  agg_fun = mean,
+  is_grid = TRUE,
+  quiet = FALSE,
+  ...
+)
 }
 \arguments{
 \item{coarse_dat}{sf, Raster* or Spatial* object. The coarse grain data

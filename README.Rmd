@@ -29,13 +29,13 @@ The `grainchanger` package provides functionality for data aggregation to a coar
 
 As landscape ecologists and macroecologists, we often need to aggregate data in order to harmonise datasets. In doing so, we often lose a lot of information about the spatial structure and environmental heterogeneity of data measured at finer resolution. An example of this is when the response data (e.g. species' atlas data) are available at a coarser resolution to the predictor data (e.g. land-use data). We developed this method and R package in order to overcome some of these issues. 
 
-For more information on the [background to and motivation for](background.html) the development of this method, see [Graham *et al.* 2019 in *Methods in Ecology and Evolution*](https://doi.org/10.1111/2041-210X.13177). 
+For more information on the [background to and motivation for](articles/background.html) the development of this method, see [Graham *et al.* 2019 in *Methods in Ecology and Evolution*](https://doi.org/10.1111/2041-210X.13177). 
 
 # Package overview
 
 The primary functions of the `grainchanger` package are those which facilitate moving-window (`winmove_agg`) and direct (`nomove_agg`) data aggregation. These functions aggregate fine-grain data (`fine_dat`) to a coarse-grain (`coarse_dat`) using a function specified by the user (`agg_fun`). The moving-window method takes in an additional function (`win_fun`) which smooths the fine-grain data prior to aggregation. 
 
-The moving-window smoothing function is also available in the package (`winmove`), as well as several [built-in functions](functions.html), and an additional utility function for use with simulated landscapes (`create_torus`).
+The moving-window smoothing function is also available in the package (`winmove`), as well as several [built-in functions](articles/functions.html), and an additional utility function for use with simulated landscapes (`create_torus`).
 
 The `winmove` function acts as a convenient wrapper to `raster::focalWeight` and `raster::focal` which takes advantage of optimised functions built into the `grainchanger` package. 
 
