@@ -42,5 +42,5 @@ Suggests:
 RoxygenNote: 7.0.0
 Language: en-GB
 VignetteBuilder: knitr
-URL: https://github.com/ropensci/grainchanger
+URL: https://docs.ropensci.org/grainchanger, https://github.com/ropensci/grainchanger
 BugReports: https://github.com/ropensci/grainchanger/issues
