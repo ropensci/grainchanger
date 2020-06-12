@@ -43,6 +43,7 @@
 #'      
 #'  Note that \code{winmove_agg} can be run in parallel using \code{plan(multiprocess)} from the \code{future} package. 
 #' @examples
+#' \dontrun{
 #' # load required data
 #' data(g_sf)
 #' data(cont_ls)
@@ -53,6 +54,8 @@
 #'
 #' # aggregate using Shannon evenness
 #' d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", shei, lc_class = 1:4)
+#' }
+#' 
 #' @export
 
 winmove_agg <- function(coarse_dat, 
@@ -78,7 +81,7 @@ winmove_agg <- function(coarse_dat,
   
   
   if(is_grid & !quiet) {
-    usethis::ui_line("aggregation assumes all cells are rectangular")
+    usethis::ui_warn("aggregation assumes all cells are rectangular")
     usethis::ui_todo("set `is_grid = FALSE` if coarse_dat is not a grid")
   }
   

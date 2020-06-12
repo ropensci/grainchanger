@@ -78,7 +78,7 @@ test_that("throws warning about edge effects", {
 })
 
 test_that("prints message about grids being rectangular", {
-  expect_output(winmove_agg(coarse_dat = g_sf, 
+  expect_warning(winmove_agg(coarse_dat = g_sf, 
                              fine_dat = cat_ls, 
                              d = 3, 
                              type = "rectangle", 

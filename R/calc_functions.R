@@ -150,7 +150,7 @@ prop.winmove <- function(x, lc_class, d, type, ...) {
 #' @name prop
 #' @export
 prop.numeric <- function(x, lc_class, ...) {
-  area <- length(x)
+  area <- sum(!is.na(x))
   p <- sum(x %in% lc_class) / area
   return(p)
 }

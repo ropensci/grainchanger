@@ -32,14 +32,13 @@ Imports:
 Suggests: 
     dplyr (>= 0.8-0),
     testthat,
-    spelling,
     knitr,
     rmarkdown,
     covr,
     ggplot2,
     landscapetools,
     rgdal
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.0
 Language: en-GB
 VignetteBuilder: knitr
 URL: https://docs.ropensci.org/grainchanger, https://github.com/ropensci/grainchanger

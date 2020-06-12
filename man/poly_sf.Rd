@@ -4,7 +4,9 @@
 \name{poly_sf}
 \alias{poly_sf}
 \title{Example polygon (coarse_dat)}
-\format{An sf object.}
+\format{
+An sf object.
+}
 \usage{
 poly_sf
 }

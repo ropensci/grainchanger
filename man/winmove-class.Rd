@@ -30,7 +30,7 @@ Slots for RasterLayer and RasterBrick objects
 # load required data
 data(cat_ls)
 
-# set \\code{cat_ls} to object of class winmove
+# set \code{cat_ls} to object of class winmove
 new("winmove", cat_ls)
 
 }

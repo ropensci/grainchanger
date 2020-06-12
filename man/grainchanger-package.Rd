@@ -17,6 +17,7 @@ Data aggregation via moving window or direct methods. Aggregate a
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://docs.ropensci.org/grainchanger}
   \item \url{https://github.com/ropensci/grainchanger}
   \item Report bugs at \url{https://github.com/ropensci/grainchanger/issues}
 }

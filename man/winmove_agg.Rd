@@ -70,6 +70,7 @@ for each cell in a larger resolution grid.
  Note that \code{winmove_agg} can be run in parallel using \code{plan(multiprocess)} from the \code{future} package.
 }
 \examples{
+\dontrun{
 # load required data
 data(g_sf)
 data(cont_ls)
@@ -80,6 +81,8 @@ d <- winmove_agg(g_sf, cont_ls, 5, "rectangle", mean)
 
 # aggregate using Shannon evenness
 d <- winmove_agg(g_sf, cat_ls, 5, "rectangle", shei, lc_class = 1:4)
+}
+
 }
 \keyword{aggregate}
 \keyword{focal}
