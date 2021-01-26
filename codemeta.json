@@ -14,10 +14,9 @@
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.1",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -83,18 +82,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "spelling",
-      "name": "spelling",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=spelling"
     },
     {
       "@type": "SoftwareApplication",
@@ -243,12 +230,8 @@
     }
   ],
   "releaseNotes": "https://github.com/ropensci/grainchanger/blob/master/NEWS.md",
-  "readme": "https://github.com/ropensci/grainchanger/blob/master/README.md",
-  "fileSize": "468.608KB",
-  "contIntegration": [
-    "https://travis-ci.org/laurajanegraham/grainchanger",
-    "https://codecov.io/gh/laurajanegraham/grainchanger?branch=master"
-  ],
+  "fileSize": "878.039KB",
+  "contIntegration": "https://codecov.io/gh/ropensci/grainchanger?branch=master",
   "developmentStatus": "https://www.repostatus.org/#active",
-  "relatedLink": "https://CRAN.R-project.org/package=grainchanger"
+  "relatedLink": ["https://CRAN.R-project.org/package=grainchanger", "https://docs.ropensci.org/grainchanger"]
 }

@@ -5,17 +5,14 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/ropensci/grainchanger.svg?branch=master)](https://travis-ci.org/ropensci/grainchanger)
+[![R-CMD-check](https://github.com/mhesselbarth/grainchanger/workflows/R-CMD-check/badge.svg)](https://github.com/mhesselbarth/grainchanger/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/ropensci/grainchanger/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/grainchanger?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/grainchanger)](https://cran.r-project.org/package=grainchanger)
-[![](https://cranlogs.r-pkg.org/badges/grainchanger)](https://cran.r-project.org/package=grainchanger)
-[![Project Status: Active â€“ The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-
+[![CranLogs](https://cranlogs.r-pkg.org/badges/grainchanger)](https://cran.r-project.org/package=grainchanger)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 The `grainchanger` package provides functionality for data aggregation
@@ -30,8 +27,8 @@ resolution to the predictor data (e.g. land-use data). We developed this
 method and R package in order to overcome some of these issues.
 
 For more information on the [background to and motivation
-for](background.html) the development of this method, see [Graham *et
-al.* 2019 in *Methods in Ecology and
+for](articles/background.html) the development of this method, see
+[Graham *et al.* 2019 in *Methods in Ecology and
 Evolution*](https://doi.org/10.1111/2041-210X.13177).
 
 # Package overview
@@ -44,9 +41,9 @@ coarse-grain (`coarse_dat`) using a function specified by the user
 (`win_fun`) which smooths the fine-grain data prior to aggregation.
 
 The moving-window smoothing function is also available in the package
-(`winmove`), as well as several [built-in functions](functions.html),
-and an additional utility function for use with simulated landscapes
-(`create_torus`).
+(`winmove`), as well as several [built-in
+functions](articles/functions.html), and an additional utility function
+for use with simulated landscapes (`create_torus`).
 
 The `winmove` function acts as a convenient wrapper to
 `raster::focalWeight` and `raster::focal` which takes advantage of
@@ -56,7 +53,7 @@ optimised functions built into the `grainchanger` package.
 
     # Install release version from CRAN
     install.packages("grainchanger")
-    
+
     # Install development version from GitHub
     devtools::install_github("ropensci/grainchanger")
 
@@ -119,8 +116,6 @@ g_raster <- raster(system.file("raster/g_raster.tif", package = "grainchanger"))
 dda <- nomove_agg(coarse_dat = g_raster,
                        fine_dat = cont_ls, 
                        agg_fun = var_range)
-#> aggregation assumes all cells are rectangular
-#> <U+25CF> set `is_grid = FALSE` if coarse_dat is not a grid
 
 show_landscape(dda)
 ```
@@ -134,11 +129,10 @@ with their usage outlined below. While it is possible to use
 user-defined functions within both `winmove_agg` and `nomove_agg`, we
 welcome suggestions for additional functions. Please [add as an
 issue](https://github.com/ropensci/grainchanger/issues) - doing it this
-way means we can maximise the speed of the
-function.
+way means we can maximise the speed of the function.
 
 | Function.Name | Description                               | Additional.arguments |
-| :------------ | :---------------------------------------- | :------------------- |
+|:--------------|:------------------------------------------|:---------------------|
 | prop          | Calculate the proportion of a given class | lc\_class (numeric)  |
 | shdi          | Calculate the Shannon diversity           | lc\_class (numeric)  |
 | shei          | Calculate the Shannon evenness            | lc\_class (numeric)  |
@@ -171,14 +165,13 @@ repository](https://github.com/ropensci/grainchanger).
 
 # Meta
 
-  - Please [report any issues or
+-   Please [report any issues or
     bugs](https://github.com/ropensci/grainchanger/issues/new/).
-  - License: GPL3
-  - Get citation information for `grainchanger` in R doing
+-   License: GPL3
+-   Get citation information for `grainchanger` in R doing
     `citation(package = 'grainchanger')`
-  - Please note that the `grainchanger` project is released with a
+-   Please note that the `grainchanger` project is released with a
     [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing
-    to this project, you agree to abide by its
-terms.
+    to this project, you agree to abide by its terms.
 
 [![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

@@ -8,11 +8,10 @@
 ^data-raw$
 ^docs$
 ^_pkgdown\.yml$
-^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^grainchanger\.Rproj$
 ^codemeta\.json$
-^appveyor\.yml$
 ^vignettes/background\.Rmd$
 ^vignettes/functions\.Rmd$
+^\.github$

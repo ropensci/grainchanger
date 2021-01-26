@@ -1,3 +1,6 @@
+# grainchanger 0.3.1
+* Add GitHub actions for testing
+
 # grainchanger 0.3.0
 * Fix failing test on linux
 
