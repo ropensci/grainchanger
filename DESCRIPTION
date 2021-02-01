@@ -38,8 +38,8 @@ Suggests:
     ggplot2,
     landscapetools,
     rgdal
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Language: en-GB
 VignetteBuilder: knitr
-URL: https://docs.ropensci.org/grainchanger, https://github.com/ropensci/grainchanger
+URL: https://docs.ropensci.org/grainchanger/, https://github.com/ropensci/grainchanger
 BugReports: https://github.com/ropensci/grainchanger/issues
