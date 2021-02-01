@@ -23,6 +23,11 @@ test_that("shdi calculation is correct", {
 })
 
 test_that("var_range calculation is correct", {
+  
+  skip_on_cran()
+  # skip_on_os(os = c("solaris", "mac"))
+  
+  
   d <- winmove_agg(coarse_dat = poly_sf,
                    fine_dat = cont_ls,
                    d = 3,
