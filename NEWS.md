@@ -1,3 +1,6 @@
+# grainchanger 0.3.2
+* skip var_range calculation is correct test on CRAN
+
 # grainchanger 0.3.1
 * Add GitHub actions for testing
 
