@@ -3,7 +3,7 @@
 
 on:
   push:
-    branches: [main, development]
+    branches: [master]
     paths: ["README.Rmd"]
   workflow_dispatch:
 
