@@ -6,13 +6,9 @@
 \alias{grainchanger-package}
 \title{grainchanger: Moving-Window and Direct Data Aggregation}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Data aggregation via moving window or direct methods. Aggregate a 
-    fine-resolution raster to a grid. The moving window method smooths the surface 
-    using a specified function within a moving window of a specified size and shape 
-    prior to aggregation. The direct method simply aggregates to the grid using the 
-    specified function.
+Data aggregation via moving window or direct methods. Aggregate a fine-resolution raster to a grid. The moving window method smooths the surface using a specified function within a moving window of a specified size and shape prior to aggregation. The direct method simply aggregates to the grid using the specified function.
 }
 \seealso{
 Useful links:
