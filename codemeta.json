@@ -1,28 +1,20 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "grainchanger",
-  "description": "Data aggregation via moving window or direct methods. Aggregate a \n    fine-resolution raster to a grid. The moving window method smooths the surface \n    using a specified function within a moving window of a specified size and shape \n    prior to aggregation. The direct method simply aggregates to the grid using the \n    specified function.",
+  "description": "Data aggregation via moving window or direct methods. Aggregate a fine-resolution raster to a grid. The moving window method smooths the surface using a specified function within a moving window of a specified size and shape prior to aggregation. The direct method simply aggregates to the grid using the specified function.",
   "name": "grainchanger: Moving-Window and Direct Data Aggregation",
+  "relatedLink": "https://docs.ropensci.org/grainchanger/",
   "codeRepository": "https://github.com/ropensci/grainchanger",
   "issueTracker": "https://github.com/ropensci/grainchanger/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
+  "runtimePlatform": "R version 4.2.0 (2022-04-22)",
   "author": [
     {
       "@type": "Person",
@@ -46,8 +38,6 @@
       "email": "sciaini.marco@gmail.com"
     }
   ],
-  "copyrightHolder": {},
-  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -142,28 +132,16 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=landscapetools"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "rgdal",
-      "name": "rgdal",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rgdal"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.3"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "raster",
       "name": "raster",
@@ -175,7 +153,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=raster"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "sf",
       "name": "sf",
@@ -187,7 +165,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=sf"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "furrr",
       "name": "furrr",
@@ -199,7 +177,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=furrr"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "checkmate",
       "name": "checkmate",
@@ -211,12 +189,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=checkmate"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "usethis",
       "name": "usethis",
@@ -227,11 +205,12 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=usethis"
-    }
-  ],
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "551.63KB",
   "releaseNotes": "https://github.com/ropensci/grainchanger/blob/master/NEWS.md",
-  "fileSize": "878.039KB",
-  "contIntegration": "https://codecov.io/gh/ropensci/grainchanger?branch=master",
-  "developmentStatus": "https://www.repostatus.org/#active",
-  "relatedLink": ["https://CRAN.R-project.org/package=grainchanger", "https://docs.ropensci.org/grainchanger"]
+  "readme": "https://github.com/ropensci/grainchanger/blob/master/README.md",
+  "contIntegration": ["https://github.com/ropensci/grainchanger/actions", "https://codecov.io/gh/ropensci/grainchanger?branch=master"],
+  "developmentStatus": "https://www.repostatus.org/#active"
 }
