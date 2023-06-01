@@ -4,19 +4,24 @@ reference:
   contents:
   - '`winmove_agg`'
   - '`nomove_agg`'
-  
+
 - title: Moving window smoothing
   desc: ~
   contents:
   - '`winmove`'
-  
+  - '`diversity-metrics`'
+
 - title: Additional utilities
   desc: ~
   contents:
   - '`create_torus`'
-  
+  - '`mean`'
+  - '`var_range`'
+  - '`prop`'
+  - '`winmove-class`'
+
 - title: Data
-  desc: ~ 
+  desc: ~
   contents:
   - '`cat_ls`'
   - '`cont_ls`'
